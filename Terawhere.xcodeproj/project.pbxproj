@@ -1,0 +1,775 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8D85DBF809A905F41547F683 /* Pods_TerawhereUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D1D9B5FA4495B2678FF0559 /* Pods_TerawhereUITests.framework */; };
+		8DC4C8D65395141929890E50 /* Pods_Terawhere.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6248856700914B11582980DE /* Pods_Terawhere.framework */; };
+		A661D65D3791B5E961F32186 /* Pods_TerawhereTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 597E688635C60FEE0560CF48 /* Pods_TerawhereTests.framework */; };
+		AA2EF2321EB99A05000F0524 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2EF2311EB99A05000F0524 /* AppDelegate.swift */; };
+		AA2EF2341EB99A41000F0524 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA2EF2331EB99A41000F0524 /* Main.storyboard */; };
+		AA2EF2361EB99AC1000F0524 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2EF2351EB99AC1000F0524 /* SignInViewController.swift */; };
+		AA2EF2381EB99AC9000F0524 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2EF2371EB99AC9000F0524 /* MapViewController.swift */; };
+		AA2EF23A1EB99AD9000F0524 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2EF2391EB99AD9000F0524 /* Location.swift */; };
+		AA2EF23C1EB99AE1000F0524 /* OffersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2EF23B1EB99AE1000F0524 /* OffersViewController.swift */; };
+		AA2EF23E1EB99AE8000F0524 /* OffersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2EF23D1EB99AE8000F0524 /* OffersTableViewCell.swift */; };
+		AA2EF2401EB99AF0000F0524 /* CreateOfferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2EF23F1EB99AF0000F0524 /* CreateOfferViewController.swift */; };
+		AA6B48901EB9BF8C0047EC31 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AA6B488F1EB9BF8C0047EC31 /* GoogleService-Info.plist */; };
+		AAD8EC501EB998F400BC6350 /* Terawhere.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AAD8EC4E1EB998F400BC6350 /* Terawhere.xcdatamodeld */; };
+		AAD8EC521EB998F400BC6350 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAD8EC511EB998F400BC6350 /* Assets.xcassets */; };
+		AAD8EC551EB998F400BC6350 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AAD8EC531EB998F400BC6350 /* LaunchScreen.storyboard */; };
+		AAD8EC601EB998F400BC6350 /* TerawhereTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD8EC5F1EB998F400BC6350 /* TerawhereTests.swift */; };
+		AAD8EC6B1EB998F400BC6350 /* TerawhereUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD8EC6A1EB998F400BC6350 /* TerawhereUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		AAD8EC5C1EB998F400BC6350 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AAD8EC3C1EB998F300BC6350 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AAD8EC431EB998F300BC6350;
+			remoteInfo = Terawhere;
+		};
+		AAD8EC671EB998F400BC6350 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AAD8EC3C1EB998F300BC6350 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AAD8EC431EB998F300BC6350;
+			remoteInfo = Terawhere;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		27B30B6EFEC5C8CF3ACB2785 /* Pods-TerawhereTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TerawhereTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TerawhereTests/Pods-TerawhereTests.debug.xcconfig"; sourceTree = "<group>"; };
+		362F75120514672C2582E968 /* Pods-TerawhereUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TerawhereUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TerawhereUITests/Pods-TerawhereUITests.release.xcconfig"; sourceTree = "<group>"; };
+		3BCED7C70B3243E819DA7C57 /* Pods-Terawhere.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Terawhere.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Terawhere/Pods-Terawhere.debug.xcconfig"; sourceTree = "<group>"; };
+		4CFA225B9CFB093A50133884 /* Pods-Terawhere.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Terawhere.release.xcconfig"; path = "Pods/Target Support Files/Pods-Terawhere/Pods-Terawhere.release.xcconfig"; sourceTree = "<group>"; };
+		597E688635C60FEE0560CF48 /* Pods_TerawhereTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TerawhereTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5D1D9B5FA4495B2678FF0559 /* Pods_TerawhereUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TerawhereUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6248856700914B11582980DE /* Pods_Terawhere.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Terawhere.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		95F7FD7446931A9B243294BF /* Pods-TerawhereTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TerawhereTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TerawhereTests/Pods-TerawhereTests.release.xcconfig"; sourceTree = "<group>"; };
+		AA2EF2311EB99A05000F0524 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		AA2EF2331EB99A41000F0524 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		AA2EF2351EB99AC1000F0524 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		AA2EF2371EB99AC9000F0524 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		AA2EF2391EB99AD9000F0524 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		AA2EF23B1EB99AE1000F0524 /* OffersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OffersViewController.swift; sourceTree = "<group>"; };
+		AA2EF23D1EB99AE8000F0524 /* OffersTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OffersTableViewCell.swift; sourceTree = "<group>"; };
+		AA2EF23F1EB99AF0000F0524 /* CreateOfferViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateOfferViewController.swift; sourceTree = "<group>"; };
+		AA6B488F1EB9BF8C0047EC31 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		AAD8EC441EB998F300BC6350 /* Terawhere.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Terawhere.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AAD8EC4F1EB998F400BC6350 /* Terawhere.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Terawhere.xcdatamodel; sourceTree = "<group>"; };
+		AAD8EC511EB998F400BC6350 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		AAD8EC541EB998F400BC6350 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		AAD8EC561EB998F400BC6350 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AAD8EC5B1EB998F400BC6350 /* TerawhereTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TerawhereTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AAD8EC5F1EB998F400BC6350 /* TerawhereTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerawhereTests.swift; sourceTree = "<group>"; };
+		AAD8EC611EB998F400BC6350 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AAD8EC661EB998F400BC6350 /* TerawhereUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TerawhereUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AAD8EC6A1EB998F400BC6350 /* TerawhereUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerawhereUITests.swift; sourceTree = "<group>"; };
+		AAD8EC6C1EB998F400BC6350 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F0E992F9AF5C96C203687119 /* Pods-TerawhereUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TerawhereUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TerawhereUITests/Pods-TerawhereUITests.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AAD8EC411EB998F300BC6350 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8DC4C8D65395141929890E50 /* Pods_Terawhere.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AAD8EC581EB998F400BC6350 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A661D65D3791B5E961F32186 /* Pods_TerawhereTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AAD8EC631EB998F400BC6350 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D85DBF809A905F41547F683 /* Pods_TerawhereUITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		02638C09742445D42D6B664C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3BCED7C70B3243E819DA7C57 /* Pods-Terawhere.debug.xcconfig */,
+				4CFA225B9CFB093A50133884 /* Pods-Terawhere.release.xcconfig */,
+				27B30B6EFEC5C8CF3ACB2785 /* Pods-TerawhereTests.debug.xcconfig */,
+				95F7FD7446931A9B243294BF /* Pods-TerawhereTests.release.xcconfig */,
+				F0E992F9AF5C96C203687119 /* Pods-TerawhereUITests.debug.xcconfig */,
+				362F75120514672C2582E968 /* Pods-TerawhereUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		AA2EF2411EB99B05000F0524 /* view controllers */ = {
+			isa = PBXGroup;
+			children = (
+				AA2EF2351EB99AC1000F0524 /* SignInViewController.swift */,
+				AA2EF2371EB99AC9000F0524 /* MapViewController.swift */,
+				AA2EF23B1EB99AE1000F0524 /* OffersViewController.swift */,
+				AA2EF23F1EB99AF0000F0524 /* CreateOfferViewController.swift */,
+			);
+			name = "view controllers";
+			sourceTree = "<group>";
+		};
+		AA2EF2421EB99B19000F0524 /* entity */ = {
+			isa = PBXGroup;
+			children = (
+				AA2EF2391EB99AD9000F0524 /* Location.swift */,
+			);
+			name = entity;
+			sourceTree = "<group>";
+		};
+		AA2EF2431EB99B22000F0524 /* custom cell */ = {
+			isa = PBXGroup;
+			children = (
+				AA2EF23D1EB99AE8000F0524 /* OffersTableViewCell.swift */,
+			);
+			name = "custom cell";
+			sourceTree = "<group>";
+		};
+		AAD8EC3B1EB998F300BC6350 = {
+			isa = PBXGroup;
+			children = (
+				AAD8EC461EB998F300BC6350 /* Terawhere */,
+				AAD8EC5E1EB998F400BC6350 /* TerawhereTests */,
+				AAD8EC691EB998F400BC6350 /* TerawhereUITests */,
+				AAD8EC451EB998F300BC6350 /* Products */,
+				02638C09742445D42D6B664C /* Pods */,
+				B876FE27AD5C316103023A79 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		AAD8EC451EB998F300BC6350 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AAD8EC441EB998F300BC6350 /* Terawhere.app */,
+				AAD8EC5B1EB998F400BC6350 /* TerawhereTests.xctest */,
+				AAD8EC661EB998F400BC6350 /* TerawhereUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AAD8EC461EB998F300BC6350 /* Terawhere */ = {
+			isa = PBXGroup;
+			children = (
+				AA2EF2411EB99B05000F0524 /* view controllers */,
+				AA2EF2431EB99B22000F0524 /* custom cell */,
+				AA2EF2421EB99B19000F0524 /* entity */,
+				AA2EF2311EB99A05000F0524 /* AppDelegate.swift */,
+				AA2EF2331EB99A41000F0524 /* Main.storyboard */,
+				AAD8EC511EB998F400BC6350 /* Assets.xcassets */,
+				AAD8EC531EB998F400BC6350 /* LaunchScreen.storyboard */,
+				AA6B488F1EB9BF8C0047EC31 /* GoogleService-Info.plist */,
+				AAD8EC561EB998F400BC6350 /* Info.plist */,
+				AAD8EC4E1EB998F400BC6350 /* Terawhere.xcdatamodeld */,
+			);
+			path = Terawhere;
+			sourceTree = "<group>";
+		};
+		AAD8EC5E1EB998F400BC6350 /* TerawhereTests */ = {
+			isa = PBXGroup;
+			children = (
+				AAD8EC5F1EB998F400BC6350 /* TerawhereTests.swift */,
+				AAD8EC611EB998F400BC6350 /* Info.plist */,
+			);
+			path = TerawhereTests;
+			sourceTree = "<group>";
+		};
+		AAD8EC691EB998F400BC6350 /* TerawhereUITests */ = {
+			isa = PBXGroup;
+			children = (
+				AAD8EC6A1EB998F400BC6350 /* TerawhereUITests.swift */,
+				AAD8EC6C1EB998F400BC6350 /* Info.plist */,
+			);
+			path = TerawhereUITests;
+			sourceTree = "<group>";
+		};
+		B876FE27AD5C316103023A79 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6248856700914B11582980DE /* Pods_Terawhere.framework */,
+				597E688635C60FEE0560CF48 /* Pods_TerawhereTests.framework */,
+				5D1D9B5FA4495B2678FF0559 /* Pods_TerawhereUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AAD8EC431EB998F300BC6350 /* Terawhere */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AAD8EC6F1EB998F400BC6350 /* Build configuration list for PBXNativeTarget "Terawhere" */;
+			buildPhases = (
+				F202CE6187991D5F44F1B345 /* [CP] Check Pods Manifest.lock */,
+				AAD8EC401EB998F300BC6350 /* Sources */,
+				AAD8EC411EB998F300BC6350 /* Frameworks */,
+				AAD8EC421EB998F300BC6350 /* Resources */,
+				55ABC03F4C3593B68B48613C /* [CP] Embed Pods Frameworks */,
+				C6D512A2226C5E0E9799A463 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Terawhere;
+			productName = Terawhere;
+			productReference = AAD8EC441EB998F300BC6350 /* Terawhere.app */;
+			productType = "com.apple.product-type.application";
+		};
+		AAD8EC5A1EB998F400BC6350 /* TerawhereTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AAD8EC721EB998F400BC6350 /* Build configuration list for PBXNativeTarget "TerawhereTests" */;
+			buildPhases = (
+				96759C9CB8EE18DE7B473D79 /* [CP] Check Pods Manifest.lock */,
+				AAD8EC571EB998F400BC6350 /* Sources */,
+				AAD8EC581EB998F400BC6350 /* Frameworks */,
+				AAD8EC591EB998F400BC6350 /* Resources */,
+				E3FC14060951A9EC07D3E0BA /* [CP] Embed Pods Frameworks */,
+				7EFF7FAD44D1E7725CF10415 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AAD8EC5D1EB998F400BC6350 /* PBXTargetDependency */,
+			);
+			name = TerawhereTests;
+			productName = TerawhereTests;
+			productReference = AAD8EC5B1EB998F400BC6350 /* TerawhereTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		AAD8EC651EB998F400BC6350 /* TerawhereUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AAD8EC751EB998F400BC6350 /* Build configuration list for PBXNativeTarget "TerawhereUITests" */;
+			buildPhases = (
+				6DD3223669715D2DE127CE0A /* [CP] Check Pods Manifest.lock */,
+				AAD8EC621EB998F400BC6350 /* Sources */,
+				AAD8EC631EB998F400BC6350 /* Frameworks */,
+				AAD8EC641EB998F400BC6350 /* Resources */,
+				400BF5C45160982BBC6A7285 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AAD8EC681EB998F400BC6350 /* PBXTargetDependency */,
+			);
+			name = TerawhereUITests;
+			productName = TerawhereUITests;
+			productReference = AAD8EC661EB998F400BC6350 /* TerawhereUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AAD8EC3C1EB998F300BC6350 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0830;
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = msociety;
+				TargetAttributes = {
+					AAD8EC431EB998F300BC6350 = {
+						CreatedOnToolsVersion = 8.3.2;
+						LastSwiftMigration = 0830;
+						ProvisioningStyle = Automatic;
+					};
+					AAD8EC5A1EB998F400BC6350 = {
+						CreatedOnToolsVersion = 8.3.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = AAD8EC431EB998F300BC6350;
+					};
+					AAD8EC651EB998F400BC6350 = {
+						CreatedOnToolsVersion = 8.3.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = AAD8EC431EB998F300BC6350;
+					};
+				};
+			};
+			buildConfigurationList = AAD8EC3F1EB998F300BC6350 /* Build configuration list for PBXProject "Terawhere" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = AAD8EC3B1EB998F300BC6350;
+			productRefGroup = AAD8EC451EB998F300BC6350 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AAD8EC431EB998F300BC6350 /* Terawhere */,
+				AAD8EC5A1EB998F400BC6350 /* TerawhereTests */,
+				AAD8EC651EB998F400BC6350 /* TerawhereUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AAD8EC421EB998F300BC6350 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA2EF2341EB99A41000F0524 /* Main.storyboard in Resources */,
+				AA6B48901EB9BF8C0047EC31 /* GoogleService-Info.plist in Resources */,
+				AAD8EC551EB998F400BC6350 /* LaunchScreen.storyboard in Resources */,
+				AAD8EC521EB998F400BC6350 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AAD8EC591EB998F400BC6350 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AAD8EC641EB998F400BC6350 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		400BF5C45160982BBC6A7285 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TerawhereUITests/Pods-TerawhereUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		55ABC03F4C3593B68B48613C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Terawhere/Pods-Terawhere-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6DD3223669715D2DE127CE0A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		7EFF7FAD44D1E7725CF10415 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TerawhereTests/Pods-TerawhereTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		96759C9CB8EE18DE7B473D79 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		C6D512A2226C5E0E9799A463 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Terawhere/Pods-Terawhere-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E3FC14060951A9EC07D3E0BA /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TerawhereTests/Pods-TerawhereTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F202CE6187991D5F44F1B345 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AAD8EC401EB998F300BC6350 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA2EF23E1EB99AE8000F0524 /* OffersTableViewCell.swift in Sources */,
+				AA2EF2321EB99A05000F0524 /* AppDelegate.swift in Sources */,
+				AA2EF23C1EB99AE1000F0524 /* OffersViewController.swift in Sources */,
+				AAD8EC501EB998F400BC6350 /* Terawhere.xcdatamodeld in Sources */,
+				AA2EF23A1EB99AD9000F0524 /* Location.swift in Sources */,
+				AA2EF2361EB99AC1000F0524 /* SignInViewController.swift in Sources */,
+				AA2EF2381EB99AC9000F0524 /* MapViewController.swift in Sources */,
+				AA2EF2401EB99AF0000F0524 /* CreateOfferViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AAD8EC571EB998F400BC6350 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AAD8EC601EB998F400BC6350 /* TerawhereTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AAD8EC621EB998F400BC6350 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AAD8EC6B1EB998F400BC6350 /* TerawhereUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		AAD8EC5D1EB998F400BC6350 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AAD8EC431EB998F300BC6350 /* Terawhere */;
+			targetProxy = AAD8EC5C1EB998F400BC6350 /* PBXContainerItemProxy */;
+		};
+		AAD8EC681EB998F400BC6350 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AAD8EC431EB998F300BC6350 /* Terawhere */;
+			targetProxy = AAD8EC671EB998F400BC6350 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		AAD8EC531EB998F400BC6350 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AAD8EC541EB998F400BC6350 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		AAD8EC6D1EB998F400BC6350 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		AAD8EC6E1EB998F400BC6350 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AAD8EC701EB998F400BC6350 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3BCED7C70B3243E819DA7C57 /* Pods-Terawhere.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = Terawhere/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = tech.msociety.terawhere;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		AAD8EC711EB998F400BC6350 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4CFA225B9CFB093A50133884 /* Pods-Terawhere.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = Terawhere/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = tech.msociety.terawhere;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		AAD8EC731EB998F400BC6350 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 27B30B6EFEC5C8CF3ACB2785 /* Pods-TerawhereTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = TerawhereTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = msociety.TerawhereTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Terawhere.app/Terawhere";
+			};
+			name = Debug;
+		};
+		AAD8EC741EB998F400BC6350 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 95F7FD7446931A9B243294BF /* Pods-TerawhereTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = TerawhereTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = msociety.TerawhereTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Terawhere.app/Terawhere";
+			};
+			name = Release;
+		};
+		AAD8EC761EB998F400BC6350 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F0E992F9AF5C96C203687119 /* Pods-TerawhereUITests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				INFOPLIST_FILE = TerawhereUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = msociety.TerawhereUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = Terawhere;
+			};
+			name = Debug;
+		};
+		AAD8EC771EB998F400BC6350 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 362F75120514672C2582E968 /* Pods-TerawhereUITests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				INFOPLIST_FILE = TerawhereUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = msociety.TerawhereUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = Terawhere;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AAD8EC3F1EB998F300BC6350 /* Build configuration list for PBXProject "Terawhere" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AAD8EC6D1EB998F400BC6350 /* Debug */,
+				AAD8EC6E1EB998F400BC6350 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AAD8EC6F1EB998F400BC6350 /* Build configuration list for PBXNativeTarget "Terawhere" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AAD8EC701EB998F400BC6350 /* Debug */,
+				AAD8EC711EB998F400BC6350 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AAD8EC721EB998F400BC6350 /* Build configuration list for PBXNativeTarget "TerawhereTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AAD8EC731EB998F400BC6350 /* Debug */,
+				AAD8EC741EB998F400BC6350 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AAD8EC751EB998F400BC6350 /* Build configuration list for PBXNativeTarget "TerawhereUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AAD8EC761EB998F400BC6350 /* Debug */,
+				AAD8EC771EB998F400BC6350 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		AAD8EC4E1EB998F400BC6350 /* Terawhere.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				AAD8EC4F1EB998F400BC6350 /* Terawhere.xcdatamodel */,
+			);
+			currentVersion = AAD8EC4F1EB998F400BC6350 /* Terawhere.xcdatamodel */;
+			path = Terawhere.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = AAD8EC3C1EB998F300BC6350 /* Project object */;
+}

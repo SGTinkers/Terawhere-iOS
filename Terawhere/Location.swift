@@ -1,0 +1,21 @@
+//
+//  Location.swift
+//  Terawhere
+//
+//  Created by Muhd Mirza on 30/4/17.
+//  Copyright © 2017 msociety. All rights reserved.
+//
+
+import UIKit
+import MapKit
+
+class Location: NSObject, MKAnnotation {
+	var coordinate: CLLocationCoordinate2D
+	
+	var title: String?
+	
+	init(withCoordinate coord: CLLocationCoordinate2D, andTitle title: String?) {
+		self.coordinate = coord
+		self.title = title
+	}
+}
