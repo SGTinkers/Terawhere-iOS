@@ -13,7 +13,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 
 	@IBOutlet var mapView: MKMapView!
 	
-	var user = (UIApplication.shared.delegate as! AppDelegate).user
+	var database = Database.init(token: (UIApplication.shared.delegate as! AppDelegate).jwt)
+	
 	let locationManager = CLLocationManager()
 	var userLocation: CLLocation?
 
@@ -22,22 +23,23 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 		
         // Do any additional setup after loading the view.
 		self.mapView.delegate = self
+		self.mapView.showsUserLocation = true
 		
 		self.locationManager.delegate = self
 		self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
 		self.locationManager.requestWhenInUseAuthorization()
-		self.locationManager.requestLocation()
+		self.locationManager.distanceFilter = 1000 // only update after the user moves 1000m
 		
-		if let user = user {
-			let alert = UIAlertController.init(title: "Welcome", message: "Hello \(user.profile.name)", preferredStyle: .alert)
-			let ok = UIAlertAction.init(title: "OK", style: .default, handler: nil)
-			alert.addAction(ok)
-			
-			self.present(alert, animated: true, completion: nil)
-		}
-		
+		// this will trigger another method that will trigger getting all the offers
+		// this is for actually getting nearby offers
+		self.locationManager.startUpdatingLocation()
+	}
+
+	override func viewWillAppear(_ animated: Bool) {
+		// put this here for testing purposes
+		// you do not need the user location here
 		self.getAllActiveOffersNearMe()
-    }
+	}
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -53,7 +55,14 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 	
 	public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
 		if let userLocation = locations.first {
+			print("Updating user location")
+		
 			self.userLocation = userLocation
+			
+			// putting it here will cause network calls every single update
+			// set a distance filter for user location
+			// that will solve it
+//			self.getAllActiveOffersNearMe()
 		}
 	}
 	
@@ -63,6 +72,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 	
 	// MARK: MKMapView Delegate
 	public func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+		if annotation is MKUserLocation {
+			return nil
+		}
+	
 		if annotation is Location {
 			let annotationView = MKPinAnnotationView.init(annotation: annotation, reuseIdentifier: "pin")
 			annotationView.canShowCallout = true
@@ -75,15 +88,54 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 		return nil
 	}
 	
+	public func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+		guard let bookRideVC = self.storyboard?.instantiateViewController(withIdentifier: "BookRideViewController") as? BookRideViewController else {
+			return
+		}
+		
+		self.navigationController?.pushViewController(bookRideVC, animated: true)
+	}
+	
 	// MARK: Helper functions
 	func getAllActiveOffersNearMe() {
-		self.mapView.removeAnnotations(self.mapView.annotations)
-		self.mapView.selectedAnnotations.removeAll()
+		self.database = Database.init(token: (UIApplication.shared.delegate as! AppDelegate).jwt)
+		self.database.setAllOffers()
 		
-//		let location = CLLocationCoordinate2D.init(latitude: lat, longitude: long)
-//		
-//		let annotation = Location.init(withCoordinate: location, andTitle: "Hello")
-//		self.mapView.addAnnotation(annotation)
+		var offerArr = [Offer]()
+		
+		let task = URLSession.shared.dataTask(with: self.database.request!) { (data, response, error) in
+			if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?] {
+				print("getting offers")
+				
+				let database = Database()
+				offerArr = database.convertJSONToOffer(json: json!)
+				
+				print("Array count!! \(offerArr.count)")
+				
+				DispatchQueue.main.async {
+					self.mapView?.removeAnnotations((self.mapView?.annotations)!)
+					self.mapView?.selectedAnnotations.removeAll()
+					
+					for offer in offerArr {
+						let location = CLLocationCoordinate2D.init(latitude: offer.startLat!, longitude: offer.startLng!)
+						
+						let annotation = Location.init(withCoordinate: location, andTitle: offer.startName!)
+						self.mapView?.addAnnotation(annotation)
+					}
+					
+					guard let userLocation = self.userLocation else {
+						print("User location is nil")
+						
+						return
+					}
+					
+					let region = MKCoordinateRegionMakeWithDistance(userLocation.coordinate, 5000, 5000)
+					self.mapView?.setRegion(region, animated: true)
+				}
+			}
+		}
+		
+		task.resume()
 	}
 
 //	func reloadMap() {

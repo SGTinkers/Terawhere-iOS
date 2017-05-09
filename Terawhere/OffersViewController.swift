@@ -12,7 +12,8 @@ class OffersViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
 	@IBOutlet var tableView: UITableView!
 
-	var testArr = ["Hello", "My", "Name", "Is", "Dibo"]
+	var database = Database.init(token: (UIApplication.shared.delegate as! AppDelegate).jwt)
+	var offerArr = [Offer]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,7 +21,24 @@ class OffersViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // Do any additional setup after loading the view.
 		
 		self.tableView.dataSource = self
+		self.tableView.delegate = self
 		self.tableView.separatorStyle = .none
+		
+		self.database.setAllOffers()
+		
+		let task = URLSession.shared.dataTask(with: self.database.request!) { (data, response, error) in
+			if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?] {
+				print("getting offers")
+
+				self.offerArr = self.database.convertJSONToOffer(json: json!)
+
+				DispatchQueue.main.async {
+					self.tableView.reloadData()
+				}
+			}
+		}
+		
+		task.resume()
     }
 
     override func didReceiveMemoryWarning() {
@@ -30,7 +48,7 @@ class OffersViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
 	// MARK: Table view data source
 	public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return self.testArr.count
+		return self.offerArr.count
 	}
 	
 	
@@ -38,7 +56,8 @@ class OffersViewController: UIViewController, UITableViewDelegate, UITableViewDa
 		let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? OffersTableViewCell
 		
 		// Configure the cell...
-		cell?.title.text = self.testArr[indexPath.row]
+		cell?.offer = self.offerArr[indexPath.row]
+		cell?.title.text = (cell?.offer?.startName)!
 		
 		return cell!
 	}
@@ -47,9 +66,15 @@ class OffersViewController: UIViewController, UITableViewDelegate, UITableViewDa
 		return 1
 	}
 	
-	// MARK: action methods
-	@IBAction func createOffer() {
+	// MARK: tableview delegate
+	public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		guard let viewOfferVC = self.storyboard?.instantiateViewController(withIdentifier: "ViewOfferViewController") as? ViewOfferViewController else {
+			print("View offer VC errors out")
+			
+			return
+		}
 		
+		self.navigationController?.pushViewController(viewOfferVC, animated: true)
 	}
 
     /*

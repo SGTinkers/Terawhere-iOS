@@ -10,6 +10,7 @@
 		8D85DBF809A905F41547F683 /* Pods_TerawhereUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D1D9B5FA4495B2678FF0559 /* Pods_TerawhereUITests.framework */; };
 		8DC4C8D65395141929890E50 /* Pods_Terawhere.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6248856700914B11582980DE /* Pods_Terawhere.framework */; };
 		A661D65D3791B5E961F32186 /* Pods_TerawhereTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 597E688635C60FEE0560CF48 /* Pods_TerawhereTests.framework */; };
+		AA0F95181EBC211600F35BB4 /* ViewOfferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0F95171EBC211600F35BB4 /* ViewOfferViewController.swift */; };
 		AA2EF2321EB99A05000F0524 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2EF2311EB99A05000F0524 /* AppDelegate.swift */; };
 		AA2EF2341EB99A41000F0524 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA2EF2331EB99A41000F0524 /* Main.storyboard */; };
 		AA2EF2361EB99AC1000F0524 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2EF2351EB99AC1000F0524 /* SignInViewController.swift */; };
@@ -18,7 +19,13 @@
 		AA2EF23C1EB99AE1000F0524 /* OffersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2EF23B1EB99AE1000F0524 /* OffersViewController.swift */; };
 		AA2EF23E1EB99AE8000F0524 /* OffersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2EF23D1EB99AE8000F0524 /* OffersTableViewCell.swift */; };
 		AA2EF2401EB99AF0000F0524 /* CreateOfferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2EF23F1EB99AF0000F0524 /* CreateOfferViewController.swift */; };
-		AA6B48901EB9BF8C0047EC31 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AA6B488F1EB9BF8C0047EC31 /* GoogleService-Info.plist */; };
+		AACA92051EBA00F70024804D /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACA92041EBA00F70024804D /* Database.swift */; };
+		AACA92071EBA017F0024804D /* Offer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACA92061EBA017F0024804D /* Offer.swift */; };
+		AACA92091EBA13540024804D /* LocationSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACA92081EBA13540024804D /* LocationSearchTableViewController.swift */; };
+		AACC6C451EBD736500EFFE29 /* BookRideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACC6C441EBD736500EFFE29 /* BookRideViewController.swift */; };
+		AACC6C471EBD81D500EFFE29 /* BookingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACC6C461EBD81D500EFFE29 /* BookingTableViewCell.swift */; };
+		AACC6C491EBD81F100EFFE29 /* Booking.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACC6C481EBD81F100EFFE29 /* Booking.swift */; };
+		AACC6C4B1EBD83B100EFFE29 /* ViewBookingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACC6C4A1EBD83B100EFFE29 /* ViewBookingViewController.swift */; };
 		AAD8EC501EB998F400BC6350 /* Terawhere.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AAD8EC4E1EB998F400BC6350 /* Terawhere.xcdatamodeld */; };
 		AAD8EC521EB998F400BC6350 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAD8EC511EB998F400BC6350 /* Assets.xcassets */; };
 		AAD8EC551EB998F400BC6350 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AAD8EC531EB998F400BC6350 /* LaunchScreen.storyboard */; };
@@ -52,6 +59,7 @@
 		5D1D9B5FA4495B2678FF0559 /* Pods_TerawhereUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TerawhereUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6248856700914B11582980DE /* Pods_Terawhere.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Terawhere.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		95F7FD7446931A9B243294BF /* Pods-TerawhereTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TerawhereTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TerawhereTests/Pods-TerawhereTests.release.xcconfig"; sourceTree = "<group>"; };
+		AA0F95171EBC211600F35BB4 /* ViewOfferViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewOfferViewController.swift; sourceTree = "<group>"; };
 		AA2EF2311EB99A05000F0524 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AA2EF2331EB99A41000F0524 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		AA2EF2351EB99AC1000F0524 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
@@ -60,7 +68,13 @@
 		AA2EF23B1EB99AE1000F0524 /* OffersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OffersViewController.swift; sourceTree = "<group>"; };
 		AA2EF23D1EB99AE8000F0524 /* OffersTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OffersTableViewCell.swift; sourceTree = "<group>"; };
 		AA2EF23F1EB99AF0000F0524 /* CreateOfferViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateOfferViewController.swift; sourceTree = "<group>"; };
-		AA6B488F1EB9BF8C0047EC31 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		AACA92041EBA00F70024804D /* Database.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
+		AACA92061EBA017F0024804D /* Offer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Offer.swift; sourceTree = "<group>"; };
+		AACA92081EBA13540024804D /* LocationSearchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationSearchTableViewController.swift; sourceTree = "<group>"; };
+		AACC6C441EBD736500EFFE29 /* BookRideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookRideViewController.swift; sourceTree = "<group>"; };
+		AACC6C461EBD81D500EFFE29 /* BookingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookingTableViewCell.swift; sourceTree = "<group>"; };
+		AACC6C481EBD81F100EFFE29 /* Booking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Booking.swift; sourceTree = "<group>"; };
+		AACC6C4A1EBD83B100EFFE29 /* ViewBookingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewBookingViewController.swift; sourceTree = "<group>"; };
 		AAD8EC441EB998F300BC6350 /* Terawhere.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Terawhere.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAD8EC4F1EB998F400BC6350 /* Terawhere.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Terawhere.xcdatamodel; sourceTree = "<group>"; };
 		AAD8EC511EB998F400BC6350 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -122,7 +136,11 @@
 				AA2EF2351EB99AC1000F0524 /* SignInViewController.swift */,
 				AA2EF2371EB99AC9000F0524 /* MapViewController.swift */,
 				AA2EF23B1EB99AE1000F0524 /* OffersViewController.swift */,
+				AA0F95171EBC211600F35BB4 /* ViewOfferViewController.swift */,
 				AA2EF23F1EB99AF0000F0524 /* CreateOfferViewController.swift */,
+				AACA92081EBA13540024804D /* LocationSearchTableViewController.swift */,
+				AACC6C441EBD736500EFFE29 /* BookRideViewController.swift */,
+				AACC6C4A1EBD83B100EFFE29 /* ViewBookingViewController.swift */,
 			);
 			name = "view controllers";
 			sourceTree = "<group>";
@@ -130,6 +148,8 @@
 		AA2EF2421EB99B19000F0524 /* entity */ = {
 			isa = PBXGroup;
 			children = (
+				AACC6C481EBD81F100EFFE29 /* Booking.swift */,
+				AACA92061EBA017F0024804D /* Offer.swift */,
 				AA2EF2391EB99AD9000F0524 /* Location.swift */,
 			);
 			name = entity;
@@ -138,9 +158,18 @@
 		AA2EF2431EB99B22000F0524 /* custom cell */ = {
 			isa = PBXGroup;
 			children = (
+				AACC6C461EBD81D500EFFE29 /* BookingTableViewCell.swift */,
 				AA2EF23D1EB99AE8000F0524 /* OffersTableViewCell.swift */,
 			);
 			name = "custom cell";
+			sourceTree = "<group>";
+		};
+		AACA92031EBA00940024804D /* helpers */ = {
+			isa = PBXGroup;
+			children = (
+				AACA92041EBA00F70024804D /* Database.swift */,
+			);
+			name = helpers;
 			sourceTree = "<group>";
 		};
 		AAD8EC3B1EB998F300BC6350 = {
@@ -170,12 +199,12 @@
 			children = (
 				AA2EF2411EB99B05000F0524 /* view controllers */,
 				AA2EF2431EB99B22000F0524 /* custom cell */,
+				AACA92031EBA00940024804D /* helpers */,
 				AA2EF2421EB99B19000F0524 /* entity */,
 				AA2EF2311EB99A05000F0524 /* AppDelegate.swift */,
 				AA2EF2331EB99A41000F0524 /* Main.storyboard */,
 				AAD8EC511EB998F400BC6350 /* Assets.xcassets */,
 				AAD8EC531EB998F400BC6350 /* LaunchScreen.storyboard */,
-				AA6B488F1EB9BF8C0047EC31 /* GoogleService-Info.plist */,
 				AAD8EC561EB998F400BC6350 /* Info.plist */,
 				AAD8EC4E1EB998F400BC6350 /* Terawhere.xcdatamodeld */,
 			);
@@ -263,6 +292,7 @@
 				AAD8EC631EB998F400BC6350 /* Frameworks */,
 				AAD8EC641EB998F400BC6350 /* Resources */,
 				400BF5C45160982BBC6A7285 /* [CP] Copy Pods Resources */,
+				9FABF8270C65C9D525B68949 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -286,8 +316,14 @@
 				TargetAttributes = {
 					AAD8EC431EB998F300BC6350 = {
 						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = 5Y8ZVY4N62;
 						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 0;
+							};
+						};
 					};
 					AAD8EC5A1EB998F400BC6350 = {
 						CreatedOnToolsVersion = 8.3.2;
@@ -327,7 +363,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA2EF2341EB99A41000F0524 /* Main.storyboard in Resources */,
-				AA6B48901EB9BF8C0047EC31 /* GoogleService-Info.plist in Resources */,
 				AAD8EC551EB998F400BC6350 /* LaunchScreen.storyboard in Resources */,
 				AAD8EC521EB998F400BC6350 /* Assets.xcassets in Resources */,
 			);
@@ -392,7 +427,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		7EFF7FAD44D1E7725CF10415 /* [CP] Copy Pods Resources */ = {
@@ -422,7 +457,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		9FABF8270C65C9D525B68949 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TerawhereUITests/Pods-TerawhereUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C6D512A2226C5E0E9799A463 /* [CP] Copy Pods Resources */ = {
@@ -467,7 +517,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -481,10 +531,18 @@
 				AA2EF2321EB99A05000F0524 /* AppDelegate.swift in Sources */,
 				AA2EF23C1EB99AE1000F0524 /* OffersViewController.swift in Sources */,
 				AAD8EC501EB998F400BC6350 /* Terawhere.xcdatamodeld in Sources */,
+				AACC6C491EBD81F100EFFE29 /* Booking.swift in Sources */,
+				AACA92071EBA017F0024804D /* Offer.swift in Sources */,
 				AA2EF23A1EB99AD9000F0524 /* Location.swift in Sources */,
 				AA2EF2361EB99AC1000F0524 /* SignInViewController.swift in Sources */,
+				AACA92051EBA00F70024804D /* Database.swift in Sources */,
+				AA0F95181EBC211600F35BB4 /* ViewOfferViewController.swift in Sources */,
+				AACC6C471EBD81D500EFFE29 /* BookingTableViewCell.swift in Sources */,
+				AACA92091EBA13540024804D /* LocationSearchTableViewController.swift in Sources */,
 				AA2EF2381EB99AC9000F0524 /* MapViewController.swift in Sources */,
+				AACC6C4B1EBD83B100EFFE29 /* ViewBookingViewController.swift in Sources */,
 				AA2EF2401EB99AF0000F0524 /* CreateOfferViewController.swift in Sources */,
+				AACC6C451EBD736500EFFE29 /* BookRideViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -632,7 +690,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 5Y8ZVY4N62;
 				INFOPLIST_FILE = Terawhere/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = tech.msociety.terawhere;
@@ -649,7 +707,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 5Y8ZVY4N62;
 				INFOPLIST_FILE = Terawhere/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = tech.msociety.terawhere;

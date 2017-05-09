@@ -9,22 +9,19 @@
 import UIKit
 import CoreData
 
-import Firebase
-import GoogleSignIn
+import FacebookCore
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	var window: UIWindow?
 	
-	var user: GIDGoogleUser?
+	// this assists in setting the initial token from SignInViewController
+	// every single database variable can initialize with this variable
+	var jwt = ""
 
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 		// Override point for customization after application launch.
-		FIRApp.configure()
-		
-		GIDSignIn.sharedInstance().clientID = FIRApp.defaultApp()?.options.clientID
-		GIDSignIn.sharedInstance().delegate = self
 		
 		return true
 	}
@@ -53,38 +50,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 		self.saveContext()
 	}
 	
-	//  properly handle the URL that your application receives at the end of the authentication process
-	func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-		return GIDSignIn.sharedInstance().handle(url, sourceApplication:options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String, annotation: [:])
-	}
-	
-	// MARK: Google delegates
-	func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
-		if let error = error {
-			return
-		}
-		
-		self.user = user
-		
-		guard let authentication = user.authentication else { return }
-		let credential = FIRGoogleAuthProvider.credential(withIDToken: authentication.idToken,accessToken: authentication.accessToken)
-		
-		FIRAuth.auth()?.signIn(with: credential) { (user, error) in
-			if let error = error {
-				return
-			}
-		}
-		
-		
-		if let tabBarVC = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "tabBar") as? UITabBarController {
-			tabBarVC.selectedIndex = 1
-			self.window?.rootViewController?.present(tabBarVC, animated: true, completion: nil)
-		}
-	}
-	
-	func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
-		// Perform any operations when the user disconnects from app here.
-		// ...
+	func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+		return SDKApplicationDelegate.shared.application(application, open: url, options: [UIApplicationOpenURLOptionsKey.sourceApplication : sourceApplication!])
 	}
 
 	// MARK: - Core Data stack

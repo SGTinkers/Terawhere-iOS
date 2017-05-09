@@ -13,6 +13,8 @@ class OffersTableViewCell: UITableViewCell {
 	@IBOutlet var customView: UIView!
 	@IBOutlet var title: UILabel!
 	
+	var offer: Offer? = nil
+	
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
