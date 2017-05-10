@@ -31,7 +31,7 @@
         <!--Terawhere-->
         <scene sceneID="4iv-3O-2WA">
             <objects>
-                <viewController storyboardIdentifier="MapViewController" id="F17-om-hZR" customClass="MapViewController" customModule="Terawhere" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="F17-om-hZR" customClass="MapViewController" customModule="Terawhere" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="VZz-um-gRz"/>
                         <viewControllerLayoutGuide type="bottom" id="GHx-Dr-Oi2"/>
@@ -80,6 +80,9 @@
                                 <state key="normal" title="Book Ride">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="bookRide" destination="ldn-IW-BR3" eventType="touchUpInside" id="Gox-VA-jBy"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -93,7 +96,7 @@
         <!--Offers-->
         <scene sceneID="qKy-i0-RXV">
             <objects>
-                <viewController id="BOr-qU-iao" customClass="OffersViewController" customModule="Terawhere" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="OffersViewController" id="BOr-qU-iao" customClass="OffersViewController" customModule="Terawhere" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="JyV-Pl-uRR"/>
                         <viewControllerLayoutGuide type="bottom" id="5rI-qT-VZJ"/>
@@ -113,6 +116,9 @@
                                             <segment title="Current"/>
                                             <segment title="Past"/>
                                         </segments>
+                                        <connections>
+                                            <action selector="changeSegmentedControl" destination="BOr-qU-iao" eventType="valueChanged" id="4Vt-8m-Mk7"/>
+                                        </connections>
                                     </segmentedControl>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -165,11 +171,12 @@
                     <navigationItem key="navigationItem" title="Offers" id="zkx-dw-UMq">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="VUW-CF-01J">
                             <connections>
-                                <segue destination="mqn-mG-5P1" kind="show" id="62R-we-lhu"/>
+                                <segue destination="mqn-mG-5P1" kind="show" identifier="CreateOffer" id="62R-we-lhu"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="segmentedControl" destination="IA4-6c-XWI" id="Umk-to-21G"/>
                         <outlet property="tableView" destination="fOD-dW-zps" id="Rcb-Ng-p6i"/>
                     </connections>
                 </viewController>
@@ -357,10 +364,10 @@
             </objects>
             <point key="canvasLocation" x="2937" y="-643"/>
         </scene>
-        <!--View Controller-->
+        <!--Bookings-->
         <scene sceneID="btC-E2-CTt">
             <objects>
-                <viewController id="HoG-MN-uxi" sceneMemberID="viewController">
+                <viewController id="HoG-MN-uxi" customClass="BookingsViewController" customModule="Terawhere" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ul3-0X-eWz"/>
                         <viewControllerLayoutGuide type="bottom" id="IeT-pf-zDm"/>
@@ -389,7 +396,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="7BJ-wU-ea2" customClass="BookingTableViewCell" customModule="Terawhere" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="7BJ-wU-ea2" customClass="BookingsTableViewCell" customModule="Terawhere" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="150"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7BJ-wU-ea2" id="tjs-qK-D1a">
@@ -420,8 +427,8 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="customView" destination="66V-Rd-IJl" id="sqj-tu-yfp"/>
-                                            <outlet property="title" destination="kvW-Ab-9pi" id="nCD-OD-Spa"/>
+                                            <outlet property="customView" destination="66V-Rd-IJl" id="2uA-FR-chB"/>
+                                            <outlet property="title" destination="kvW-Ab-9pi" id="C8Q-WD-OjV"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -429,7 +436,11 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="0Cm-XN-26V"/>
+                    <navigationItem key="navigationItem" title="Bookings" id="0Cm-XN-26V"/>
+                    <connections>
+                        <outlet property="segmentedControl" destination="IOl-15-th2" id="l6h-V0-dKx"/>
+                        <outlet property="tableView" destination="E6t-Dk-Uiy" id="UPX-JV-fqb"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bep-nz-9PJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

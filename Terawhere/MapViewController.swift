@@ -13,7 +13,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 
 	@IBOutlet var mapView: MKMapView!
 	
-	var database = Database.init(token: (UIApplication.shared.delegate as! AppDelegate).jwt)
+	var database = (UIApplication.shared.delegate as! AppDelegate).database
 	
 	let locationManager = CLLocationManager()
 	var userLocation: CLLocation?
@@ -92,14 +92,18 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 		guard let bookRideVC = self.storyboard?.instantiateViewController(withIdentifier: "BookRideViewController") as? BookRideViewController else {
 			return
 		}
+
+		let selectedAnnotation = self.mapView.selectedAnnotations.first as? Location
+		
+		bookRideVC.database = self.database
+		bookRideVC.offer = selectedAnnotation?.offer
 		
 		self.navigationController?.pushViewController(bookRideVC, animated: true)
 	}
 	
 	// MARK: Helper functions
 	func getAllActiveOffersNearMe() {
-		self.database = Database.init(token: (UIApplication.shared.delegate as! AppDelegate).jwt)
-		self.database.setAllOffers()
+		self.database.getAllOffers()
 		
 		var offerArr = [Offer]()
 		
@@ -119,7 +123,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 					for offer in offerArr {
 						let location = CLLocationCoordinate2D.init(latitude: offer.startLat!, longitude: offer.startLng!)
 						
-						let annotation = Location.init(withCoordinate: location, andTitle: offer.startName!)
+						let annotation = Location.init(withCoordinate: location, AndOffer: offer)
 						self.mapView?.addAnnotation(annotation)
 					}
 					

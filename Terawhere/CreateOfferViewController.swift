@@ -18,7 +18,7 @@ class CreateOfferViewController: UIViewController, UITextFieldDelegate, Location
 	
 	@IBOutlet var vacancyTextfield: UITextField! // might want to change this interface
 	
-//	var database = (UIApplication.shared.delegate as! AppDelegate).database
+	var database = (UIApplication.shared.delegate as! AppDelegate).database
 	
 	var endLocation: MKMapItem?, startLocation: MKMapItem?
 
@@ -28,25 +28,6 @@ class CreateOfferViewController: UIViewController, UITextFieldDelegate, Location
         // Do any additional setup after loading the view.
 		let createButton  = UIBarButtonItem.init(title: "Create", style: .plain, target: self, action: #selector(createOffer))
 		self.navigationItem.rightBarButtonItem = createButton
-		
-//		let database = Database()
-//		
-//		let date = Date()
-//		let dateFormatter = DateFormatter()
-//		
-//		dateFormatter.timeZone = TimeZone.autoupdatingCurrent
-//		dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-//		
-//		let dateString = dateFormatter.string(from: date)
-		
-		//		if let user = self.user {
-		//			let offer = Offer.init(withCreateDate: dateString, deleteDateString: "<null>", endAddr: "20 Woodlands Drive 17", endLat: 1.426807, endLng: 103.796288, endName: "Masjid Yusof Ishak", offerId: 1, meetupTime: "<null>", prefGender: 1, remarks: "Can't wait", startAddr: "900 South Woodlands Drive", startLat: 1.434898, startLng: 103.786593, startName: "Woodlands Civic Centre", updatedDateString: dateString, userId: Int(user.authentication.idToken), vacancy: 3)
-		//			database.post(offer: offer)
-		//
-		//			self.getAllActiveOffersNearMe()
-		//		} else {
-		//			print("Failed to put offer")
-		//		}
     }
 	
 	func createOffer() {
@@ -67,7 +48,11 @@ class CreateOfferViewController: UIViewController, UITextFieldDelegate, Location
 			// get the string
 			dateString = dateFormatter.string(from: date)
 		}
+		
 		print("Date: \(dateString)")
+		
+		
+		
 		
 		let endAddr = "\((endLocation?.placemark.subThoroughfare)!) \((endLocation?.placemark.thoroughfare)!)"
 		let endName = (endLocation?.name)!
@@ -79,10 +64,22 @@ class CreateOfferViewController: UIViewController, UITextFieldDelegate, Location
 		let startLat = (self.startLocation?.placemark.coordinate.latitude)!
 		let startLng = (self.startLocation?.placemark.coordinate.longitude)!
 		
-		let offer = Offer.init(withEndAddr: endAddr, endLat: endLat, endLng: endLng, endName: endName, meetupTime: dateString, startAddr: startAddr, startLat: startLat, startLng: startLng, startName: startName, vacancy: Int(self.vacancyTextfield.text!))
+		let offer = Offer.init(forPostWithEndAddr: endAddr, endLat: endLat, endLng: endLng, endName: endName, meetupTime: dateString, startAddr: startAddr, startLat: startLat, startLng: startLng, startName: startName, remarks: "Hello", userId: database.userId, vehicleDesc: "Red", vehicleModel: "Honda", vehicleNumber: 123, status: 1, vacancy: Int(self.vacancyTextfield.text!))
 	
-		let database = Database()
-		database.post(offer: offer, withToken: (UIApplication.shared.delegate as! AppDelegate).jwt)
+		self.database.post(offer: offer)
+		
+		let task = URLSession.shared.dataTask(with: (self.database.request)!) { (data, response, error) in
+			if let response = response {
+				print("Response: \(response)")
+			}
+			
+			if let data = data {
+				if let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableContainers) {
+					print("json: \(json)")
+				}
+			}
+		}
+		task.resume()
 	}
 
 	override func viewWillAppear(_ animated: Bool) {

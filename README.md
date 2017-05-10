@@ -5,6 +5,9 @@ Want to go for Terawih prayers? Why not broadcast it and ask nearby people if th
 Let's build friendships together.
 
 ### Changelog
+10 May 2017:
+- You can now book rides
+- Bookings list done
 
 9 May 2017:
 - Facebook authentication

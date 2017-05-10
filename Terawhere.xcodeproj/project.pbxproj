@@ -23,9 +23,10 @@
 		AACA92071EBA017F0024804D /* Offer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACA92061EBA017F0024804D /* Offer.swift */; };
 		AACA92091EBA13540024804D /* LocationSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACA92081EBA13540024804D /* LocationSearchTableViewController.swift */; };
 		AACC6C451EBD736500EFFE29 /* BookRideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACC6C441EBD736500EFFE29 /* BookRideViewController.swift */; };
-		AACC6C471EBD81D500EFFE29 /* BookingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACC6C461EBD81D500EFFE29 /* BookingTableViewCell.swift */; };
+		AACC6C471EBD81D500EFFE29 /* BookingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACC6C461EBD81D500EFFE29 /* BookingsTableViewCell.swift */; };
 		AACC6C491EBD81F100EFFE29 /* Booking.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACC6C481EBD81F100EFFE29 /* Booking.swift */; };
 		AACC6C4B1EBD83B100EFFE29 /* ViewBookingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACC6C4A1EBD83B100EFFE29 /* ViewBookingViewController.swift */; };
+		AAD87A031EC2BE4A00B122B4 /* BookingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD87A021EC2BE4A00B122B4 /* BookingsViewController.swift */; };
 		AAD8EC501EB998F400BC6350 /* Terawhere.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AAD8EC4E1EB998F400BC6350 /* Terawhere.xcdatamodeld */; };
 		AAD8EC521EB998F400BC6350 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAD8EC511EB998F400BC6350 /* Assets.xcassets */; };
 		AAD8EC551EB998F400BC6350 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AAD8EC531EB998F400BC6350 /* LaunchScreen.storyboard */; };
@@ -72,9 +73,10 @@
 		AACA92061EBA017F0024804D /* Offer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Offer.swift; sourceTree = "<group>"; };
 		AACA92081EBA13540024804D /* LocationSearchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationSearchTableViewController.swift; sourceTree = "<group>"; };
 		AACC6C441EBD736500EFFE29 /* BookRideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookRideViewController.swift; sourceTree = "<group>"; };
-		AACC6C461EBD81D500EFFE29 /* BookingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookingTableViewCell.swift; sourceTree = "<group>"; };
+		AACC6C461EBD81D500EFFE29 /* BookingsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookingsTableViewCell.swift; sourceTree = "<group>"; };
 		AACC6C481EBD81F100EFFE29 /* Booking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Booking.swift; sourceTree = "<group>"; };
 		AACC6C4A1EBD83B100EFFE29 /* ViewBookingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewBookingViewController.swift; sourceTree = "<group>"; };
+		AAD87A021EC2BE4A00B122B4 /* BookingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookingsViewController.swift; sourceTree = "<group>"; };
 		AAD8EC441EB998F300BC6350 /* Terawhere.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Terawhere.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAD8EC4F1EB998F400BC6350 /* Terawhere.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Terawhere.xcdatamodel; sourceTree = "<group>"; };
 		AAD8EC511EB998F400BC6350 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -135,11 +137,12 @@
 			children = (
 				AA2EF2351EB99AC1000F0524 /* SignInViewController.swift */,
 				AA2EF2371EB99AC9000F0524 /* MapViewController.swift */,
+				AACC6C441EBD736500EFFE29 /* BookRideViewController.swift */,
 				AA2EF23B1EB99AE1000F0524 /* OffersViewController.swift */,
 				AA0F95171EBC211600F35BB4 /* ViewOfferViewController.swift */,
 				AA2EF23F1EB99AF0000F0524 /* CreateOfferViewController.swift */,
 				AACA92081EBA13540024804D /* LocationSearchTableViewController.swift */,
-				AACC6C441EBD736500EFFE29 /* BookRideViewController.swift */,
+				AAD87A021EC2BE4A00B122B4 /* BookingsViewController.swift */,
 				AACC6C4A1EBD83B100EFFE29 /* ViewBookingViewController.swift */,
 			);
 			name = "view controllers";
@@ -158,7 +161,7 @@
 		AA2EF2431EB99B22000F0524 /* custom cell */ = {
 			isa = PBXGroup;
 			children = (
-				AACC6C461EBD81D500EFFE29 /* BookingTableViewCell.swift */,
+				AACC6C461EBD81D500EFFE29 /* BookingsTableViewCell.swift */,
 				AA2EF23D1EB99AE8000F0524 /* OffersTableViewCell.swift */,
 			);
 			name = "custom cell";
@@ -537,7 +540,8 @@
 				AA2EF2361EB99AC1000F0524 /* SignInViewController.swift in Sources */,
 				AACA92051EBA00F70024804D /* Database.swift in Sources */,
 				AA0F95181EBC211600F35BB4 /* ViewOfferViewController.swift in Sources */,
-				AACC6C471EBD81D500EFFE29 /* BookingTableViewCell.swift in Sources */,
+				AACC6C471EBD81D500EFFE29 /* BookingsTableViewCell.swift in Sources */,
+				AAD87A031EC2BE4A00B122B4 /* BookingsViewController.swift in Sources */,
 				AACA92091EBA13540024804D /* LocationSearchTableViewController.swift in Sources */,
 				AA2EF2381EB99AC9000F0524 /* MapViewController.swift in Sources */,
 				AACC6C4B1EBD83B100EFFE29 /* ViewBookingViewController.swift in Sources */,

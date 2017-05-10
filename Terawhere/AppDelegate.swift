@@ -15,10 +15,10 @@ import FacebookCore
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	var window: UIWindow?
-	
-	// this assists in setting the initial token from SignInViewController
-	// every single database variable can initialize with this variable
-	var jwt = ""
+
+	// every initial view controller in the tab bar will get this database
+	// offer, map and booking
+	var database = Database()
 
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 		// Override point for customization after application launch.

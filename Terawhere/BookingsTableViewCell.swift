@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BookingTableViewCell: UITableViewCell {
+class BookingsTableViewCell: UITableViewCell {
 	
 	@IBOutlet var customView: UIView!
 	@IBOutlet var title: UILabel!
@@ -18,6 +18,8 @@ class BookingTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+		
+		self.customView.layer.cornerRadius = 10
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

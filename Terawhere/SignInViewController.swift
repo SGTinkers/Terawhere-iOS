@@ -26,15 +26,13 @@ class SignInViewController: UIViewController, LoginButtonDelegate {
 	}
 
 	func loginButtonDidCompleteLogin(_ loginButton: LoginButton, result: LoginResult) {
-		let database = Database()
-		database.setUserAuth(token: (AccessToken.current?.authenticationToken)!)
+		let database = Database.init(token: (AccessToken.current?.authenticationToken)!, userId: (AccessToken.current?.userId)!)
+		database.getUserAuth()
 		
 		let dataTask = URLSession.shared.dataTask(with: database.request!, completionHandler: { (data, response, error) -> Void in
 			if (error != nil) {
-				print(error)
+				print(error!)
 			} else {
-				let httpResponse = response as? HTTPURLResponse
-				
 				guard let json = try? JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments) as? [String: Any] else {
 					print("JSON invalid")
 					
@@ -48,12 +46,15 @@ class SignInViewController: UIViewController, LoginButtonDelegate {
 				}
 				
 				print("TOKEN HOORAY \(token)")
-				(UIApplication.shared.delegate as! AppDelegate).jwt = token
+				
+				let database = Database.init(token: token, userId: (AccessToken.current?.userId)!)
+				
+				(UIApplication.shared.delegate as! AppDelegate).database = database
 				
 				DispatchQueue.main.async {
 					if let tabBarVC = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "tabBar") as? UITabBarController {
 						tabBarVC.selectedIndex = 1
-
+						
 						(UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(tabBarVC, animated: true, completion: nil)
 					}
 				}

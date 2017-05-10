@@ -10,11 +10,34 @@ import UIKit
 
 class BookRideViewController: UIViewController {
 
+	var database = Database()
+	var offer: Offer?
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+		
+		guard let offer = self.offer else {
+			print("Offer is invalid")
+			
+			return
+		}
+		
+		print("Hooray Offer is good to go \(self.offer!)")
     }
+
+	@IBAction func bookRide() {
+		self.database.book(offer: self.offer!)
+		
+		let task = URLSession.shared.dataTask(with: self.database.request!) { (data, response, error) in
+			if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?] {
+				print("booking done: \(json!)")
+			}
+		}
+		
+		task.resume()
+	}
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
