@@ -9,35 +9,35 @@
 import Foundation
 
 class Offer {
-	let endAddr: String?
-	let endLat: Double?
-	let endLng: Double?
-	let endName: String?
+	var endAddr: String?
+	var endLat: Double?
+	var endLng: Double?
+	var endName: String?
 	
-	let meetupTime: String?
+	var meetupTime: String?
 	
-	let startAddr: String?
-	let startLat: Double?
-	let startLng: Double?
-	let startName: String?
+	var startAddr: String?
+	var startLat: Double?
+	var startLng: Double?
+	var startName: String?
 	
-	let remarks: String?
-	let userId: String?
+	var remarks: String?
+	var userId: String?
 	var offerId: Int? = nil
 	
-	let vehicleDesc: String?
-	let vehicleModel: String?
-	let vehicleNumber: Int?
+	var vehicleDesc: String?
+	var vehicleModel: String?
+	var vehicleNumber: String?
 	
-	let status: Int?
+	var status: Int?
 	
 	var createdDateString: String? = nil
 	var updatedDateString: String? = nil
 	
-	let vacancy: Int?
+	var vacancy: Int?
 	
 	// to post
-	init(forPostWithEndAddr endAddr: String?, endLat: Double?, endLng: Double?, endName: String?, meetupTime: String?, startAddr: String?, startLat: Double?, startLng: Double?, startName: String?, remarks: String?, userId: String?, vehicleDesc: String?, vehicleModel: String?, vehicleNumber: Int?, status: Int?, vacancy: Int?) {
+	init(forPostWithEndAddr endAddr: String?, endLat: Double?, endLng: Double?, endName: String?, meetupTime: String?, startAddr: String?, startLat: Double?, startLng: Double?, startName: String?, remarks: String?, userId: String?, vehicleDesc: String?, vehicleModel: String?, vehicleNumber: String?, status: Int?, vacancy: Int?) {
 		self.endAddr = endAddr
 		self.endLat = endLat
 		self.endLng = endLng
@@ -64,7 +64,7 @@ class Offer {
 	
 	
 	// to retrieve
-	init(forRetrievewithEndAddr endAddr: String?, endLat: Double?, endLng: Double?, endName: String?, meetupTime: String?, startAddr: String?, startLat: Double?, startLng: Double?, startName: String?, remarks: String?, userId: String?, offerId: Int?, vehicleDesc: String?, vehicleModel: String?, vehicleNumber: Int?, status: Int?, createdDateString: String?, updatedDateString: String?, vacancy: Int?) {
+	init(forRetrievewithEndAddr endAddr: String?, endLat: Double?, endLng: Double?, endName: String?, meetupTime: String?, startAddr: String?, startLat: Double?, startLng: Double?, startName: String?, remarks: String?, userId: String?, offerId: Int?, vehicleDesc: String?, vehicleModel: String?, vehicleNumber: String?, status: Int?, createdDateString: String?, updatedDateString: String?, vacancy: Int?) {
 		self.endAddr = endAddr
 		self.endLat = endLat
 		self.endLng = endLng

@@ -5,6 +5,11 @@ Want to go for Terawih prayers? Why not broadcast it and ask nearby people if th
 Let's build friendships together.
 
 ### Changelog
+11 May 2017:
+- You can now edit an offer
+- You can now delete an offer
+- Bug fixed: Posting offers fixed. This bug is largely due to the project restructure.
+- Bug fixed: Choosing your start and end locations do not crash the app anymore. 
 10 May 2017:
 - You can now book rides
 - Bookings list done

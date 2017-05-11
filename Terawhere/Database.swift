@@ -19,8 +19,13 @@ class Database {
 	var userId = ""
 	
 	var authURL = "http://139.59.224.66/api/v1/auth"
+	
+	var postOffersURL = "http://139.59.224.66/api/v1/offers"
 	var allOffersURL = "http://139.59.224.66/api/v1/offers"
 	var allOffersForUserURL = "http://139.59.224.66/api/v1/offers-for-user"
+	var editOfferURL = "http://139.59.224.66/api/v1/offers"
+	var deleteOfferURL = "http://139.59.224.66/api/v1/offers"
+	
 	var bookingURL = "http://139.59.224.66/api/v1/bookings"
 	var allBookingsForUserURL = "http://139.59.224.66/api/v1/bookings-for-user"
 	var allBookingsURL = "http://139.59.224.66/api/v1/bookings"
@@ -90,7 +95,7 @@ class Database {
 				
 				let vehicleDesc = object["vehicle_desc"] as? String
 				let vehicleModel = object["vehicle_model"] as? String
-				let vehicleNumber = object["vehicle_number"] as? Int
+				let vehicleNumber = object["vehicle_number"] as? String
 				
 				let status = object["status"] as? Int
 				
@@ -126,25 +131,20 @@ class Database {
 		                           "start_lng": offer.startLng!,
 		                           "start_name": offer.startName!,
 								   "remarks": offer.remarks!,
-								   "user_id": offer.userId!,
-								   "vehicle_desc": offer.vehicleDesc!,
 								   "vehicle_model": offer.vehicleModel!,
 								   "vehicle_number": offer.vehicleNumber!,
-								   "status": offer.status!,
 		                           "vacancy": offer.vacancy!]
 
 		let jsonData = try? JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
-		let url = URL.init(string: "http://139.59.224.66/api/v1/offers")
+		let url = URL.init(string: self.postOffersURL)
 		
-		var request = URLRequest.init(url: url!)
-		request.httpMethod = "POST"
-		request.httpBody = jsonData
-		
-		print("Create offer token \(self.token)")
-		
-		request.addValue("application/json", forHTTPHeaderField: "Accept")
-		request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-		request.addValue("Bearer \(self.token)", forHTTPHeaderField: "Authorization")
+		self.request = URLRequest.init(url: url!)
+		self.request?.httpMethod = "POST"
+		self.request?.httpBody = jsonData
+
+		self.request?.addValue("application/json", forHTTPHeaderField: "Accept")
+		self.request?.addValue("application/json", forHTTPHeaderField: "Content-Type")
+		self.request?.addValue("Bearer \(self.token)", forHTTPHeaderField: "Authorization")
 	}
 	
 	func getAllOffers() {
@@ -181,19 +181,76 @@ class Database {
 		self.request?.addValue("application/json", forHTTPHeaderField: "Content-Type")
 	}
 	
-	func deleteOfferBy(id: Int?) {
-		let url = URL.init(string: "http://139.59.224.66/api/v1/offers/\(id!)")
-		var request = URLRequest.init(url: url!)
-		
-		request.httpMethod = "DELETE"
-		
-		let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-			if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any] {
-				print(json!)
-			}
+	func edit(offer: Offer?) {
+		guard let offer = offer else {
+			print("Editing offer invalid")
+			
+			return
 		}
+	
+		let editOfferWithIdURL = self.editOfferURL + "/\(offer.offerId!)"
+	
+		let dateFormatter = DateFormatter()
 		
-		task.resume()
+		dateFormatter.timeZone = TimeZone.init(abbreviation: "UTC")
+		dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+		
+		var dateString = ""
+		
+		// get the date object
+		if let date = dateFormatter.date(from: offer.meetupTime!) {
+			// setup a current time zone formatted dateFormatter
+			dateFormatter.timeZone = TimeZone.autoupdatingCurrent
+			dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
+			// yyyy-MM-dd HH:mm
+			
+			// get the string
+			dateString = dateFormatter.string(from: date)
+		}
+	
+		
+		let json: [String: Any] = ["end_addr": offer.endAddr!,
+		                           "end_lat": offer.endLat!,
+		                           "end_lng": offer.endLng!,
+		                           "end_name": offer.endName!,
+		                           "meetup_time": dateString,
+		                           "start_addr": offer.startAddr!,
+		                           "start_lat": offer.startLat!,
+		                           "start_lng": offer.startLng!,
+		                           "start_name": offer.startName!,
+		                           "vehicle_model": offer.vehicleModel!,
+		                           "vehicle_number": offer.vehicleNumber!,
+		                           "vacancy": 1]
+		
+		let jsonData = try? JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
+	
+	
+		let url = URL.init(string: editOfferWithIdURL)
+		self.request = URLRequest.init(url: url!)
+		self.request?.httpMethod = "PUT"
+		self.request?.httpBody = jsonData!
+		
+		self.request?.addValue("Bearer \(self.token)", forHTTPHeaderField: "Authorization")
+		self.request?.addValue("application/json", forHTTPHeaderField: "Accept")
+		self.request?.addValue("application/json", forHTTPHeaderField: "Content-Type")
+	}
+	
+	func delete(offer: Offer?) {
+		guard let offer = offer else {
+			print("Editing offer invalid")
+			
+			return
+		}
+	
+		let deleteOfferWithIdURL = self.deleteOfferURL + "/\(offer.offerId!)"
+		
+		let url = URL.init(string: deleteOfferWithIdURL)
+		self.request = URLRequest.init(url: url!)
+		self.request?.httpMethod = "DELETE"
+		
+		self.request?.addValue("Bearer \(self.token)", forHTTPHeaderField: "Authorization")
+		self.request?.addValue("application/json", forHTTPHeaderField: "Accept")
+		self.request?.addValue("application/json", forHTTPHeaderField: "Content-Type")
 	}
 	
 	func convertJSONToBooking(json: [String: Any?]) -> [Booking] {

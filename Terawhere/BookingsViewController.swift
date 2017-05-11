@@ -69,6 +69,17 @@ class BookingsViewController: UIViewController, UITableViewDelegate, UITableView
 	public func numberOfSections(in tableView: UITableView) -> Int {
 		return 1
 	}
+	
+	// MARK: tableview delegate
+	public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		guard let viewBookingVC = self.storyboard?.instantiateViewController(withIdentifier: "ViewBookingViewController") as? ViewBookingViewController else {
+			print("View booking VC errors out")
+			
+			return
+		}
+		
+		self.navigationController?.pushViewController(viewBookingVC, animated: true)
+	}
 
     /*
     // MARK: - Navigation

@@ -31,29 +31,23 @@ class OffersViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
 
 	override func viewWillAppear(_ animated: Bool) {
-		self.filteredOffersArr.removeAll()
-	
 		self.database.getAllOffersForUser()
 		
 		let task = URLSession.shared.dataTask(with: self.database.request!) { (data, response, error) in
 			if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?] {
 				print("getting offers")
-				
-				print("JSON \(json!)")
-				
+
 				// this array carries all user's offers
 				self.offersArr = self.database.convertJSONToOffer(json: json!)
 				
 				self.dateFormatter.timeZone = TimeZone.init(abbreviation: "UTC")
 				self.dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
 
+				// clear filtered array first
+				self.filteredOffersArr.removeAll()
+				
 				for offer in self.offersArr {
 					let updatedDate = self.dateFormatter.date(from: offer.updatedDateString!)
-					
-					// basic run down
-					// get the date components from the two date objects
-					// make a new date object based only on year, month and day
-					// compare the two dates
 					
 					let calendar = Calendar.current
 					let updatedDateComp = calendar.dateComponents([.year, .month, .day], from: updatedDate!)
@@ -62,12 +56,18 @@ class OffersViewController: UIViewController, UITableViewDelegate, UITableViewDa
 					let todayDateComp = calendar.dateComponents([.year, .month, .day], from: self.date)
 					let todayDateToCompare = calendar.date(from: todayDateComp)
 					
-					
-					
-					// today's offers
-					if updatedDateToCompare?.compare(todayDateToCompare!) == ComparisonResult.orderedSame {
-						print("Adding one offer for today")
-						self.filteredOffersArr.append(offer)
+					if self.segmentedControl.selectedSegmentIndex == 0 {
+						// today's offers
+						if updatedDateToCompare?.compare(todayDateToCompare!) == ComparisonResult.orderedSame {
+							print("Adding one offer for today")
+							self.filteredOffersArr.append(offer)
+						}
+					} else if self.segmentedControl.selectedSegmentIndex == 1 {
+						// past offers
+						if updatedDateToCompare?.compare(todayDateToCompare!) == ComparisonResult.orderedAscending {
+							print("Adding one offer for past")
+							self.filteredOffersArr.append(offer)
+						}
 					}
 				}
 				
@@ -112,7 +112,7 @@ class OffersViewController: UIViewController, UITableViewDelegate, UITableViewDa
 			} else if self.segmentedControl.selectedSegmentIndex == 1 {
 				// past offers
 				if updatedDateToCompare?.compare(todayDateToCompare!) == ComparisonResult.orderedAscending {
-					print("Adding one offer for today")
+					print("Adding one offer for past")
 					self.filteredOffersArr.append(offer)
 				}
 			}
@@ -148,6 +148,10 @@ class OffersViewController: UIViewController, UITableViewDelegate, UITableViewDa
 			
 			return
 		}
+		
+		let offer = self.filteredOffersArr[indexPath.row]
+		viewOfferVC.offer = offer
+		viewOfferVC.database = self.database
 		
 		self.navigationController?.pushViewController(viewOfferVC, animated: true)
 	}
