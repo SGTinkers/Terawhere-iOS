@@ -10,7 +10,7 @@ import UIKit
 
 class BookRideViewController: UIViewController {
 
-	var database = Database()
+	var database: Database?
 	var offer: Offer?
 
     override func viewDidLoad() {
@@ -28,9 +28,9 @@ class BookRideViewController: UIViewController {
     }
 
 	@IBAction func bookRide() {
-		self.database.book(offer: self.offer!)
+		self.database?.book(offer: self.offer!)
 		
-		let task = URLSession.shared.dataTask(with: self.database.request!) { (data, response, error) in
+		let task = URLSession.shared.dataTask(with: (self.database?.request)!) { (data, response, error) in
 			if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?] {
 				print("booking done: \(json!)")
 			}

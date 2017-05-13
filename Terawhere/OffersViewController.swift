@@ -85,6 +85,15 @@ class OffersViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // Dispose of any resources that can be recreated.
     }
 	
+	@IBAction func showCreateOfferScreen() {
+		let createOfferVC = self.storyboard?.instantiateViewController(withIdentifier: "CreateOfferViewController") as? CreateOfferViewController
+		createOfferVC?.database = self.database
+	
+		let navController = UINavigationController.init(rootViewController: createOfferVC!)
+	
+		self.present(navController, animated: true, completion: nil)
+	}
+	
 	@IBAction func changeSegmentedControl() {
 		// clear filtered array first
 		self.filteredOffersArr.removeAll()

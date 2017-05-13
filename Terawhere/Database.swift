@@ -29,6 +29,8 @@ class Database {
 	var bookingURL = "http://139.59.224.66/api/v1/bookings"
 	var allBookingsForUserURL = "http://139.59.224.66/api/v1/bookings-for-user"
 	var allBookingsURL = "http://139.59.224.66/api/v1/bookings"
+	var cancelBookingURL = "http://139.59.224.66/api/v1/bookings"
+	
 	
 	var request: URLRequest?
 	
@@ -259,8 +261,9 @@ class Database {
 		if let actualJsonData = json["data"] as? [[String: Any]] {
 			for object in actualJsonData {
 				let offerId = object["offer_id"] as? Int
+				let id = object["id"] as? Int
 				
-				let booking = Booking.init(offerId: offerId)
+				let booking = Booking.init(offerId: offerId, id: id)
 				bookingArr.append(booking)
 			}
 		}
@@ -288,6 +291,25 @@ class Database {
 		
 		self.request?.httpMethod = "POST"
 		self.request?.httpBody = jsonData
+		
+		self.request?.addValue("Bearer \(self.token)", forHTTPHeaderField: "Authorization")
+		self.request?.addValue("application/json", forHTTPHeaderField: "Accept")
+		self.request?.addValue("application/json", forHTTPHeaderField: "Content-Type")
+	}
+	
+	func cancel(booking: Booking?) {
+		guard let booking = booking else {
+			print("Booking is invalid")
+			
+			return
+		}
+	
+		let cancelBookingWithIdURL = self.cancelBookingURL + "/\(booking.id!)"
+	
+		let url = URL.init(string: cancelBookingWithIdURL)
+		self.request = URLRequest.init(url: url!)
+		
+		self.request?.httpMethod = "DELETE"
 		
 		self.request?.addValue("Bearer \(self.token)", forHTTPHeaderField: "Authorization")
 		self.request?.addValue("application/json", forHTTPHeaderField: "Accept")

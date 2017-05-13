@@ -10,8 +10,10 @@ import Foundation
 
 class Booking {
 	let offerId: Int?
+	let id: Int?
 	
-	init(offerId: Int?) {
+	init(offerId: Int?, id: Int?) {
 		self.offerId = offerId
+		self.id = id
 	}
 }

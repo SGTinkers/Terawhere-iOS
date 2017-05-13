@@ -78,6 +78,11 @@ class BookingsViewController: UIViewController, UITableViewDelegate, UITableView
 			return
 		}
 		
+		let booking = self.bookingArr[indexPath.row]
+		viewBookingVC.booking = booking
+		
+		viewBookingVC.database = self.database
+		
 		self.navigationController?.pushViewController(viewBookingVC, animated: true)
 	}
 

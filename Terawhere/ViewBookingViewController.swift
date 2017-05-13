@@ -10,6 +10,9 @@ import UIKit
 
 class ViewBookingViewController: UIViewController {
 
+	var database: Database?
+	var booking: Booking?
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -20,7 +23,22 @@ class ViewBookingViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+	
+	@IBAction func cancelBooking() {
+		self.database?.cancel(booking: self.booking)
+		
+		let dataTask = URLSession.shared.dataTask(with: (self.database?.request)!) { (data, response, error) in
+			if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) {
+				print(json)
+				
+				DispatchQueue.main.async {
+					self.tabBarController?.navigationController?.popViewController(animated: true)
+				}
+			}
+		}
+		
+		dataTask.resume()
+	}
 
     /*
     // MARK: - Navigation
