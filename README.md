@@ -17,7 +17,7 @@ Let's build friendships together.
 - Sign in screen is set
 - Fixed: Vehicle number can be entered with whitespace
 - Fixed: Remarks textfield now scrolls for visibility when typing
-
+- Fixed: Offer date filter is now fixed
 
 11 May 2017:
 - You can now edit an offer
