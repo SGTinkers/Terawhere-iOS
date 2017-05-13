@@ -8,23 +8,29 @@
 
 import UIKit
 
-class BookRideViewController: UIViewController {
+class BookRideViewController: UIViewController, UITableViewDataSource {
+
+	@IBOutlet var tableView: UITableView!
 
 	var database: Database?
 	var offer: Offer?
+	
+	var tableItems = ["Meeting point", "Driver name", "No. of pax left", "Car model", "Vehicle no.", "Pick up time", "Destination"]
+	
+	var meetupPointIndexPath = IndexPath.init(row: 0, section: 0)
+	var driverNameIndexPath = IndexPath.init(row: 1, section: 0)
+	var vacancyIndexPath = IndexPath.init(row: 2, section: 0)
+	var carModelIndexPath = IndexPath.init(row: 3, section: 0)
+	var vehicleNumberIndexPath = IndexPath.init(row: 4, section: 0)
+	var pickupTimeIndexPath = IndexPath.init(row: 5, section: 0)
+	var destinationIndexPath = IndexPath.init(row: 6, section: 0)
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
 		
-		guard let offer = self.offer else {
-			print("Offer is invalid")
-			
-			return
-		}
-		
-		print("Hooray Offer is good to go \(self.offer!)")
+		self.tableView.dataSource = self
     }
 
 	@IBAction func bookRide() {
@@ -34,9 +40,24 @@ class BookRideViewController: UIViewController {
 			if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?] {
 				print("booking done: \(json!)")
 			}
+			
+			DispatchQueue.main.async {
+				let alert = UIAlertController.init(title: "Yay", message: "Book successful!", preferredStyle: .alert)
+				let okAction = UIAlertAction.init(title: "Ok", style: .default, handler: { (action) in
+					self.dismiss(animated: true, completion: nil)
+				})
+				
+				alert.addAction(okAction)
+				
+				self.present(alert, animated: true, completion: nil)
+			}
 		}
 		
 		task.resume()
+	}
+	
+	@IBAction func dismissViewController() {
+		self.dismiss(animated: true, completion: nil)
 	}
 
     override func didReceiveMemoryWarning() {
@@ -44,6 +65,67 @@ class BookRideViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+	// MARK: Table view data source
+	public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		return self.tableItems.count
+	}
+	
+	
+	public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell  {
+		let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+		
+		cell.textLabel?.text = self.tableItems[indexPath.row]
+		cell.textLabel?.textAlignment = .left
+		
+		if indexPath == self.meetupPointIndexPath {
+			cell.detailTextLabel?.text = String((offer?.startName)!)
+		}
+		
+		if indexPath == self.driverNameIndexPath {
+			// get single offer
+			self.database?.get(offer: offer)
+			let dataTask = URLSession.shared.dataTask(with: (self.database?.request)!) { (data, response, error) in
+				let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
+				
+				let actualJson = json??["data"] as? [String: Any]
+				
+				let driverName = actualJson?["name"] as? String
+				
+				DispatchQueue.main.async {
+					cell.detailTextLabel?.text = driverName
+				}
+			}
+			
+			dataTask.resume()
+		}
+		
+		if indexPath == self.vacancyIndexPath {
+			cell.detailTextLabel?.text = String((offer?.vacancy)!)
+		}
+		
+		if indexPath == self.carModelIndexPath {
+			cell.detailTextLabel?.text = (offer?.vehicleModel)!
+		}
+		
+		if indexPath == self.vehicleNumberIndexPath {
+			cell.detailTextLabel?.text = String((offer?.vehicleNumber)!)
+		}
+		
+		if indexPath == self.pickupTimeIndexPath {
+			cell.detailTextLabel?.text = (offer?.meetupTime)!
+		}
+		
+		if indexPath == self.destinationIndexPath {
+			cell.detailTextLabel?.text = String((offer?.endName)!)
+		}
+		
+		return cell
+	}
+	
+	public func numberOfSections(in tableView: UITableView) -> Int {
+		return 1
+	}
+
 
     /*
     // MARK: - Navigation

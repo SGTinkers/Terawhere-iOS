@@ -55,8 +55,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 	
 	public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
 		if let userLocation = locations.first {
-			print("Updating user location")
-		
 			self.userLocation = userLocation
 			
 			// putting it here will cause network calls every single update
@@ -92,13 +90,14 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 		guard let bookRideVC = self.storyboard?.instantiateViewController(withIdentifier: "BookRideViewController") as? BookRideViewController else {
 			return
 		}
-
+	
 		let selectedAnnotation = self.mapView.selectedAnnotations.first as? Location
 		
 		bookRideVC.database = self.database
 		bookRideVC.offer = selectedAnnotation?.offer
 		
-		self.navigationController?.pushViewController(bookRideVC, animated: true)
+		let navController = UINavigationController.init(rootViewController: bookRideVC)
+		self.present(navController, animated: true, completion: nil)
 	}
 	
 	// MARK: Helper functions
@@ -113,8 +112,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 				
 				let database = Database()
 				offerArr = database.convertJSONToOffer(json: json!)
-				
-				print("Array count!! \(offerArr.count)")
 				
 				DispatchQueue.main.async {
 					self.mapView?.removeAnnotations((self.mapView?.annotations)!)

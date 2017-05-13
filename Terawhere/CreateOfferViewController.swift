@@ -48,20 +48,13 @@ class CreateOfferViewController: UIViewController, UITableViewDelegate, UITableV
     }
 	
 	@IBAction func createOffer() {
+		var endSubThoroughfare = ""
+		var endThoroughfare = ""
+		var startSubThoroughfare = ""
+		var startThoroughfare = ""
+	
 		guard let endLocation = self.endLocation else {
 			print("End location unavailable")
-			
-			return
-		}
-		
-		guard let endSubThoroughfare = endLocation.placemark.subThoroughfare else {
-			print("end subThoroughfare is unavailable")
-			
-			return
-		}
-		
-		guard let endThoroughfare = endLocation.placemark.thoroughfare else {
-			print("end thoroughfare is unavailable")
 			
 			return
 		}
@@ -72,16 +65,20 @@ class CreateOfferViewController: UIViewController, UITableViewDelegate, UITableV
 			return
 		}
 		
-		guard let startSubThoroughfare = startLocation.placemark.subThoroughfare else {
-			print("start subThoroughfare is unavailable")
-			
-			return
+		if let tmpEndSubThoroughfare = endLocation.placemark.subThoroughfare {
+			endSubThoroughfare = tmpEndSubThoroughfare
 		}
 		
-		guard let startThoroughfare = startLocation.placemark.thoroughfare else {
-			print("start thoroughfare is unavailable")
-			
-			return
+		if let tmpEndThoroughfare = endLocation.placemark.thoroughfare {
+			endThoroughfare = tmpEndThoroughfare
+		}
+		
+		if let tmpStartSubThoroughfare = startLocation.placemark.subThoroughfare {
+			startSubThoroughfare = tmpStartSubThoroughfare
+		}
+		
+		if let tmpStartThoroughfare = startLocation.placemark.thoroughfare {
+			startThoroughfare = tmpStartThoroughfare
 		}
 		
 		

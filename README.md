@@ -8,6 +8,10 @@ Let's build friendships together.
 13 May 2017:
 - You can now cancel your booking
 - New date screen for pickup time
+- New booking screen
+- New screen for viewing offers
+- New screen for viewing individual offers
+- Slight change to location search screen
 - Launch screen is set
 - App icons set
 - Sign in screen is set

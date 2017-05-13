@@ -23,6 +23,7 @@ class Database {
 	var postOffersURL = "http://139.59.224.66/api/v1/offers"
 	var allOffersURL = "http://139.59.224.66/api/v1/offers"
 	var allOffersForUserURL = "http://139.59.224.66/api/v1/offers-for-user"
+	var getSingleOfferURL = "http://139.59.224.66/api/v1/offers"
 	var editOfferURL = "http://139.59.224.66/api/v1/offers"
 	var deleteOfferURL = "http://139.59.224.66/api/v1/offers"
 	
@@ -167,6 +168,23 @@ class Database {
 		//		let jsonData = try? JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
 		
 		let url = URL.init(string: self.allOffersURL)
+		self.request = URLRequest.init(url: url!)
+		
+		self.request?.addValue("Bearer \(self.token)", forHTTPHeaderField: "Authorization")
+		self.request?.addValue("application/json", forHTTPHeaderField: "Accept")
+		self.request?.addValue("application/json", forHTTPHeaderField: "Content-Type")
+	}
+	
+	func get(offer: Offer?) {
+		guard let offer = offer else {
+			print("Offer is invalid")
+			
+			return
+		}
+		
+		let getSingleOfferWithIdURL = self.getSingleOfferURL + "/\(offer.offerId!)"
+		
+		let url = URL.init(string: getSingleOfferWithIdURL)
 		self.request = URLRequest.init(url: url!)
 		
 		self.request?.addValue("Bearer \(self.token)", forHTTPHeaderField: "Authorization")

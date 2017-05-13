@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import MapKit
 
 class OffersViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
 	@IBOutlet var tableView: UITableView!
 	@IBOutlet var segmentedControl: UISegmentedControl!
+	@IBOutlet var activityIndicator: UIActivityIndicatorView!
 
 	var database = (UIApplication.shared.delegate as! AppDelegate).database
 	var offersArr = [Offer]()
@@ -31,16 +33,19 @@ class OffersViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
 
 	override func viewWillAppear(_ animated: Bool) {
+		self.activityIndicator.activityIndicatorViewStyle = .gray
+		self.activityIndicator.hidesWhenStopped = true
+		self.activityIndicator.startAnimating()
+	
 		self.database.getAllOffersForUser()
 		
 		let task = URLSession.shared.dataTask(with: self.database.request!) { (data, response, error) in
 			if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?] {
-				print("getting offers")
 
 				// this array carries all user's offers
 				self.offersArr = self.database.convertJSONToOffer(json: json!)
 				
-				self.dateFormatter.timeZone = TimeZone.init(abbreviation: "UTC")
+				self.dateFormatter.timeZone = TimeZone.autoupdatingCurrent
 				self.dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
 
 				// clear filtered array first
@@ -49,7 +54,7 @@ class OffersViewController: UIViewController, UITableViewDelegate, UITableViewDa
 				for offer in self.offersArr {
 					let updatedDate = self.dateFormatter.date(from: offer.updatedDateString!)
 					
-					let calendar = Calendar.current
+					let calendar = Calendar.init(identifier: .gregorian)
 					let updatedDateComp = calendar.dateComponents([.year, .month, .day], from: updatedDate!)
 					let updatedDateToCompare = calendar.date(from: updatedDateComp)
 					
@@ -73,6 +78,8 @@ class OffersViewController: UIViewController, UITableViewDelegate, UITableViewDa
 				
 				DispatchQueue.main.async {
 					self.tableView.reloadData()
+					
+					self.activityIndicator.stopAnimating()
 				}
 			}
 		}
@@ -95,39 +102,57 @@ class OffersViewController: UIViewController, UITableViewDelegate, UITableViewDa
 	}
 	
 	@IBAction func changeSegmentedControl() {
-		// clear filtered array first
-		self.filteredOffersArr.removeAll()
+		self.activityIndicator.activityIndicatorViewStyle = .gray
+		self.activityIndicator.hidesWhenStopped = true
+		self.activityIndicator.startAnimating()
 	
-		self.dateFormatter.timeZone = TimeZone.init(abbreviation: "UTC")
-		self.dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+		self.database.getAllOffersForUser()
 		
-		for offer in self.offersArr {
-			let updatedDate = self.dateFormatter.date(from: offer.updatedDateString!)
-			
-			
-			let calendar = Calendar.current
-			let updatedDateComp = calendar.dateComponents([.year, .month, .day], from: updatedDate!)
-			let updatedDateToCompare = calendar.date(from: updatedDateComp)
-			
-			let todayDateComp = calendar.dateComponents([.year, .month, .day], from: self.date)
-			let todayDateToCompare = calendar.date(from: todayDateComp)
-		
-			if self.segmentedControl.selectedSegmentIndex == 0 {
-				// today's offers
-				if updatedDateToCompare?.compare(todayDateToCompare!) == ComparisonResult.orderedSame {
-					print("Adding one offer for today")
-					self.filteredOffersArr.append(offer)
+		let task = URLSession.shared.dataTask(with: self.database.request!) { (data, response, error) in
+			if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?] {
+				
+				// this array carries all user's offers
+				self.offersArr = self.database.convertJSONToOffer(json: json!)
+				
+				self.dateFormatter.timeZone = TimeZone.autoupdatingCurrent
+				self.dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+				
+				// clear filtered array first
+				self.filteredOffersArr.removeAll()
+				
+				for offer in self.offersArr {
+					let updatedDate = self.dateFormatter.date(from: offer.updatedDateString!)
+					
+					let calendar = Calendar.init(identifier: .gregorian)
+					let updatedDateComp = calendar.dateComponents([.year, .month, .day], from: updatedDate!)
+					let updatedDateToCompare = calendar.date(from: updatedDateComp)
+					
+					let todayDateComp = calendar.dateComponents([.year, .month, .day], from: self.date)
+					let todayDateToCompare = calendar.date(from: todayDateComp)
+					
+					if self.segmentedControl.selectedSegmentIndex == 0 {
+						// today's offers
+						if updatedDateToCompare?.compare(todayDateToCompare!) == ComparisonResult.orderedSame {
+							print("Adding one offer for today")
+							self.filteredOffersArr.append(offer)
+						}
+					} else if self.segmentedControl.selectedSegmentIndex == 1 {
+						// past offers
+						if updatedDateToCompare?.compare(todayDateToCompare!) == ComparisonResult.orderedAscending {
+							print("Adding one offer for past")
+							self.filteredOffersArr.append(offer)
+						}
+					}
 				}
-			} else if self.segmentedControl.selectedSegmentIndex == 1 {
-				// past offers
-				if updatedDateToCompare?.compare(todayDateToCompare!) == ComparisonResult.orderedAscending {
-					print("Adding one offer for past")
-					self.filteredOffersArr.append(offer)
+				
+				DispatchQueue.main.async {
+					self.tableView.reloadData()
+					self.activityIndicator.stopAnimating()
 				}
 			}
 		}
 		
-		self.tableView.reloadData()
+		task.resume()
 	}
 	
 	// MARK: Table view data source
@@ -140,9 +165,24 @@ class OffersViewController: UIViewController, UITableViewDelegate, UITableViewDa
 		let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? OffersTableViewCell
 		
 		// Configure the cell...
-		cell?.offer = self.filteredOffersArr[indexPath.row]
-		cell?.title.text = (cell?.offer?.startName)!
+		let offer = self.filteredOffersArr[indexPath.row]
 		
+		cell?.destinationLabel.text = offer.endName!
+		cell?.vehicleNameLabel.text = offer.vehicleModel!
+		
+		cell?.mapView.isScrollEnabled = false
+		
+		cell?.mapView.removeAnnotations((cell?.mapView.annotations)!)
+		cell?.mapView.selectedAnnotations.removeAll()
+		
+		let location = CLLocationCoordinate2D.init(latitude: offer.startLat!, longitude: offer.startLng!)
+		
+		let annotation = Location.init(withCoordinate: location, AndOffer: offer)
+		cell?.mapView?.addAnnotation(annotation)
+		
+		let region = MKCoordinateRegionMakeWithDistance(location, 5000, 5000)
+		cell?.mapView?.setRegion(region, animated: true)
+
 		return cell!
 	}
 
@@ -152,17 +192,18 @@ class OffersViewController: UIViewController, UITableViewDelegate, UITableViewDa
 	
 	// MARK: tableview delegate
 	public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		guard let viewOfferVC = self.storyboard?.instantiateViewController(withIdentifier: "ViewOfferViewController") as? ViewOfferViewController else {
-			print("View offer VC errors out")
+		guard let viewOfferTVC = self.storyboard?.instantiateViewController(withIdentifier: "ViewOfferTableViewController") as? ViewOfferTableViewController else {
+			print("View offer TVC errors out")
 			
 			return
 		}
 		
+		// may need to retrieve in this view controller for driver name
 		let offer = self.filteredOffersArr[indexPath.row]
-		viewOfferVC.offer = offer
-		viewOfferVC.database = self.database
+		viewOfferTVC.offer = offer
+		viewOfferTVC.database = self.database
 		
-		self.navigationController?.pushViewController(viewOfferVC, animated: true)
+		self.navigationController?.pushViewController(viewOfferTVC, animated: true)
 	}
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation

@@ -41,7 +41,7 @@ class LocationSearchTableViewController: UITableViewController, UISearchResultsU
 		self.definesPresentationContext = true
 		
 		self.searchController?.searchBar.delegate = self
-		self.navigationItem.titleView = self.searchController?.searchBar
+		self.tableView.tableHeaderView = self.searchController?.searchBar
     }
 
     override func didReceiveMemoryWarning() {

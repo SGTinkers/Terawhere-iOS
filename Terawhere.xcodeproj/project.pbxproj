@@ -10,7 +10,7 @@
 		8D85DBF809A905F41547F683 /* Pods_TerawhereUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D1D9B5FA4495B2678FF0559 /* Pods_TerawhereUITests.framework */; };
 		8DC4C8D65395141929890E50 /* Pods_Terawhere.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6248856700914B11582980DE /* Pods_Terawhere.framework */; };
 		A661D65D3791B5E961F32186 /* Pods_TerawhereTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 597E688635C60FEE0560CF48 /* Pods_TerawhereTests.framework */; };
-		AA0F95181EBC211600F35BB4 /* ViewOfferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0F95171EBC211600F35BB4 /* ViewOfferViewController.swift */; };
+		AA0F95181EBC211600F35BB4 /* ViewOfferTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0F95171EBC211600F35BB4 /* ViewOfferTableViewController.swift */; };
 		AA2EF2321EB99A05000F0524 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2EF2311EB99A05000F0524 /* AppDelegate.swift */; };
 		AA2EF2341EB99A41000F0524 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA2EF2331EB99A41000F0524 /* Main.storyboard */; };
 		AA2EF2361EB99AC1000F0524 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2EF2351EB99AC1000F0524 /* SignInViewController.swift */; };
@@ -62,7 +62,7 @@
 		5D1D9B5FA4495B2678FF0559 /* Pods_TerawhereUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TerawhereUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6248856700914B11582980DE /* Pods_Terawhere.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Terawhere.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		95F7FD7446931A9B243294BF /* Pods-TerawhereTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TerawhereTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TerawhereTests/Pods-TerawhereTests.release.xcconfig"; sourceTree = "<group>"; };
-		AA0F95171EBC211600F35BB4 /* ViewOfferViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewOfferViewController.swift; sourceTree = "<group>"; };
+		AA0F95171EBC211600F35BB4 /* ViewOfferTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewOfferTableViewController.swift; sourceTree = "<group>"; };
 		AA2EF2311EB99A05000F0524 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AA2EF2331EB99A41000F0524 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		AA2EF2351EB99AC1000F0524 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
@@ -143,7 +143,7 @@
 				AA2EF2371EB99AC9000F0524 /* MapViewController.swift */,
 				AACC6C441EBD736500EFFE29 /* BookRideViewController.swift */,
 				AA2EF23B1EB99AE1000F0524 /* OffersViewController.swift */,
-				AA0F95171EBC211600F35BB4 /* ViewOfferViewController.swift */,
+				AA0F95171EBC211600F35BB4 /* ViewOfferTableViewController.swift */,
 				AA2EF23F1EB99AF0000F0524 /* CreateOfferViewController.swift */,
 				AAAFBCEC1EC6C93F0090D6A0 /* PickupTimeViewController.swift */,
 				AACA92081EBA13540024804D /* LocationSearchTableViewController.swift */,
@@ -546,7 +546,7 @@
 				AA2EF23A1EB99AD9000F0524 /* Location.swift in Sources */,
 				AA2EF2361EB99AC1000F0524 /* SignInViewController.swift in Sources */,
 				AACA92051EBA00F70024804D /* Database.swift in Sources */,
-				AA0F95181EBC211600F35BB4 /* ViewOfferViewController.swift in Sources */,
+				AA0F95181EBC211600F35BB4 /* ViewOfferTableViewController.swift in Sources */,
 				AACC6C471EBD81D500EFFE29 /* BookingsTableViewCell.swift in Sources */,
 				AAD87A031EC2BE4A00B122B4 /* BookingsViewController.swift in Sources */,
 				AACA92091EBA13540024804D /* LocationSearchTableViewController.swift in Sources */,
