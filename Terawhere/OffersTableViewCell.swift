@@ -14,7 +14,7 @@ class OffersTableViewCell: UITableViewCell, MKMapViewDelegate {
 	@IBOutlet var mapView: MKMapView!
 	@IBOutlet var destinationLabel: UILabel!
 	@IBOutlet var vehicleNameLabel: UILabel!
-	@IBOutlet var driverNameLabel: UILabel!
+	@IBOutlet var vacancyLabel: UILabel!
 	
     override func awakeFromNib() {
         super.awakeFromNib()

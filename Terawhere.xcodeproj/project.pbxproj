@@ -27,13 +27,13 @@
 		AACC6C451EBD736500EFFE29 /* BookRideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACC6C441EBD736500EFFE29 /* BookRideViewController.swift */; };
 		AACC6C471EBD81D500EFFE29 /* BookingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACC6C461EBD81D500EFFE29 /* BookingsTableViewCell.swift */; };
 		AACC6C491EBD81F100EFFE29 /* Booking.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACC6C481EBD81F100EFFE29 /* Booking.swift */; };
-		AACC6C4B1EBD83B100EFFE29 /* ViewBookingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACC6C4A1EBD83B100EFFE29 /* ViewBookingViewController.swift */; };
 		AAD87A031EC2BE4A00B122B4 /* BookingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD87A021EC2BE4A00B122B4 /* BookingsViewController.swift */; };
 		AAD8EC501EB998F400BC6350 /* Terawhere.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AAD8EC4E1EB998F400BC6350 /* Terawhere.xcdatamodeld */; };
 		AAD8EC521EB998F400BC6350 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAD8EC511EB998F400BC6350 /* Assets.xcassets */; };
 		AAD8EC551EB998F400BC6350 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AAD8EC531EB998F400BC6350 /* LaunchScreen.storyboard */; };
 		AAD8EC601EB998F400BC6350 /* TerawhereTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD8EC5F1EB998F400BC6350 /* TerawhereTests.swift */; };
 		AAD8EC6B1EB998F400BC6350 /* TerawhereUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD8EC6A1EB998F400BC6350 /* TerawhereUITests.swift */; };
+		AADC0B6C1EC83ED10061F077 /* ViewBookingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADC0B6B1EC83ED10061F077 /* ViewBookingTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,7 +79,6 @@
 		AACC6C441EBD736500EFFE29 /* BookRideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookRideViewController.swift; sourceTree = "<group>"; };
 		AACC6C461EBD81D500EFFE29 /* BookingsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookingsTableViewCell.swift; sourceTree = "<group>"; };
 		AACC6C481EBD81F100EFFE29 /* Booking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Booking.swift; sourceTree = "<group>"; };
-		AACC6C4A1EBD83B100EFFE29 /* ViewBookingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewBookingViewController.swift; sourceTree = "<group>"; };
 		AAD87A021EC2BE4A00B122B4 /* BookingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookingsViewController.swift; sourceTree = "<group>"; };
 		AAD8EC441EB998F300BC6350 /* Terawhere.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Terawhere.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAD8EC4F1EB998F400BC6350 /* Terawhere.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Terawhere.xcdatamodel; sourceTree = "<group>"; };
@@ -92,6 +91,7 @@
 		AAD8EC661EB998F400BC6350 /* TerawhereUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TerawhereUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAD8EC6A1EB998F400BC6350 /* TerawhereUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerawhereUITests.swift; sourceTree = "<group>"; };
 		AAD8EC6C1EB998F400BC6350 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AADC0B6B1EC83ED10061F077 /* ViewBookingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewBookingTableViewController.swift; sourceTree = "<group>"; };
 		F0E992F9AF5C96C203687119 /* Pods-TerawhereUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TerawhereUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TerawhereUITests/Pods-TerawhereUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -148,7 +148,7 @@
 				AAAFBCEC1EC6C93F0090D6A0 /* PickupTimeViewController.swift */,
 				AACA92081EBA13540024804D /* LocationSearchTableViewController.swift */,
 				AAD87A021EC2BE4A00B122B4 /* BookingsViewController.swift */,
-				AACC6C4A1EBD83B100EFFE29 /* ViewBookingViewController.swift */,
+				AADC0B6B1EC83ED10061F077 /* ViewBookingTableViewController.swift */,
 			);
 			name = "view controllers";
 			sourceTree = "<group>";
@@ -546,13 +546,13 @@
 				AA2EF23A1EB99AD9000F0524 /* Location.swift in Sources */,
 				AA2EF2361EB99AC1000F0524 /* SignInViewController.swift in Sources */,
 				AACA92051EBA00F70024804D /* Database.swift in Sources */,
+				AADC0B6C1EC83ED10061F077 /* ViewBookingTableViewController.swift in Sources */,
 				AA0F95181EBC211600F35BB4 /* ViewOfferTableViewController.swift in Sources */,
 				AACC6C471EBD81D500EFFE29 /* BookingsTableViewCell.swift in Sources */,
 				AAD87A031EC2BE4A00B122B4 /* BookingsViewController.swift in Sources */,
 				AACA92091EBA13540024804D /* LocationSearchTableViewController.swift in Sources */,
 				AAAFBCED1EC6C93F0090D6A0 /* PickupTimeViewController.swift in Sources */,
 				AA2EF2381EB99AC9000F0524 /* MapViewController.swift in Sources */,
-				AACC6C4B1EBD83B100EFFE29 /* ViewBookingViewController.swift in Sources */,
 				AA2EF2401EB99AF0000F0524 /* CreateOfferViewController.swift in Sources */,
 				AACC6C451EBD736500EFFE29 /* BookRideViewController.swift in Sources */,
 			);
@@ -704,6 +704,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 5Y8ZVY4N62;
 				INFOPLIST_FILE = Terawhere/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = tech.msociety.terawhere;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -721,6 +722,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 5Y8ZVY4N62;
 				INFOPLIST_FILE = Terawhere/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = tech.msociety.terawhere;
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -5,6 +5,10 @@ Want to go for Terawih prayers? Why not broadcast it and ask nearby people if th
 Let's build friendships together.
 
 ### Changelog
+15 May 2017:
+- Colour scheme done
+- Fixed: Alerts finally appear
+
 13 May 2017:
 - You can now cancel your booking
 - New date screen for pickup time

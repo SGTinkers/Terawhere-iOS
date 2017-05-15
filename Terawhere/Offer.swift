@@ -23,6 +23,7 @@ class Offer {
 	
 	var remarks: String?
 	var userId: String?
+	var name: String? = nil
 	var offerId: Int? = nil
 	
 	var vehicleDesc: String?
@@ -65,6 +66,37 @@ class Offer {
 	
 	// to retrieve
 	init(forRetrievewithEndAddr endAddr: String?, endLat: Double?, endLng: Double?, endName: String?, meetupTime: String?, startAddr: String?, startLat: Double?, startLng: Double?, startName: String?, remarks: String?, userId: String?, offerId: Int?, vehicleDesc: String?, vehicleModel: String?, vehicleNumber: String?, status: Int?, createdDateString: String?, updatedDateString: String?, vacancy: Int?) {
+		self.endAddr = endAddr
+		self.endLat = endLat
+		self.endLng = endLng
+		self.endName = endName
+		
+		self.meetupTime = meetupTime
+		
+		self.startAddr = startAddr
+		self.startLat = startLat
+		self.startLng = startLng
+		self.startName = startName
+		
+		self.remarks = remarks
+		self.userId = userId
+		self.offerId = offerId
+		
+		self.vehicleDesc = vehicleDesc
+		self.vehicleModel = vehicleModel
+		self.vehicleNumber = vehicleNumber
+		
+		self.status = status
+		
+		self.createdDateString = createdDateString
+		self.updatedDateString = updatedDateString
+		
+		self.vacancy = vacancy
+	}
+	
+	init(forRetrievewithName name: String?, EndAddr endAddr: String?, endLat: Double?, endLng: Double?, endName: String?, meetupTime: String?, startAddr: String?, startLat: Double?, startLng: Double?, startName: String?, remarks: String?, userId: String?, offerId: Int?, vehicleDesc: String?, vehicleModel: String?, vehicleNumber: String?, status: Int?, createdDateString: String?, updatedDateString: String?, vacancy: Int?) {
+		self.name = name
+		
 		self.endAddr = endAddr
 		self.endLat = endLat
 		self.endLng = endLng

@@ -52,25 +52,32 @@ class OffersViewController: UIViewController, UITableViewDelegate, UITableViewDa
 				self.filteredOffersArr.removeAll()
 				
 				for offer in self.offersArr {
-					let updatedDate = self.dateFormatter.date(from: offer.updatedDateString!)
+					let meetupTime = self.dateFormatter.date(from: offer.meetupTime!)
 					
-					let calendar = Calendar.init(identifier: .gregorian)
-					let updatedDateComp = calendar.dateComponents([.year, .month, .day], from: updatedDate!)
-					let updatedDateToCompare = calendar.date(from: updatedDateComp)
+					let calendar = Calendar.autoupdatingCurrent
 					
-					let todayDateComp = calendar.dateComponents([.year, .month, .day], from: self.date)
-					let todayDateToCompare = calendar.date(from: todayDateComp)
+					let meetupTimeYear = calendar.component(.year, from: meetupTime!)
+					let meetupTimeMonth = calendar.component(.month, from: meetupTime!)
+					let meetupTimeDay = calendar.component(.day, from: meetupTime!)
+					let meetupTimeHour = calendar.component(.hour, from: meetupTime!)
+					let meetupTimeMin = calendar.component(.minute, from: meetupTime!)
+					
+					let todayYear = calendar.component(.year, from: self.date)
+					let todayMonth = calendar.component(.month, from: self.date)
+					let todayDay = calendar.component(.day, from: self.date)
+					let todayHour = calendar.component(.hour, from: self.date)
+					let todayMin = calendar.component(.minute, from: self.date)
 					
 					if self.segmentedControl.selectedSegmentIndex == 0 {
 						// today's offers
-						if updatedDateToCompare?.compare(todayDateToCompare!) == ComparisonResult.orderedSame {
+						if meetupTimeYear == todayYear && meetupTimeMonth == todayMonth && meetupTimeDay == todayDay && meetupTimeHour == todayHour && meetupTimeMin > todayMin {
 							print("Adding one offer for today")
 							self.filteredOffersArr.append(offer)
 						}
 					} else if self.segmentedControl.selectedSegmentIndex == 1 {
 						// past offers
-						if updatedDateToCompare?.compare(todayDateToCompare!) == ComparisonResult.orderedAscending {
-							print("Adding one offer for past")
+						if meetupTimeYear == todayYear && meetupTimeMonth == todayMonth && meetupTimeDay == todayDay && meetupTimeHour == todayHour && meetupTimeMin < todayMin {
+							print("Adding one offer for today")
 							self.filteredOffersArr.append(offer)
 						}
 					}
@@ -105,7 +112,7 @@ class OffersViewController: UIViewController, UITableViewDelegate, UITableViewDa
 		self.activityIndicator.activityIndicatorViewStyle = .gray
 		self.activityIndicator.hidesWhenStopped = true
 		self.activityIndicator.startAnimating()
-	
+		
 		self.database.getAllOffersForUser()
 		
 		let task = URLSession.shared.dataTask(with: self.database.request!) { (data, response, error) in
@@ -121,25 +128,32 @@ class OffersViewController: UIViewController, UITableViewDelegate, UITableViewDa
 				self.filteredOffersArr.removeAll()
 				
 				for offer in self.offersArr {
-					let updatedDate = self.dateFormatter.date(from: offer.updatedDateString!)
+					let meetupTime = self.dateFormatter.date(from: offer.meetupTime!)
 					
-					let calendar = Calendar.init(identifier: .gregorian)
-					let updatedDateComp = calendar.dateComponents([.year, .month, .day], from: updatedDate!)
-					let updatedDateToCompare = calendar.date(from: updatedDateComp)
+					let calendar = Calendar.autoupdatingCurrent
 					
-					let todayDateComp = calendar.dateComponents([.year, .month, .day], from: self.date)
-					let todayDateToCompare = calendar.date(from: todayDateComp)
+					let meetupTimeYear = calendar.component(.year, from: meetupTime!)
+					let meetupTimeMonth = calendar.component(.month, from: meetupTime!)
+					let meetupTimeDay = calendar.component(.day, from: meetupTime!)
+					let meetupTimeHour = calendar.component(.hour, from: meetupTime!)
+					let meetupTimeMin = calendar.component(.minute, from: meetupTime!)
+					
+					let todayYear = calendar.component(.year, from: self.date)
+					let todayMonth = calendar.component(.month, from: self.date)
+					let todayDay = calendar.component(.day, from: self.date)
+					let todayHour = calendar.component(.hour, from: self.date)
+					let todayMin = calendar.component(.minute, from: self.date)
 					
 					if self.segmentedControl.selectedSegmentIndex == 0 {
 						// today's offers
-						if updatedDateToCompare?.compare(todayDateToCompare!) == ComparisonResult.orderedSame {
+						if meetupTimeYear == todayYear && meetupTimeMonth == todayMonth && meetupTimeDay == todayDay && meetupTimeHour == todayHour && meetupTimeMin > todayMin {
 							print("Adding one offer for today")
 							self.filteredOffersArr.append(offer)
 						}
 					} else if self.segmentedControl.selectedSegmentIndex == 1 {
 						// past offers
-						if updatedDateToCompare?.compare(todayDateToCompare!) == ComparisonResult.orderedAscending {
-							print("Adding one offer for past")
+						if meetupTimeYear == todayYear && meetupTimeMonth == todayMonth && meetupTimeDay == todayDay && meetupTimeHour == todayHour && meetupTimeMin < todayMin {
+							print("Adding one offer for today")
 							self.filteredOffersArr.append(offer)
 						}
 					}
@@ -147,6 +161,7 @@ class OffersViewController: UIViewController, UITableViewDelegate, UITableViewDa
 				
 				DispatchQueue.main.async {
 					self.tableView.reloadData()
+					
 					self.activityIndicator.stopAnimating()
 				}
 			}
@@ -169,6 +184,7 @@ class OffersViewController: UIViewController, UITableViewDelegate, UITableViewDa
 		
 		cell?.destinationLabel.text = offer.endName!
 		cell?.vehicleNameLabel.text = offer.vehicleModel!
+		cell?.vacancyLabel.text = "Vacancy: \(offer.vacancy!)"
 		
 		cell?.mapView.isScrollEnabled = false
 		
@@ -192,18 +208,21 @@ class OffersViewController: UIViewController, UITableViewDelegate, UITableViewDa
 	
 	// MARK: tableview delegate
 	public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		guard let viewOfferTVC = self.storyboard?.instantiateViewController(withIdentifier: "ViewOfferTableViewController") as? ViewOfferTableViewController else {
-			print("View offer TVC errors out")
+		// allow only for current offers
+		if self.segmentedControl.selectedSegmentIndex == 0 {
+			guard let viewOfferTVC = self.storyboard?.instantiateViewController(withIdentifier: "ViewOfferTableViewController") as? ViewOfferTableViewController else {
+				print("View offer TVC errors out")
+				
+				return
+			}
 			
-			return
+			// may need to retrieve in this view controller for driver name
+			let offer = self.filteredOffersArr[indexPath.row]
+			viewOfferTVC.offer = offer
+			viewOfferTVC.database = self.database
+			
+			self.navigationController?.pushViewController(viewOfferTVC, animated: true)
 		}
-		
-		// may need to retrieve in this view controller for driver name
-		let offer = self.filteredOffersArr[indexPath.row]
-		viewOfferTVC.offer = offer
-		viewOfferTVC.database = self.database
-		
-		self.navigationController?.pushViewController(viewOfferTVC, animated: true)
 	}
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation

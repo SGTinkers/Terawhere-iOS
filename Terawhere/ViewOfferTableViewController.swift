@@ -36,33 +36,31 @@ class ViewOfferTableViewController: UITableViewController {
     }
 	
 	@IBAction func displayOptions() {
-		let alert = UIAlertController.init(title: "", message: "", preferredStyle: .actionSheet)
-		let delete = UIAlertAction.init(title: "Delete", style: .destructive) { (action) in
+		let alert = UIAlertController.init(title: "Do you want to delete your offer?", message: "", preferredStyle: .actionSheet)
+		let delete = UIAlertAction.init(title: "Delete offer", style: .destructive) { (action) in
 			self.deleteOffer()
 		}
-		let edit = UIAlertAction.init(title: "Edit", style: .default) { (action) in
-			self.editOffer()
-		}
+		let dismiss = UIAlertAction.init(title: "Dismiss", style: .default, handler: nil)
 		
 		alert.addAction(delete)
-		alert.addAction(edit)
+		alert.addAction(dismiss)
 		
 		self.present(alert, animated: true, completion: nil)
 	}
 	
-	func editOffer() {
-		self.database?.edit(offer: self.offer)
-		
-		let dataTask = URLSession.shared.dataTask(with: (self.database?.request)!) { (data, response, error) in
-			if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) {
-				print(json)
-			} else {
-				print("No JSON")
-			}
-		}
-		
-		dataTask.resume()
-	}
+//	func editOffer() {
+//		self.database?.edit(offer: self.offer)
+//		
+//		let dataTask = URLSession.shared.dataTask(with: (self.database?.request)!) { (data, response, error) in
+//			if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) {
+//				print(json)
+//			} else {
+//				print("No JSON")
+//			}
+//		}
+//		
+//		dataTask.resume()
+//	}
 	
 	func deleteOffer() {
 		self.database?.delete(offer: self.offer)

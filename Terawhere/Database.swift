@@ -75,6 +75,49 @@ class Database {
 		self.request?.httpBody = postData as Data
 	}
 	
+	func convertJSONToOfferObject(json: [String: Any?]) -> Offer {
+		var offer: Offer?
+	
+		guard let actualJsonData = json["data"] as? [String: Any] else {
+			print("actualJsonData invalid")
+			
+			return offer!
+		}
+		
+		let endAddr = actualJsonData["end_addr"] as? String
+		let endLat = actualJsonData["end_lat"] as? Double
+		let endLng = actualJsonData["end_lng"] as? Double
+		let endName = actualJsonData["end_name"] as? String
+		
+		let meetupTime = actualJsonData["meetup_time"] as? String
+		
+		let startAddr = actualJsonData["start_addr"] as? String
+		let startLat = actualJsonData["start_lat"] as? Double
+		let startLng = actualJsonData["start_lng"] as? Double
+		let startName = actualJsonData["start_name"] as? String
+		
+		let remarks = actualJsonData["remarks"] as? String
+		let userId = actualJsonData["user_id"] as? String
+		let name = actualJsonData["name"] as? String
+		let offerId = actualJsonData["id"] as? Int
+		
+		let vehicleDesc = actualJsonData["vehicle_desc"] as? String
+		let vehicleModel = actualJsonData["vehicle_model"] as? String
+		let vehicleNumber = actualJsonData["vehicle_number"] as? String
+		
+		let status = actualJsonData["status"] as? Int
+		
+		let createdDateString = actualJsonData["created_at"] as? String
+		let updatedDateString = actualJsonData["updated_at"] as? String
+		
+		let vacancy = actualJsonData["vacancy"] as? Int
+		
+		offer = Offer.init(forRetrievewithName: name, EndAddr: endAddr, endLat: endLat, endLng: endLng, endName: endName, meetupTime: meetupTime, startAddr: startAddr, startLat: startLat, startLng: startLng, startName: startName, remarks: remarks, userId: userId, offerId: offerId, vehicleDesc: vehicleDesc, vehicleModel: vehicleModel, vehicleNumber: vehicleNumber, status: status, createdDateString: createdDateString, updatedDateString: updatedDateString, vacancy: vacancy)
+		
+		
+		return offer!
+	}
+	
 	func convertJSONToOffer(json: [String: Any?]) -> [Offer] {
 		var offerArr = [Offer]()
 		
@@ -192,6 +235,23 @@ class Database {
 		self.request?.addValue("application/json", forHTTPHeaderField: "Content-Type")
 	}
 	
+	func getOfferBy(id: Int?) {
+		guard let id = id else {
+			print("Offer is invalid")
+			
+			return
+		}
+		
+		let getSingleOfferWithIdURL = self.getSingleOfferURL + "/\(id)"
+		
+		let url = URL.init(string: getSingleOfferWithIdURL)
+		self.request = URLRequest.init(url: url!)
+		
+		self.request?.addValue("Bearer \(self.token)", forHTTPHeaderField: "Authorization")
+		self.request?.addValue("application/json", forHTTPHeaderField: "Accept")
+		self.request?.addValue("application/json", forHTTPHeaderField: "Content-Type")
+	}
+	
 	func getAllOffersForUser() {
 		let url = URL.init(string: self.allOffersForUserURL)
 		self.request = URLRequest.init(url: url!)
@@ -280,8 +340,11 @@ class Database {
 			for object in actualJsonData {
 				let offerId = object["offer_id"] as? Int
 				let id = object["id"] as? Int
+				let paxBooked = object["pax"] as? Int
+				let createdDate = object["created_at"] as? String
+				let deletedDate = object["deleted_at"] as? String
 				
-				let booking = Booking.init(offerId: offerId, id: id)
+				let booking = Booking.init(offerId: offerId, id: id, paxBooked: paxBooked, createdDate: createdDate, deletedDate: deletedDate)
 				bookingArr.append(booking)
 			}
 		}
@@ -289,15 +352,13 @@ class Database {
 		return bookingArr
 	}
 	
-	func getAllBookings() {
-		let url = URL.init(string: self.allBookingsURL)
+	func getAllBookingsForUser() {
+		let url = URL.init(string: self.allBookingsForUserURL)
 		self.request = URLRequest.init(url: url!)
 		
 		self.request?.addValue("Bearer \(self.token)", forHTTPHeaderField: "Authorization")
 		self.request?.addValue("application/json", forHTTPHeaderField: "Accept")
 		self.request?.addValue("application/json", forHTTPHeaderField: "Content-Type")
-		
-		print("Done with booking setup")
 	}
 	
 	func book(offer: Offer) {

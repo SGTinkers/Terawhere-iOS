@@ -7,19 +7,19 @@
 //
 
 import UIKit
+import MapKit
 
-class BookingsTableViewCell: UITableViewCell {
+class BookingsTableViewCell: UITableViewCell, MKMapViewDelegate {
 	
-	@IBOutlet var customView: UIView!
-	@IBOutlet var title: UILabel!
+	@IBOutlet var mapView: MKMapView!
+	@IBOutlet var paxBooked: UILabel!
 	
 	var booking: Booking? = nil
+	var offer: Offer? = nil
 
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-		
-		self.customView.layer.cornerRadius = 10
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -27,5 +27,20 @@ class BookingsTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+	
+	// MARK: MKMapView Delegate
+	public func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+		if annotation is MKUserLocation {
+			return nil
+		}
+		
+		if annotation is Location {
+			let annotationView = MKPinAnnotationView.init(annotation: annotation, reuseIdentifier: "pin")
+			
+			return annotationView
+		}
+		
+		return nil
+	}
 
 }

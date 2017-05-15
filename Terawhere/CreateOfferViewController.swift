@@ -40,6 +40,7 @@ class CreateOfferViewController: UIViewController, UITableViewDelegate, UITableV
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+//		self.navigationController?.navigationBar.barTintColor = UIColor.init(red: 73/255, green: 210/255, blue: 175/255, alpha: 1.0)
 		
 		self.tableView.dataSource = self
 		self.tableView.delegate = self
@@ -139,7 +140,14 @@ class CreateOfferViewController: UIViewController, UITableViewDelegate, UITableV
 					print("json: \(json)")
 					
 					DispatchQueue.main.async {
-						self.tabBarController?.navigationController?.popViewController(animated: true)
+						let alert = UIAlertController.init(title: "Offer successfully created", message: "", preferredStyle: .alert)
+						let okAction = UIAlertAction.init(title: "Ok", style: .default, handler: { (action) in
+							self.dismiss(animated: true, completion: nil)
+						})
+						
+						alert.addAction(okAction)
+						
+						self.present(alert, animated: true, completion: nil)
 					}
 				}
 			}

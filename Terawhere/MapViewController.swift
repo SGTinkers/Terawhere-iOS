@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import SafariServices
 
 class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
 
@@ -21,6 +22,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     override func viewDidLoad() {
         super.viewDidLoad()
 		
+//		self.navigationController?.navigationBar.barTintColor = UIColor.init(red: 73/255, green: 210/255, blue: 175/255, alpha: 1.0)
+//		self.tabBarController?.tabBar.barTintColor = UIColor.init(red: 73/255, green: 210/255, blue: 175/255, alpha: 1.0)
+		
+		
+		
         // Do any additional setup after loading the view.
 		self.mapView.delegate = self
 		self.mapView.showsUserLocation = true
@@ -28,7 +34,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 		self.locationManager.delegate = self
 		self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
 		self.locationManager.requestWhenInUseAuthorization()
-		self.locationManager.distanceFilter = 1000 // only update after the user moves 1000m
+		
+		
+//		self.locationManager.distanceFilter = 1000 // only update after the user moves 1000m
+		
+		
 		
 		// this will trigger another method that will trigger getting all the offers
 		// this is for actually getting nearby offers
@@ -38,7 +48,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 	override func viewWillAppear(_ animated: Bool) {
 		// put this here for testing purposes
 		// you do not need the user location here
-		self.getAllActiveOffersNearMe()
+		self.locationManager.startUpdatingLocation()
 	}
 
     override func didReceiveMemoryWarning() {
@@ -60,7 +70,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 			// putting it here will cause network calls every single update
 			// set a distance filter for user location
 			// that will solve it
-//			self.getAllActiveOffersNearMe()
+			self.getAllActiveOffersNearMe()
 		}
 	}
 	
@@ -96,11 +106,32 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 		bookRideVC.database = self.database
 		bookRideVC.offer = selectedAnnotation?.offer
 		
+		
 		let navController = UINavigationController.init(rootViewController: bookRideVC)
 		self.present(navController, animated: true, completion: nil)
 	}
 	
 	// MARK: Helper functions
+	@IBAction func getInfo() {
+		guard let url = URL.init(string: "https://terawhere.com") else {
+			print("Innvalid url")
+			
+			return
+		}
+		
+		let alert = UIAlertController.init(title: "Made by MSociety", message: "Would you like to know more?", preferredStyle: .alert)
+		let yesAction = UIAlertAction.init(title: "Yes", style: .default) { (action) in
+			let safariVC = SFSafariViewController.init(url: url)
+			
+			self.present(safariVC, animated: true, completion: nil)
+		}
+		let noAction = UIAlertAction.init(title: "Nah, I'm good!", style: .cancel, handler: nil)
+		alert.addAction(yesAction)
+		alert.addAction(noAction)
+		
+		self.present(alert, animated: true, completion: nil)
+	}
+	
 	func getAllActiveOffersNearMe() {
 		self.database.getAllOffers()
 		
