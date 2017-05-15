@@ -36,7 +36,7 @@ class Database {
 	var request: URLRequest?
 	
 	init() {
-		print("This initializer is only for SignInViewController")
+//		print("This initializer is only for SignInViewController")
 	}
 	
 	init(token: String?, userId: String?) {

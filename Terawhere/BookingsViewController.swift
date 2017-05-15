@@ -37,7 +37,7 @@ class BookingsViewController: UIViewController, UITableViewDelegate, UITableView
 		self.activityIndicator.activityIndicatorViewStyle = .gray
 		self.activityIndicator.hidesWhenStopped = true
 		self.activityIndicator.startAnimating()
-	
+		
 		self.database.getAllBookingsForUser()
 		
 		let task = URLSession.shared.dataTask(with: self.database.request!) { (data, response, error) in
@@ -48,57 +48,69 @@ class BookingsViewController: UIViewController, UITableViewDelegate, UITableView
 				// this array carries all user's offers
 				self.bookingsArr = self.database.convertJSONToBooking(json: json!)
 				
-				self.dateFormatter.timeZone = TimeZone.autoupdatingCurrent
-				self.dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-				
 				// clear filtered array first
 				self.filteredBookingsArr.removeAll()
 				
 				print("booking arr count: \(self.bookingsArr.count)")
 				
-				for booking in self.bookingsArr {
-					self.database.getOfferBy(id: booking.offerId!)
+				for booking in 0 ..< self.bookingsArr.count {
+					self.database.getOfferBy(id: self.bookingsArr[booking].offerId!)
 					
 					let innerTask = URLSession.shared.dataTask(with: self.database.request!, completionHandler: { (data, response, error) in
 						let innerJson = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?]
 						let offer = self.database.convertJSONToOfferObject(json: innerJson!!)
 						
+						
+						self.dateFormatter.timeZone = TimeZone.init(abbreviation: "UTC")
+						self.dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
+						let tmpDateString = self.dateFormatter.string(from: self.date)
+						
+						let utcDate = self.dateFormatter.date(from: tmpDateString)
 						let meetupDate = self.dateFormatter.date(from: offer.meetupTime!)
+						
+						
 						
 						if self.segmentedControl.selectedSegmentIndex == 0 {
 							// booking nil means booking has not been cancelled
 							// do not append cancelled bookings generally
-							if booking.deletedDate == nil {
-								if meetupDate! > self.date {
-									print("View will appear: Booking id: \(booking.id!)")
-									self.filteredBookingsArr.append(booking)
+							if self.bookingsArr[booking].deletedDate == nil {
+								if meetupDate! > utcDate! {
+									self.filteredBookingsArr.append(self.bookingsArr[booking])
 								}
 							}
 							
 						} else if self.segmentedControl.selectedSegmentIndex == 1 {
-							if booking.deletedDate == nil {
-								if meetupDate! < self.date {
-									self.filteredBookingsArr.append(booking)
+							if self.bookingsArr[booking].deletedDate == nil {
+								print("Booking is def nil")
+								
+								if meetupDate! < utcDate! {
+									self.filteredBookingsArr.append(self.bookingsArr[booking])
 								}
+							}
+						}
+						
+						// an async call in an async call
+						// only execute in the main queue after the last item in the for loop
+						// otherwise, it ends up being an async bug
+						// and those are really tough to handle
+						if booking < self.bookingsArr.count {
+							DispatchQueue.main.async {
+								if self.filteredBookingsArr.count > 0 {
+									self.tableView.isHidden = false
+									self.noBookingsView.isHidden = true
+								} else {
+									self.tableView.isHidden = true
+									self.noBookingsView.isHidden = false
+								}
+								
+								self.tableView.reloadData()
+								
+								self.activityIndicator.stopAnimating()
 							}
 						}
 					})
 					
 					innerTask.resume()
-				}
-				
-				DispatchQueue.main.async {
-					if self.filteredBookingsArr.count > 0 {
-						self.tableView.isHidden = false
-						self.noBookingsView.isHidden = true
-					} else {
-						self.tableView.isHidden = true
-						self.noBookingsView.isHidden = false
-					}
-				
-					self.tableView.reloadData()
-					
-					self.activityIndicator.stopAnimating()
 				}
 			}
 		}
@@ -126,120 +138,74 @@ class BookingsViewController: UIViewController, UITableViewDelegate, UITableView
 				// this array carries all user's offers
 				self.bookingsArr = self.database.convertJSONToBooking(json: json!)
 				
-				self.dateFormatter.timeZone = TimeZone.autoupdatingCurrent
-				self.dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-				
 				// clear filtered array first
 				self.filteredBookingsArr.removeAll()
 				
 				print("booking arr count: \(self.bookingsArr.count)")
 				
-				for booking in self.bookingsArr {
-					self.database.getOfferBy(id: booking.offerId!)
+				for booking in 0 ..< self.bookingsArr.count {
+					self.database.getOfferBy(id: self.bookingsArr[booking].offerId!)
 					
 					let innerTask = URLSession.shared.dataTask(with: self.database.request!, completionHandler: { (data, response, error) in
 						let innerJson = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?]
 						let offer = self.database.convertJSONToOfferObject(json: innerJson!!)
+					
 						
+						self.dateFormatter.timeZone = TimeZone.init(abbreviation: "UTC")
+						self.dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
+						let tmpDateString = self.dateFormatter.string(from: self.date)
+						
+						let utcDate = self.dateFormatter.date(from: tmpDateString)
 						let meetupDate = self.dateFormatter.date(from: offer.meetupTime!)
-						
+
+					
 						
 						if self.segmentedControl.selectedSegmentIndex == 0 {
 							// booking nil means booking has not been cancelled
 							// do not append cancelled bookings generally
-							if booking.deletedDate == nil {
-								if meetupDate! > self.date {
-									print("Change seg control: Booking id: \(booking.id!)")
-									self.filteredBookingsArr.append(booking)
+							if self.bookingsArr[booking].deletedDate == nil {
+								if meetupDate! > utcDate! {
+									self.filteredBookingsArr.append(self.bookingsArr[booking])
 								}
 							}
 							
 						} else if self.segmentedControl.selectedSegmentIndex == 1 {
-							if booking.deletedDate == nil {
-								if meetupDate! < self.date {
-									self.filteredBookingsArr.append(booking)
+							if self.bookingsArr[booking].deletedDate == nil {
+								print("Booking is def nil")
+
+								if meetupDate! < utcDate! {
+									self.filteredBookingsArr.append(self.bookingsArr[booking])
 								}
+							}
+						}
+						
+						// an async call in an async call
+						// only execute in the main queue after the last item in the for loop
+						// otherwise, it ends up being an async bug
+						// and those are really tough to handle
+						if booking < self.bookingsArr.count {
+							DispatchQueue.main.async {
+								if self.filteredBookingsArr.count > 0 {
+									self.tableView.isHidden = false
+									self.noBookingsView.isHidden = true
+								} else {
+									self.tableView.isHidden = true
+									self.noBookingsView.isHidden = false
+								}
+								
+								self.tableView.reloadData()
+								
+								self.activityIndicator.stopAnimating()
 							}
 						}
 					})
 					
 					innerTask.resume()
 				}
-				
-				DispatchQueue.main.async {
-					if self.filteredBookingsArr.count > 0 {
-						self.tableView.isHidden = false
-						self.noBookingsView.isHidden = true
-					} else {
-						self.tableView.isHidden = true
-						self.noBookingsView.isHidden = false
-					}
-					
-					self.tableView.reloadData()
-					
-					self.activityIndicator.stopAnimating()
-				}
 			}
 		}
 		
 		task.resume()
-	
-//		self.activityIndicator.activityIndicatorViewStyle = .gray
-//		self.activityIndicator.hidesWhenStopped = true
-//		self.activityIndicator.startAnimating()
-//		
-//		self.database.getAllBookingsForUser()
-//		
-//		let task = URLSession.shared.dataTask(with: self.database.request!) { (data, response, error) in
-//			if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?] {
-//				
-//				// this array carries all user's offers
-//				self.bookingsArr = self.database.convertJSONToBooking(json: json!)
-//				
-//				self.dateFormatter.timeZone = TimeZone.autoupdatingCurrent
-//				self.dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-//				
-//				// clear filtered array first
-//				self.filteredBookingsArr.removeAll()
-//				
-//				print("booking arr count: \(self.bookingsArr.count)")
-//				
-//				for booking in self.bookingsArr {
-//					self.database.getOfferBy(id: booking.offerId!)
-//					
-//					let innerTask = URLSession.shared.dataTask(with: self.database.request!, completionHandler: { (data, response, error) in
-//						let innerJson = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?]
-//						let offer = self.database.convertJSONToOfferObject(json: innerJson!!)
-//						
-//						let meetupDate = self.dateFormatter.date(from: offer.meetupTime!)
-//						
-//						if self.segmentedControl.selectedSegmentIndex == 0 {
-//							
-//							// take note of deleted property
-//							if meetupDate?.compare(self.date) == ComparisonResult.orderedDescending {
-//								self.filteredBookingsArr.append(booking)
-//							}
-//							
-//						} else if self.segmentedControl.selectedSegmentIndex == 1 {
-//							// take note of deleted property
-//							if meetupDate?.compare(self.date) == ComparisonResult.orderedAscending {
-//								self.filteredBookingsArr.append(booking)
-//							}
-//						}
-//					})
-//					
-//					innerTask.resume()
-//				}
-//				
-//				DispatchQueue.main.async {
-//					self.tableView.reloadData()
-//					
-//					self.activityIndicator.stopAnimating()
-//				}
-//			}
-//		}
-//		
-//		task.resume()
 	}
 
 	// MARK: Table view data source

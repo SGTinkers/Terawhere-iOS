@@ -45,25 +45,28 @@ class OffersViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
 				// this array carries all user's offers
 				self.offersArr = self.database.convertJSONToOffer(json: json!)
-				
-				self.dateFormatter.timeZone = TimeZone.autoupdatingCurrent
-				self.dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
 
 				// clear filtered array first
 				self.filteredOffersArr.removeAll()
 				
 				for offer in self.offersArr {
+					self.dateFormatter.timeZone = TimeZone.init(abbreviation: "UTC")
+					self.dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
+					
+					let tmpDateString = self.dateFormatter.string(from: self.date)
+					
+					let utcDate = self.dateFormatter.date(from: tmpDateString)
 					let meetupTime = self.dateFormatter.date(from: offer.meetupTime!)
 				
 					if self.segmentedControl.selectedSegmentIndex == 0 {
 						// today's offers
-						if meetupTime! > self.date {
+						if meetupTime! > utcDate! {
 							print("Adding one offer for today")
 							self.filteredOffersArr.append(offer)
 						}
 					} else if self.segmentedControl.selectedSegmentIndex == 1 {
 						// past offers
-						if meetupTime! < self.date {
+						if meetupTime! < utcDate! {
 							print("Adding one offer for the past")
 							self.filteredOffersArr.append(offer)
 						}
@@ -116,24 +119,27 @@ class OffersViewController: UIViewController, UITableViewDelegate, UITableViewDa
 				// this array carries all user's offers
 				self.offersArr = self.database.convertJSONToOffer(json: json!)
 				
-				self.dateFormatter.timeZone = TimeZone.autoupdatingCurrent
-				self.dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-				
 				// clear filtered array first
 				self.filteredOffersArr.removeAll()
 				
 				for offer in self.offersArr {
+					self.dateFormatter.timeZone = TimeZone.init(abbreviation: "UTC")
+					self.dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
+					
+					let tmpDateString = self.dateFormatter.string(from: self.date)
+					
+					let utcDate = self.dateFormatter.date(from: tmpDateString)
 					let meetupTime = self.dateFormatter.date(from: offer.meetupTime!)
 					
 					if self.segmentedControl.selectedSegmentIndex == 0 {
 						// today's offers
-						if meetupTime! > self.date {
+						if meetupTime! > utcDate! {
 							print("Adding one offer for today")
 							self.filteredOffersArr.append(offer)
 						}
 					} else if self.segmentedControl.selectedSegmentIndex == 1 {
 						// past offers
-						if meetupTime! < self.date {
+						if meetupTime! < utcDate! {
 							print("Adding one offer for the past")
 							self.filteredOffersArr.append(offer)
 						}
@@ -141,6 +147,14 @@ class OffersViewController: UIViewController, UITableViewDelegate, UITableViewDa
 				}
 				
 				DispatchQueue.main.async {
+					if self.filteredOffersArr.count > 0 {
+						self.tableView.isHidden = false
+						self.noOffersView.isHidden = true
+					} else {
+						self.tableView.isHidden = true
+						self.noOffersView.isHidden = false
+					}
+					
 					self.tableView.reloadData()
 					
 					self.activityIndicator.stopAnimating()

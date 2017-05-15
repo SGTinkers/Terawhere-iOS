@@ -7,9 +7,14 @@ Let's build friendships together.
 ### Changelog
 15 May 2017:
 - Destination address now show on map annotation
+- Added custom address name for user to input
 - Added a "No offers" and "No bookings" screen
+- Added number pads for textfields requiring number input
+- Added date picker for picking meeting time
 - Colour scheme done
 - Fixed: Alerts finally appear
+- Fixed: Offers filter bug
+- Fixed: Bookings filter bug
 
 13 May 2017:
 - You can now cancel your booking

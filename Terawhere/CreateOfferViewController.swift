@@ -16,7 +16,7 @@ class CreateOfferViewController: UIViewController, UITableViewDelegate, UITableV
 	var database: Database?
 	
 	var vehicleArr = ["Vehicle description", "Vehicle model", "Vehicle number", "Vacancy"]
-	var timeAndLocation = ["Pickup time", "Meetup point", "Destination"]
+	var timeAndLocation = ["Pickup time", "Meetup point name", "Meetup point", "Destination"]
 	var remarks = ["Remarks"]
 	
 	// mostly for didSelect tableview method
@@ -26,13 +26,15 @@ class CreateOfferViewController: UIViewController, UITableViewDelegate, UITableV
 	var vacancyIndexPath = IndexPath.init(row: 3, section: 0)
 	
 	var pickupTimeIndexPath = IndexPath.init(row: 0, section: 1)
-	var meetupPointIndexPath = IndexPath.init(row: 1, section: 1)
-	var destinationIndexPath = IndexPath.init(row: 2, section: 1)
+	var meetupPointNameIndexPath = IndexPath.init(row: 1, section: 1)
+	var meetupPointIndexPath = IndexPath.init(row: 2, section: 1)
+	var destinationIndexPath = IndexPath.init(row: 3, section: 1)
 	
 	var remarksIndexPath = IndexPath.init(row: 0, section: 2)
 	
 	// date stuff
 	var dateString = ""
+	var date: Date?
 	
 	var endLocation: MKMapItem?, startLocation: MKMapItem?
 
@@ -49,11 +51,13 @@ class CreateOfferViewController: UIViewController, UITableViewDelegate, UITableV
     }
 	
 	@IBAction func createOffer() {
+		// addr vars
 		var endSubThoroughfare = ""
 		var endThoroughfare = ""
 		var startSubThoroughfare = ""
 		var startThoroughfare = ""
 	
+		// location vars
 		guard let endLocation = self.endLocation else {
 			print("End location unavailable")
 			
@@ -82,7 +86,7 @@ class CreateOfferViewController: UIViewController, UITableViewDelegate, UITableV
 			startThoroughfare = tmpStartThoroughfare
 		}
 		
-		
+		// vehicle vars
 		let vehicleDescCell = self.tableView.cellForRow(at: self.vehicleDescIndexPath) as? CreateOfferTableViewCell
 		let vehicleDesc = (vehicleDescCell?.textfield.text)!
 		
@@ -98,24 +102,33 @@ class CreateOfferViewController: UIViewController, UITableViewDelegate, UITableV
 		let vacancyCell = self.tableView.cellForRow(at: self.vacancyIndexPath) as? CreateOfferTableViewCell
 		let vacancy = (vacancyCell?.textfield.text)!
 		
+		
+		// address setting
 		let endAddr = "\(endLocation.name!), \(endSubThoroughfare) \(endThoroughfare)"
-		let endName = endLocation.name! // make this have it own textfield
+		let endName = endLocation.name!
 		let endLat = (self.endLocation?.placemark.coordinate.latitude)!
 		let endLng = (self.endLocation?.placemark.coordinate.longitude)!
 		
 		let startAddr = "\(startLocation.name!), \(startSubThoroughfare) \(startThoroughfare)"
-		let startName = startLocation.name!
+		
+		let meetupPointNameCell = self.tableView.cellForRow(at: self.meetupPointNameIndexPath) as? CreateOfferTableViewCell
+		let startName = (meetupPointNameCell?.textfield.text)!
 		let startLat = (self.startLocation?.placemark.coordinate.latitude)!
 		let startLng = (self.startLocation?.placemark.coordinate.longitude)!
 		
 		let remarksCell = self.tableView.cellForRow(at: self.remarksIndexPath) as? CreateOfferTableViewCell
 		let remarks = (remarksCell?.textfield.text)!
 		
+		let dateFormatter = DateFormatter()
+		dateFormatter.timeZone = TimeZone.init(abbreviation: "UTC")
+		dateFormatter.dateFormat = "yyyy-MM-dd hh:mm"
+		self.dateString = dateFormatter.string(from: self.date!)
+		
 		let offer = Offer.init(forPostWithEndAddr: endAddr,
 							   endLat: endLat,
 							   endLng: endLng,
 							   endName: endName,
-							   meetupTime: dateString,
+							   meetupTime: self.dateString,
 							   startAddr: startAddr,
 							   startLat: startLat,
 							   startLng: startLng,
@@ -222,11 +235,22 @@ class CreateOfferViewController: UIViewController, UITableViewDelegate, UITableV
 			
 			// make sure every other textfield can be dismissed by hitting the return key
 			cell?.textfield.delegate = self
+			
+			if indexPath.row == 3 { // vacancy keyboard numeric only
+				cell?.textfield.keyboardType = .numberPad
+			}
 		}
 		
 		if indexPath.section == 1 {
 			cell?.textfield.placeholder = self.timeAndLocation[indexPath.row]
-			cell?.textfield.isEnabled = false
+			
+			if indexPath.row == 1 {
+				// this is meeting point name where user can input custom name
+				cell?.textfield.isEnabled = true
+				cell?.textfield.delegate = self
+			} else {
+				cell?.textfield.isEnabled = false
+			}
 		}
 		
 		if indexPath.section == 2 {
@@ -331,40 +355,15 @@ class CreateOfferViewController: UIViewController, UITableViewDelegate, UITableV
 	}
 	
 	// MARK: Set time protocol
-	func setTime(hour: Int?, min: Int?) {
-		// make a date
-		let calendar = Calendar.init(identifier: .gregorian)
-		
-		let date = Date()
-		let year = calendar.component(.year, from: date)
-		let month = calendar.component(.month, from: date)
-		let day = calendar.component(.day, from: date)
-		
-		let dateComp = DateComponents.init(calendar: calendar, year: year, month: month, day: day, hour: hour, minute: min)
-		
-		let setDate = calendar.date(from: dateComp)
-		
-
-		// turn date into string with correct format
+	func setTime(date: Date?) {
+		self.date = date
+	
 		let dateFormatter = DateFormatter()
-
-		dateFormatter.timeZone = TimeZone.init(abbreviation: "UTC")
-		dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm"
-
-		self.dateString = dateFormatter.string(from: setDate!)
-
-		// get the date object
-		if let date = dateFormatter.date(from: self.dateString) {
-			// setup a current time zone formatted dateFormatter
-			dateFormatter.timeZone = TimeZone.autoupdatingCurrent
-			dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
-
-			// get the string
-			self.dateString = dateFormatter.string(from: date)
-			
-			let cell = self.tableView.cellForRow(at: self.pickupTimeIndexPath) as? CreateOfferTableViewCell
-			cell?.textfield.text = self.dateString
-		}
+		dateFormatter.dateFormat = "yyyy-MM-dd hh:mm a"
+		self.dateString = dateFormatter.string(from: self.date!)
+		
+		let cell = self.tableView.cellForRow(at: self.pickupTimeIndexPath) as? CreateOfferTableViewCell
+		cell?.textfield.text = self.dateString
 	}
 
 	// MARK: Location Search delegate
