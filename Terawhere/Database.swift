@@ -62,10 +62,13 @@ class Database {
 		
 		let string2 = "&service=facebook"
 		let data2 = string2.data(using: .utf8)
+		
 		data?.append(data2!)
 		
-		let postData = NSMutableData(data: "token=\(self.token)".data(using: String.Encoding.utf8)!)
-		postData.append("&service=facebook".data(using: String.Encoding.utf8)!)
+		let postData = NSMutableData.init(data: data!)
+		
+//		let postData = NSMutableData(data: "token=\(self.token)".data(using: String.Encoding.utf8)!)
+//		postData.append(string2.data(using: String.Encoding.utf8)!)
 		
 		
 		let url = URL.init(string: self.authURL)

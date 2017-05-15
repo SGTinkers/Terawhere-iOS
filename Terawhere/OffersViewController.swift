@@ -14,6 +14,7 @@ class OffersViewController: UIViewController, UITableViewDelegate, UITableViewDa
 	@IBOutlet var tableView: UITableView!
 	@IBOutlet var segmentedControl: UISegmentedControl!
 	@IBOutlet var activityIndicator: UIActivityIndicatorView!
+	@IBOutlet var noOffersView: UIView!
 
 	var database = (UIApplication.shared.delegate as! AppDelegate).database
 	var offersArr = [Offer]()
@@ -53,37 +54,31 @@ class OffersViewController: UIViewController, UITableViewDelegate, UITableViewDa
 				
 				for offer in self.offersArr {
 					let meetupTime = self.dateFormatter.date(from: offer.meetupTime!)
-					
-					let calendar = Calendar.autoupdatingCurrent
-					
-					let meetupTimeYear = calendar.component(.year, from: meetupTime!)
-					let meetupTimeMonth = calendar.component(.month, from: meetupTime!)
-					let meetupTimeDay = calendar.component(.day, from: meetupTime!)
-					let meetupTimeHour = calendar.component(.hour, from: meetupTime!)
-					let meetupTimeMin = calendar.component(.minute, from: meetupTime!)
-					
-					let todayYear = calendar.component(.year, from: self.date)
-					let todayMonth = calendar.component(.month, from: self.date)
-					let todayDay = calendar.component(.day, from: self.date)
-					let todayHour = calendar.component(.hour, from: self.date)
-					let todayMin = calendar.component(.minute, from: self.date)
-					
+				
 					if self.segmentedControl.selectedSegmentIndex == 0 {
 						// today's offers
-						if meetupTimeYear == todayYear && meetupTimeMonth == todayMonth && meetupTimeDay == todayDay && meetupTimeHour == todayHour && meetupTimeMin > todayMin {
+						if meetupTime! > self.date {
 							print("Adding one offer for today")
 							self.filteredOffersArr.append(offer)
 						}
 					} else if self.segmentedControl.selectedSegmentIndex == 1 {
 						// past offers
-						if meetupTimeYear == todayYear && meetupTimeMonth == todayMonth && meetupTimeDay == todayDay && meetupTimeHour == todayHour && meetupTimeMin < todayMin {
-							print("Adding one offer for today")
+						if meetupTime! < self.date {
+							print("Adding one offer for the past")
 							self.filteredOffersArr.append(offer)
 						}
 					}
 				}
 				
 				DispatchQueue.main.async {
+					if self.filteredOffersArr.count > 0 {
+						self.tableView.isHidden = false
+						self.noOffersView.isHidden = true
+					} else {
+						self.tableView.isHidden = true
+						self.noOffersView.isHidden = false
+					}
+				
 					self.tableView.reloadData()
 					
 					self.activityIndicator.stopAnimating()
@@ -130,30 +125,16 @@ class OffersViewController: UIViewController, UITableViewDelegate, UITableViewDa
 				for offer in self.offersArr {
 					let meetupTime = self.dateFormatter.date(from: offer.meetupTime!)
 					
-					let calendar = Calendar.autoupdatingCurrent
-					
-					let meetupTimeYear = calendar.component(.year, from: meetupTime!)
-					let meetupTimeMonth = calendar.component(.month, from: meetupTime!)
-					let meetupTimeDay = calendar.component(.day, from: meetupTime!)
-					let meetupTimeHour = calendar.component(.hour, from: meetupTime!)
-					let meetupTimeMin = calendar.component(.minute, from: meetupTime!)
-					
-					let todayYear = calendar.component(.year, from: self.date)
-					let todayMonth = calendar.component(.month, from: self.date)
-					let todayDay = calendar.component(.day, from: self.date)
-					let todayHour = calendar.component(.hour, from: self.date)
-					let todayMin = calendar.component(.minute, from: self.date)
-					
 					if self.segmentedControl.selectedSegmentIndex == 0 {
 						// today's offers
-						if meetupTimeYear == todayYear && meetupTimeMonth == todayMonth && meetupTimeDay == todayDay && meetupTimeHour == todayHour && meetupTimeMin > todayMin {
+						if meetupTime! > self.date {
 							print("Adding one offer for today")
 							self.filteredOffersArr.append(offer)
 						}
 					} else if self.segmentedControl.selectedSegmentIndex == 1 {
 						// past offers
-						if meetupTimeYear == todayYear && meetupTimeMonth == todayMonth && meetupTimeDay == todayDay && meetupTimeHour == todayHour && meetupTimeMin < todayMin {
-							print("Adding one offer for today")
+						if meetupTime! < self.date {
+							print("Adding one offer for the past")
 							self.filteredOffersArr.append(offer)
 						}
 					}

@@ -217,6 +217,20 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="042-bo-d3u">
+                                <rect key="frame" x="0.0" y="116" width="375" height="502"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="No offers to display" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dey-2Y-zye">
+                                        <rect key="frame" x="50" y="241" width="275" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="y6a-wJ-4j5">
                                 <rect key="frame" x="170" y="316" width="37" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -236,6 +250,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="activityIndicator" destination="y6a-wJ-4j5" id="Aj1-rV-z5u"/>
+                        <outlet property="noOffersView" destination="042-bo-d3u" id="bgb-xz-s1r"/>
                         <outlet property="segmentedControl" destination="IA4-6c-XWI" id="Umk-to-21G"/>
                         <outlet property="tableView" destination="fOD-dW-zps" id="Rcb-Ng-p6i"/>
                     </connections>
@@ -470,6 +485,20 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="k27-69-riQ">
+                                <rect key="frame" x="0.0" y="115" width="375" height="503"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="No bookings to display" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ep1-A8-ae8">
+                                        <rect key="frame" x="50" y="241" width="275" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="dtm-JD-lx3">
                                 <rect key="frame" x="169" y="315" width="37" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -482,6 +511,7 @@
                     <navigationItem key="navigationItem" title="My Bookings" id="0Cm-XN-26V"/>
                     <connections>
                         <outlet property="activityIndicator" destination="dtm-JD-lx3" id="bKR-xB-y8m"/>
+                        <outlet property="noBookingsView" destination="k27-69-riQ" id="kJs-2x-5cu"/>
                         <outlet property="segmentedControl" destination="IOl-15-th2" id="l6h-V0-dKx"/>
                         <outlet property="tableView" destination="E6t-Dk-Uiy" id="UPX-JV-fqb"/>
                     </connections>

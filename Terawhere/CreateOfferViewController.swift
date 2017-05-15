@@ -99,7 +99,7 @@ class CreateOfferViewController: UIViewController, UITableViewDelegate, UITableV
 		let vacancy = (vacancyCell?.textfield.text)!
 		
 		let endAddr = "\(endLocation.name!), \(endSubThoroughfare) \(endThoroughfare)"
-		let endName = endLocation.name!
+		let endName = endLocation.name! // make this have it own textfield
 		let endLat = (self.endLocation?.placemark.coordinate.latitude)!
 		let endLng = (self.endLocation?.placemark.coordinate.longitude)!
 		

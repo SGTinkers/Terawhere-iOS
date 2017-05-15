@@ -11,13 +11,13 @@ import MapKit
 
 class Location: NSObject, MKAnnotation {
 	var coordinate: CLLocationCoordinate2D
-	var title: String? = "Title"
+	var title: String? = ""
 	var offer: Offer?
 	
 	init(withCoordinate coord: CLLocationCoordinate2D, AndOffer offer: Offer?) {
 		self.coordinate = coord
 		
 		self.offer = offer
-		self.title = (self.offer?.endName)!
+		self.title = (self.offer?.endAddr)!
 	}
 }

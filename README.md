@@ -6,6 +6,8 @@ Let's build friendships together.
 
 ### Changelog
 15 May 2017:
+- Destination address now show on map annotation
+- Added a "No offers" and "No bookings" screen
 - Colour scheme done
 - Fixed: Alerts finally appear
 
