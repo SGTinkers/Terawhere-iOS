@@ -5,6 +5,7 @@ Want to go for Terawih prayers? Why not broadcast it and ask nearby people if th
 Let's build friendships together.
 
 ### Changelog
+16 May 2017:
 - Added relevant information when displaying offers and bookings in list
 - Added a popup alert to notify users that they cannot book their own offer
 - Fixed: Local date and time now displayed when trying to book
