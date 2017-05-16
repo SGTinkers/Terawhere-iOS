@@ -6,6 +6,8 @@ target 'Terawhere' do
   use_frameworks!
   pod 'FacebookCore'
   pod 'FacebookLogin' 
+  pod 'Firebase/Core'
+  pod 'Firebase/Messaging'
 
   # Pods for Terawhere
 

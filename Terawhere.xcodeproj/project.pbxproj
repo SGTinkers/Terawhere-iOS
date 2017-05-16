@@ -34,6 +34,7 @@
 		AAD8EC601EB998F400BC6350 /* TerawhereTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD8EC5F1EB998F400BC6350 /* TerawhereTests.swift */; };
 		AAD8EC6B1EB998F400BC6350 /* TerawhereUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD8EC6A1EB998F400BC6350 /* TerawhereUITests.swift */; };
 		AADC0B6C1EC83ED10061F077 /* ViewBookingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADC0B6B1EC83ED10061F077 /* ViewBookingTableViewController.swift */; };
+		DABC1F251ECA6CDB00CFCF90 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DABC1F241ECA6CDB00CFCF90 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,6 +93,8 @@
 		AAD8EC6A1EB998F400BC6350 /* TerawhereUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerawhereUITests.swift; sourceTree = "<group>"; };
 		AAD8EC6C1EB998F400BC6350 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AADC0B6B1EC83ED10061F077 /* ViewBookingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewBookingTableViewController.swift; sourceTree = "<group>"; };
+		DABC1F241ECA6CDB00CFCF90 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		DABC1F261ECA77C900CFCF90 /* Terawhere.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Terawhere.entitlements; sourceTree = "<group>"; };
 		F0E992F9AF5C96C203687119 /* Pods-TerawhereUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TerawhereUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TerawhereUITests/Pods-TerawhereUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -206,6 +209,8 @@
 		AAD8EC461EB998F300BC6350 /* Terawhere */ = {
 			isa = PBXGroup;
 			children = (
+				DABC1F261ECA77C900CFCF90 /* Terawhere.entitlements */,
+				DABC1F241ECA6CDB00CFCF90 /* GoogleService-Info.plist */,
 				AA2EF2411EB99B05000F0524 /* view controllers */,
 				AA2EF2431EB99B22000F0524 /* custom cell */,
 				AACA92031EBA00940024804D /* helpers */,
@@ -325,12 +330,15 @@
 				TargetAttributes = {
 					AAD8EC431EB998F300BC6350 = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = 5Y8ZVY4N62;
+						DevelopmentTeam = PL82KCZF4N;
 						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Keychain = {
 								enabled = 0;
+							};
+							com.apple.Push = {
+								enabled = 1;
 							};
 						};
 					};
@@ -372,6 +380,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA2EF2341EB99A41000F0524 /* Main.storyboard in Resources */,
+				DABC1F251ECA6CDB00CFCF90 /* GoogleService-Info.plist in Resources */,
 				AAD8EC551EB998F400BC6350 /* LaunchScreen.storyboard in Resources */,
 				AAD8EC521EB998F400BC6350 /* Assets.xcassets in Resources */,
 			);
@@ -702,7 +711,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = 5Y8ZVY4N62;
+				CODE_SIGN_ENTITLEMENTS = Terawhere/Terawhere.entitlements;
+				DEVELOPMENT_TEAM = PL82KCZF4N;
 				INFOPLIST_FILE = Terawhere/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -720,7 +730,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = 5Y8ZVY4N62;
+				CODE_SIGN_ENTITLEMENTS = Terawhere/Terawhere.entitlements;
+				DEVELOPMENT_TEAM = PL82KCZF4N;
 				INFOPLIST_FILE = Terawhere/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
