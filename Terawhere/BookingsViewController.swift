@@ -66,7 +66,7 @@ class BookingsViewController: UIViewController, UITableViewDelegate, UITableView
 						let tmpDateString = self.dateFormatter.string(from: self.date)
 						
 						let utcDate = self.dateFormatter.date(from: tmpDateString)
-						let meetupDate = self.dateFormatter.date(from: offer.meetupTime!)
+						let meetupDate = self.dateFormatter.date(from: (offer?.meetupTime)!)
 						
 						
 						
@@ -156,7 +156,7 @@ class BookingsViewController: UIViewController, UITableViewDelegate, UITableView
 						let tmpDateString = self.dateFormatter.string(from: self.date)
 						
 						let utcDate = self.dateFormatter.date(from: tmpDateString)
-						let meetupDate = self.dateFormatter.date(from: offer.meetupTime!)
+						let meetupDate = self.dateFormatter.date(from: (offer?.meetupTime)!)
 
 					
 						
@@ -219,34 +219,48 @@ class BookingsViewController: UIViewController, UITableViewDelegate, UITableView
 		
 		// Configure the cell...
 		cell?.booking = self.filteredBookingsArr[indexPath.row]
-		cell?.paxBooked.text = "Pax Booked: \((cell?.booking?.paxBooked)!)"
 		
 		// get offer
 		self.database.getOfferBy(id: (cell?.booking?.offerId)!)
 		let dataTask = URLSession.shared.dataTask(with: self.database.request!) { (data, response, error) in
 			if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?] {
 				
-				// current
-				// if you do this for past bookings, those bookings have nil offer objects
-				// hence crashes
-				if self.segmentedControl.selectedSegmentIndex == 0 {
-					let offer = self.database.convertJSONToOfferObject(json: json!)
-					cell?.offer = offer
+				// always check if offer is valid
+				// some offers are nil
+				guard let offer = self.database.convertJSONToOfferObject(json: json!) else {
+					print("Offer is nil")
 					
-					DispatchQueue.main.async {
-						cell?.mapView.isScrollEnabled = false
-						
-						cell?.mapView.removeAnnotations((cell?.mapView.annotations)!)
-						cell?.mapView.selectedAnnotations.removeAll()
-						
-						let location = CLLocationCoordinate2D.init(latitude: offer.startLat!, longitude: offer.startLng!)
-						
-						let annotation = Location.init(withCoordinate: location, AndOffer: offer)
-						cell?.mapView?.addAnnotation(annotation)
-						
-						let region = MKCoordinateRegionMakeWithDistance(location, 5000, 5000)
-						cell?.mapView?.setRegion(region, animated: true)
-					}
+					return
+				}
+				
+				DispatchQueue.main.async {
+					cell?.carModelLabel.text = offer.vehicleModel!
+					cell?.carNumberLabel.text = offer.vehicleNumber!
+					
+					
+					self.dateFormatter.timeZone = TimeZone.init(abbreviation: "UTC")
+					self.dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
+					let date = self.dateFormatter.date(from: offer.meetupTime!)
+					
+					self.dateFormatter.timeZone = TimeZone.autoupdatingCurrent
+					self.dateFormatter.dateFormat = "hh:mm a"
+					let localMeetupTime = self.dateFormatter.string(from: date!)
+					cell?.pickupTimeLabel.text = localMeetupTime
+					
+					cell?.pickupLocationLabel.text = offer.startAddr!
+					
+					cell?.mapView.isScrollEnabled = false
+					
+					cell?.mapView.removeAnnotations((cell?.mapView.annotations)!)
+					cell?.mapView.selectedAnnotations.removeAll()
+					
+					let location = CLLocationCoordinate2D.init(latitude: offer.startLat!, longitude: offer.startLng!)
+					
+					let annotation = Location.init(withCoordinate: location, AndOffer: offer)
+					cell?.mapView?.addAnnotation(annotation)
+					
+					let region = MKCoordinateRegionMakeWithDistance(location, 5000, 5000)
+					cell?.mapView?.setRegion(region, animated: true)
 				}
 			}
 		}

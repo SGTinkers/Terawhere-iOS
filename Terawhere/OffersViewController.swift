@@ -177,9 +177,19 @@ class OffersViewController: UIViewController, UITableViewDelegate, UITableViewDa
 		// Configure the cell...
 		let offer = self.filteredOffersArr[indexPath.row]
 		
-		cell?.destinationLabel.text = offer.endName!
-		cell?.vehicleNameLabel.text = offer.vehicleModel!
-		cell?.vacancyLabel.text = "Vacancy: \(offer.vacancy!)"
+		cell?.pickupLocationLabel.text = offer.startAddr!
+		cell?.destinationLabel.text = offer.endAddr!
+		
+		dateFormatter.timeZone = TimeZone.init(abbreviation: "UTC")
+		dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
+		let date = dateFormatter.date(from: offer.meetupTime!)
+		
+		dateFormatter.timeZone = TimeZone.autoupdatingCurrent
+		dateFormatter.dateFormat = "hh:mm a"
+		let localMeetupTime = dateFormatter.string(from: date!)
+		cell?.pickupTimeLabel.text = localMeetupTime
+		
+		cell?.vacancyLabel.text = "\(offer.vacancy!)"
 		
 		cell?.mapView.isScrollEnabled = false
 		
