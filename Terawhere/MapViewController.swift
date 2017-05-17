@@ -139,8 +139,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 		
 		let task = URLSession.shared.dataTask(with: self.database.request!) { (data, response, error) in
 			if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?] {
-				print("getting offers")
-				
 				let database = Database()
 				offerArr = database.convertJSONToOffer(json: json!)
 				

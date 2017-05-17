@@ -24,6 +24,7 @@ class Database {
 	var allOffersURL = "http://139.59.224.66/api/v1/offers"
 	var allOffersForUserURL = "http://139.59.224.66/api/v1/offers-for-user"
 	var getSingleOfferURL = "http://139.59.224.66/api/v1/offers"
+	var getAllBookingsForOffer = "http://139.59.224.66/api/v1/bookings-for-offer"
 	var editOfferURL = "http://139.59.224.66/api/v1/offers"
 	var deleteOfferURL = "http://139.59.224.66/api/v1/offers"
 	
@@ -36,7 +37,7 @@ class Database {
 	var request: URLRequest?
 	
 	init() {
-		print("This initializer is only for SignInViewController")
+//		print("This initializer is only for SignInViewController")
 	}
 	
 	init(token: String?, userId: String?) {
@@ -62,10 +63,13 @@ class Database {
 		
 		let string2 = "&service=facebook"
 		let data2 = string2.data(using: .utf8)
+		
 		data?.append(data2!)
 		
-		let postData = NSMutableData(data: "token=\(self.token)".data(using: String.Encoding.utf8)!)
-		postData.append("&service=facebook".data(using: String.Encoding.utf8)!)
+		let postData = NSMutableData.init(data: data!)
+		
+//		let postData = NSMutableData(data: "token=\(self.token)".data(using: String.Encoding.utf8)!)
+//		postData.append(string2.data(using: String.Encoding.utf8)!)
 		
 		
 		let url = URL.init(string: self.authURL)
@@ -75,7 +79,7 @@ class Database {
 		self.request?.httpBody = postData as Data
 	}
 	
-	func convertJSONToOfferObject(json: [String: Any?]) -> Offer {
+	func convertJSONToOfferObject(json: [String: Any?]) -> Offer? {
 		var offer: Offer?
 	
 		guard let actualJsonData = json["data"] as? [String: Any] else {
@@ -83,6 +87,8 @@ class Database {
 			
 			return offer!
 		}
+		
+		print("Actual json data \(actualJsonData)")
 		
 		let endAddr = actualJsonData["end_addr"] as? String
 		let endLat = actualJsonData["end_lat"] as? Double
@@ -115,7 +121,7 @@ class Database {
 		offer = Offer.init(forRetrievewithName: name, EndAddr: endAddr, endLat: endLat, endLng: endLng, endName: endName, meetupTime: meetupTime, startAddr: startAddr, startLat: startLat, startLng: startLng, startName: startName, remarks: remarks, userId: userId, offerId: offerId, vehicleDesc: vehicleDesc, vehicleModel: vehicleModel, vehicleNumber: vehicleNumber, status: status, createdDateString: createdDateString, updatedDateString: updatedDateString, vacancy: vacancy)
 		
 		
-		return offer!
+		return offer
 	}
 	
 	func convertJSONToOffer(json: [String: Any?]) -> [Offer] {
@@ -355,6 +361,20 @@ class Database {
 	func getAllBookingsForUser() {
 		let url = URL.init(string: self.allBookingsForUserURL)
 		self.request = URLRequest.init(url: url!)
+		
+		self.request?.addValue("Bearer \(self.token)", forHTTPHeaderField: "Authorization")
+		self.request?.addValue("application/json", forHTTPHeaderField: "Accept")
+		self.request?.addValue("application/json", forHTTPHeaderField: "Content-Type")
+	}
+	
+	func getAllBookingsForOfferByOffer(id: Int?) {
+		let url = URL.init(string: self.getAllBookingsForOffer)
+		self.request = URLRequest.init(url: url!)
+		
+		let json: [String: Any] = ["offer_id": id!]
+		let jsonData = try? JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
+		
+		self.request?.httpBody = jsonData
 		
 		self.request?.addValue("Bearer \(self.token)", forHTTPHeaderField: "Authorization")
 		self.request?.addValue("application/json", forHTTPHeaderField: "Accept")

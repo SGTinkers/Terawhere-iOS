@@ -12,8 +12,10 @@ import MapKit
 class OffersTableViewCell: UITableViewCell, MKMapViewDelegate {
 
 	@IBOutlet var mapView: MKMapView!
+	
+	@IBOutlet var pickupLocationLabel: UILabel!
 	@IBOutlet var destinationLabel: UILabel!
-	@IBOutlet var vehicleNameLabel: UILabel!
+	@IBOutlet var pickupTimeLabel: UILabel!
 	@IBOutlet var vacancyLabel: UILabel!
 	
     override func awakeFromNib() {

@@ -14,6 +14,7 @@ class OffersViewController: UIViewController, UITableViewDelegate, UITableViewDa
 	@IBOutlet var tableView: UITableView!
 	@IBOutlet var segmentedControl: UISegmentedControl!
 	@IBOutlet var activityIndicator: UIActivityIndicatorView!
+	@IBOutlet var noOffersView: UIView!
 
 	var database = (UIApplication.shared.delegate as! AppDelegate).database
 	var offersArr = [Offer]()
@@ -44,46 +45,43 @@ class OffersViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
 				// this array carries all user's offers
 				self.offersArr = self.database.convertJSONToOffer(json: json!)
-				
-				self.dateFormatter.timeZone = TimeZone.autoupdatingCurrent
-				self.dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
 
 				// clear filtered array first
 				self.filteredOffersArr.removeAll()
 				
 				for offer in self.offersArr {
+					self.dateFormatter.timeZone = TimeZone.init(abbreviation: "UTC")
+					self.dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
+					
+					let tmpDateString = self.dateFormatter.string(from: self.date)
+					
+					let utcDate = self.dateFormatter.date(from: tmpDateString)
 					let meetupTime = self.dateFormatter.date(from: offer.meetupTime!)
-					
-					let calendar = Calendar.autoupdatingCurrent
-					
-					let meetupTimeYear = calendar.component(.year, from: meetupTime!)
-					let meetupTimeMonth = calendar.component(.month, from: meetupTime!)
-					let meetupTimeDay = calendar.component(.day, from: meetupTime!)
-					let meetupTimeHour = calendar.component(.hour, from: meetupTime!)
-					let meetupTimeMin = calendar.component(.minute, from: meetupTime!)
-					
-					let todayYear = calendar.component(.year, from: self.date)
-					let todayMonth = calendar.component(.month, from: self.date)
-					let todayDay = calendar.component(.day, from: self.date)
-					let todayHour = calendar.component(.hour, from: self.date)
-					let todayMin = calendar.component(.minute, from: self.date)
-					
+				
 					if self.segmentedControl.selectedSegmentIndex == 0 {
 						// today's offers
-						if meetupTimeYear == todayYear && meetupTimeMonth == todayMonth && meetupTimeDay == todayDay && meetupTimeHour == todayHour && meetupTimeMin > todayMin {
+						if meetupTime! > utcDate! {
 							print("Adding one offer for today")
 							self.filteredOffersArr.append(offer)
 						}
 					} else if self.segmentedControl.selectedSegmentIndex == 1 {
 						// past offers
-						if meetupTimeYear == todayYear && meetupTimeMonth == todayMonth && meetupTimeDay == todayDay && meetupTimeHour == todayHour && meetupTimeMin < todayMin {
-							print("Adding one offer for today")
+						if meetupTime! < utcDate! {
+							print("Adding one offer for the past")
 							self.filteredOffersArr.append(offer)
 						}
 					}
 				}
 				
 				DispatchQueue.main.async {
+					if self.filteredOffersArr.count > 0 {
+						self.tableView.isHidden = false
+						self.noOffersView.isHidden = true
+					} else {
+						self.tableView.isHidden = true
+						self.noOffersView.isHidden = false
+					}
+				
 					self.tableView.reloadData()
 					
 					self.activityIndicator.stopAnimating()
@@ -121,45 +119,42 @@ class OffersViewController: UIViewController, UITableViewDelegate, UITableViewDa
 				// this array carries all user's offers
 				self.offersArr = self.database.convertJSONToOffer(json: json!)
 				
-				self.dateFormatter.timeZone = TimeZone.autoupdatingCurrent
-				self.dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-				
 				// clear filtered array first
 				self.filteredOffersArr.removeAll()
 				
 				for offer in self.offersArr {
+					self.dateFormatter.timeZone = TimeZone.init(abbreviation: "UTC")
+					self.dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
+					
+					let tmpDateString = self.dateFormatter.string(from: self.date)
+					
+					let utcDate = self.dateFormatter.date(from: tmpDateString)
 					let meetupTime = self.dateFormatter.date(from: offer.meetupTime!)
-					
-					let calendar = Calendar.autoupdatingCurrent
-					
-					let meetupTimeYear = calendar.component(.year, from: meetupTime!)
-					let meetupTimeMonth = calendar.component(.month, from: meetupTime!)
-					let meetupTimeDay = calendar.component(.day, from: meetupTime!)
-					let meetupTimeHour = calendar.component(.hour, from: meetupTime!)
-					let meetupTimeMin = calendar.component(.minute, from: meetupTime!)
-					
-					let todayYear = calendar.component(.year, from: self.date)
-					let todayMonth = calendar.component(.month, from: self.date)
-					let todayDay = calendar.component(.day, from: self.date)
-					let todayHour = calendar.component(.hour, from: self.date)
-					let todayMin = calendar.component(.minute, from: self.date)
 					
 					if self.segmentedControl.selectedSegmentIndex == 0 {
 						// today's offers
-						if meetupTimeYear == todayYear && meetupTimeMonth == todayMonth && meetupTimeDay == todayDay && meetupTimeHour == todayHour && meetupTimeMin > todayMin {
+						if meetupTime! > utcDate! {
 							print("Adding one offer for today")
 							self.filteredOffersArr.append(offer)
 						}
 					} else if self.segmentedControl.selectedSegmentIndex == 1 {
 						// past offers
-						if meetupTimeYear == todayYear && meetupTimeMonth == todayMonth && meetupTimeDay == todayDay && meetupTimeHour == todayHour && meetupTimeMin < todayMin {
-							print("Adding one offer for today")
+						if meetupTime! < utcDate! {
+							print("Adding one offer for the past")
 							self.filteredOffersArr.append(offer)
 						}
 					}
 				}
 				
 				DispatchQueue.main.async {
+					if self.filteredOffersArr.count > 0 {
+						self.tableView.isHidden = false
+						self.noOffersView.isHidden = true
+					} else {
+						self.tableView.isHidden = true
+						self.noOffersView.isHidden = false
+					}
+					
 					self.tableView.reloadData()
 					
 					self.activityIndicator.stopAnimating()
@@ -182,9 +177,19 @@ class OffersViewController: UIViewController, UITableViewDelegate, UITableViewDa
 		// Configure the cell...
 		let offer = self.filteredOffersArr[indexPath.row]
 		
-		cell?.destinationLabel.text = offer.endName!
-		cell?.vehicleNameLabel.text = offer.vehicleModel!
-		cell?.vacancyLabel.text = "Vacancy: \(offer.vacancy!)"
+		cell?.pickupLocationLabel.text = offer.startAddr!
+		cell?.destinationLabel.text = offer.endAddr!
+		
+		dateFormatter.timeZone = TimeZone.init(abbreviation: "UTC")
+		dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
+		let date = dateFormatter.date(from: offer.meetupTime!)
+		
+		dateFormatter.timeZone = TimeZone.autoupdatingCurrent
+		dateFormatter.dateFormat = "hh:mm a"
+		let localMeetupTime = dateFormatter.string(from: date!)
+		cell?.pickupTimeLabel.text = localMeetupTime
+		
+		cell?.vacancyLabel.text = "\(offer.vacancy!)"
 		
 		cell?.mapView.isScrollEnabled = false
 		

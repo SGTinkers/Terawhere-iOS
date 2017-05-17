@@ -717,7 +717,7 @@
 				CODE_SIGN_ENTITLEMENTS = Terawhere/Terawhere.entitlements;
 				DEVELOPMENT_TEAM = PL82KCZF4N;
 				INFOPLIST_FILE = Terawhere/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = tech.msociety.terawhere;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -736,7 +736,7 @@
 				CODE_SIGN_ENTITLEMENTS = Terawhere/Terawhere.entitlements;
 				DEVELOPMENT_TEAM = PL82KCZF4N;
 				INFOPLIST_FILE = Terawhere/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = tech.msociety.terawhere;
 				PRODUCT_NAME = "$(TARGET_NAME)";

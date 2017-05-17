@@ -5,9 +5,21 @@ Want to go for Terawih prayers? Why not broadcast it and ask nearby people if th
 Let's build friendships together.
 
 ### Changelog
+16 May 2017:
+- Added relevant information when displaying offers and bookings in list
+- Added a popup alert to notify users that they cannot book their own offer
+- Fixed: Local date and time now displayed when trying to book
+
 15 May 2017:
+- Destination address now show on map annotation
+- Added custom address name for user to input
+- Added a "No offers" and "No bookings" screen
+- Added number pads for textfields requiring number input
+- Added date picker for picking meeting time
 - Colour scheme done
 - Fixed: Alerts finally appear
+- Fixed: Offers filter bug
+- Fixed: Bookings filter bug
 
 13 May 2017:
 - You can now cancel your booking

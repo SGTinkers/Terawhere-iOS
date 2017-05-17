@@ -40,6 +40,7 @@ class ViewBookingTableViewController: UITableViewController {
     }
 
 	func cancelBooking() {
+		print("View: Booking id: \((self.booking?.id)!)")
 		self.database?.cancel(booking: self.booking)
 		
 		let dataTask = URLSession.shared.dataTask(with: (self.database?.request)!) { (data, response, error) in

@@ -9,22 +9,28 @@
 import UIKit
 
 protocol SetTimeProtocol {
-	func setTime(hour: Int?, min: Int?)
+	func setTime(date: Date?)
 }
 
 class PickupTimeViewController: UIViewController {
 
-	@IBOutlet var hourTextfield: UITextField!
-	@IBOutlet var minTextfield: UITextField!
+	@IBOutlet var datePicker: UIDatePicker!
 	
 	var delegate: SetTimeProtocol?
 	
 	var hour = 0, min = 0
+	
+	var dateFormatter = DateFormatter()
+	var date: Date?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+		
+		self.datePicker.calendar = Calendar.autoupdatingCurrent
+		self.datePicker.date = Date()
+		self.datePicker.minimumDate = Date()
     }
 
     override func didReceiveMemoryWarning() {
@@ -32,43 +38,14 @@ class PickupTimeViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 	
-	@IBAction func setMeetupTime() {
-		guard let hour = self.hourTextfield.text else {
-			print("hour is invalid")
-			
-			self.dismiss(animated: true, completion: nil)
-			
-			return
-		}
-		
-		guard let min = self.minTextfield.text else {
-			print("min is invalid")
-			
-			self.dismiss(animated: true, completion: nil)
-			
-			return
-		}
-		
-		guard let hourInt = Int(hour) else {
-			print("hour int is invalid")
-			
-			self.dismiss(animated: true, completion: nil)
-			
-			return
-		}
-		
-		guard let minInt = Int(min) else {
-			print("min int is invalid")
-			
-			self.dismiss(animated: true, completion: nil)
-			
-			return
-		}
+	@IBAction func setDateInDatePicker() {
+		self.dateFormatter.dateFormat = "yyyy-MM-dd hh:mm a"
+		self.date = self.datePicker.date
+	}
 	
-		self.hour = hourInt
-		self.min = minInt
-		
-		self.delegate?.setTime(hour: self.hour, min: self.min)
+	@IBAction func setMeetupTime() {
+		self.delegate?.setTime(date: self.date!)
+
 		self.dismiss(animated: true, completion: nil)
 	}
 

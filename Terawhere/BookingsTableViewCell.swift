@@ -12,7 +12,11 @@ import MapKit
 class BookingsTableViewCell: UITableViewCell, MKMapViewDelegate {
 	
 	@IBOutlet var mapView: MKMapView!
-	@IBOutlet var paxBooked: UILabel!
+	
+	@IBOutlet var carNumberLabel: UILabel!
+	@IBOutlet var carModelLabel: UILabel!
+	@IBOutlet var pickupTimeLabel: UILabel!
+	@IBOutlet var pickupLocationLabel: UILabel!
 	
 	var booking: Booking? = nil
 	var offer: Offer? = nil
