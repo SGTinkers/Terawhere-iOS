@@ -21,7 +21,7 @@ class SignInViewController: UIViewController, LoginButtonDelegate {
 
 		let width: CGFloat = 300
 		let height: CGFloat = 50
-
+		
 		self.facebookLoginButton = LoginButton(readPermissions: [.publicProfile])
 		self.facebookLoginButton?.frame = CGRect.init(x: (self.view.frame.width / 2) - (width / 2), y: CGFloat(self.view.frame.height - 100), width: width, height: height)
 		self.view.addSubview(self.facebookLoginButton!)
@@ -49,6 +49,10 @@ class SignInViewController: UIViewController, LoginButtonDelegate {
 				}
 				
 				print("TOKEN HOORAY \(token)")
+				
+				
+				
+				
 				
 				let database = Database.init(token: token, userId: (AccessToken.current?.userId)!)
 				

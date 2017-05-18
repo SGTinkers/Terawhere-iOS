@@ -381,8 +381,8 @@ class Database {
 		self.request?.addValue("application/json", forHTTPHeaderField: "Content-Type")
 	}
 	
-	func book(offer: Offer) {
-		let json: [String: Any] = ["offer_id": offer.offerId!]
+	func book(offer: Offer, withPax pax: Int) {
+		let json: [String: Any] = ["offer_id": offer.offerId!, "pax": pax]
 		let jsonData = try? JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
 	
 		let url = URL.init(string: self.bookingURL)

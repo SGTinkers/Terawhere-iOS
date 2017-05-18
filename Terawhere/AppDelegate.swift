@@ -26,6 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 		// Override point for customization after application launch.
+		
         if #available(iOS 10.0, *) {
             // For iOS 10 display notification (sent via APNS)
             UNUserNotificationCenter.current().delegate = self
@@ -56,9 +57,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                                object: nil)
         // [END add_token_refresh_observer]
         
-//        let token = FIRInstanceID.instanceID().token()!
-//        print("Firebase Push Token: ", token)
-        
+		if let token = FIRInstanceID.instanceID().token() {
+			print("Firebase Push Token: ", token)
+		}
+		
 		return true
 	}
 

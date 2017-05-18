@@ -15,15 +15,16 @@ class BookRideViewController: UIViewController, UITableViewDataSource {
 	var database: Database?
 	var offer: Offer?
 	
-	var tableItems = ["Meeting point", "Driver name", "No. of pax left", "Car model", "Vehicle no.", "Pick up time", "Destination"]
+	var tableItems = ["Meet pt name", "Meet pt", "Driver name", "No. of pax left", "Car model", "Vehicle no.", "Pick up time", "Destination"]
 	
-	var meetupPointIndexPath = IndexPath.init(row: 0, section: 0)
-	var driverNameIndexPath = IndexPath.init(row: 1, section: 0)
-	var vacancyIndexPath = IndexPath.init(row: 2, section: 0)
-	var carModelIndexPath = IndexPath.init(row: 3, section: 0)
-	var vehicleNumberIndexPath = IndexPath.init(row: 4, section: 0)
-	var pickupTimeIndexPath = IndexPath.init(row: 5, section: 0)
-	var destinationIndexPath = IndexPath.init(row: 6, section: 0)
+	var meetupPointNameIndexPath = IndexPath.init(row: 0, section: 0)
+	var meetupPointIndexPath = IndexPath.init(row: 1, section: 0)
+	var driverNameIndexPath = IndexPath.init(row: 2, section: 0)
+	var vacancyIndexPath = IndexPath.init(row: 3, section: 0)
+	var carModelIndexPath = IndexPath.init(row: 4, section: 0)
+	var vehicleNumberIndexPath = IndexPath.init(row: 5, section: 0)
+	var pickupTimeIndexPath = IndexPath.init(row: 6, section: 0)
+	var destinationIndexPath = IndexPath.init(row: 7, section: 0)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,39 +35,58 @@ class BookRideViewController: UIViewController, UITableViewDataSource {
     }
 
 	@IBAction func bookRide() {
-		self.database?.book(offer: self.offer!)
+		let alertController = UIAlertController.init(title: "How many seats do you want to book?", message: "Defaults to 1 if no input", preferredStyle: .alert)
+		alertController.addTextField { (textfield) in
+			textfield.keyboardType = .numberPad
+		}
+		let cancelAction = UIAlertAction.init(title: "Cancel", style: .cancel, handler: nil)
+		let bookAction = UIAlertAction.init(title: "Book", style: .default) { (action) in
+			var pax = 1
 		
-		let task = URLSession.shared.dataTask(with: (self.database?.request)!) { (data, response, error) in
-			if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?] {
-				print("booking done: \(json!)")
-				
-				var messageTitle = "Yay"
-				var message = "Book successful"
-				
-				if let jsonError = json?["error"] as? String {
-					print("Json error: \(jsonError)")
+			// if textfield is not empty
+			if (alertController.textFields?[0].text?.isEmpty)! == false  {
+				pax = Int((alertController.textFields?[0].text)!)!
+			}
+		
+			self.database?.book(offer: self.offer!, withPax: pax)
+			
+			let task = URLSession.shared.dataTask(with: (self.database?.request)!) { (data, response, error) in
+				if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?] {
+					print("booking done: \(json!)")
 					
-					if let jsonMessage = json?["message"] as? String {
-						print("Json message: \(jsonMessage)")
-						messageTitle = "Oops"
-						message = jsonMessage
+					var messageTitle = "Yay"
+					var message = "Book successful"
+					
+					if let jsonError = json?["error"] as? String {
+						print("Json error: \(jsonError)")
+						
+						if let jsonMessage = json?["message"] as? String {
+							print("Json message: \(jsonMessage)")
+							messageTitle = "Oops"
+							message = jsonMessage
+						}
+					}
+					
+					DispatchQueue.main.async {
+						let alert = UIAlertController.init(title: messageTitle, message: message, preferredStyle: .alert)
+						let okAction = UIAlertAction.init(title: "Ok", style: .default, handler: { (action) in
+							self.dismiss(animated: true, completion: nil)
+						})
+						
+						alert.addAction(okAction)
+						
+						self.present(alert, animated: true, completion: nil)
 					}
 				}
-				
-				DispatchQueue.main.async {
-					let alert = UIAlertController.init(title: messageTitle, message: message, preferredStyle: .alert)
-					let okAction = UIAlertAction.init(title: "Ok", style: .default, handler: { (action) in
-						self.dismiss(animated: true, completion: nil)
-					})
-					
-					alert.addAction(okAction)
-					
-					self.present(alert, animated: true, completion: nil)
-				}
 			}
+			
+			task.resume()
 		}
 		
-		task.resume()
+		alertController.addAction(cancelAction)
+		alertController.addAction(bookAction)
+		
+		self.present(alertController, animated: true, completion: nil)
 	}
 	
 	@IBAction func dismissViewController() {
@@ -90,8 +110,12 @@ class BookRideViewController: UIViewController, UITableViewDataSource {
 		cell.textLabel?.text = self.tableItems[indexPath.row]
 		cell.textLabel?.textAlignment = .left
 		
-		if indexPath == self.meetupPointIndexPath {
+		if indexPath == self.meetupPointNameIndexPath {
 			cell.detailTextLabel?.text = String((offer?.startName)!)
+		}
+		
+		if indexPath == self.meetupPointIndexPath {
+			cell.detailTextLabel?.text = String((offer?.startAddr)!)
 		}
 		
 		if indexPath == self.driverNameIndexPath {
@@ -113,13 +137,13 @@ class BookRideViewController: UIViewController, UITableViewDataSource {
 		}
 		
 		if indexPath == self.vacancyIndexPath {
-//			self.database?.getAllBookingsForOfferByOffer(id: (self.offer?.offerId)!)
-//			let dataTask = URLSession.shared.dataTask(with: (self.database?.request)!, completionHandler: { (data, response, error) in
-//				let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
-//				print(json)
-//			})
-//			
-//			dataTask.resume()
+			self.database?.getAllBookingsForOfferByOffer(id: (self.offer?.offerId)!)
+			let dataTask = URLSession.shared.dataTask(with: (self.database?.request)!, completionHandler: { (data, response, error) in
+				let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
+				print("pax stuff here \(json)")
+			})
+			
+			dataTask.resume()
 		
 			cell.detailTextLabel?.text = String((offer?.vacancy)!)
 		}
@@ -140,11 +164,10 @@ class BookRideViewController: UIViewController, UITableViewDataSource {
 			dateFormatter.timeZone = TimeZone.init(abbreviation: "UTC")
 			dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
 			let date = dateFormatter.date(from: (offer?.meetupTime)!)
-			
 			dateFormatter.timeZone = TimeZone.autoupdatingCurrent
 			dateFormatter.dateFormat = "yyyy-MM-dd hh:mm a"
+			
 			let localMeetupTime = dateFormatter.string(from: date!)
-		
 			cell.detailTextLabel?.text = localMeetupTime
 		}
 		

@@ -16,7 +16,7 @@ class CreateOfferViewController: UIViewController, UITableViewDelegate, UITableV
 	var database: Database?
 	
 	var vehicleArr = ["Vehicle description", "Vehicle model", "Vehicle number", "Vacancy"]
-	var timeAndLocation = ["Pickup time", "Meetup point name", "Meetup point", "Destination"]
+	var timeAndLocation = ["Pickup time", "Meet pt name", "Meet pt", "Destination"]
 	var remarks = ["Remarks"]
 	
 	// mostly for didSelect tableview method

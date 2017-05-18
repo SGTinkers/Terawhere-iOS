@@ -5,6 +5,10 @@ Want to go for Terawih prayers? Why not broadcast it and ask nearby people if th
 Let's build friendships together.
 
 ### Changelog
+18 May 2017:
+- Standardised label displays in several screens
+- Added an alert popup for booking seats
+
 16 May 2017:
 - Added relevant information when displaying offers and bookings in list
 - Added a popup alert to notify users that they cannot book their own offer
