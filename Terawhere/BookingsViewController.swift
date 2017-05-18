@@ -63,9 +63,13 @@ class BookingsViewController: UIViewController, UITableViewDelegate, UITableView
 						
 						self.dateFormatter.timeZone = TimeZone.init(abbreviation: "UTC")
 						self.dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
-						let tmpDateString = self.dateFormatter.string(from: self.date)
 						
+						let tmpDateString = self.dateFormatter.string(from: self.date)
 						let utcDate = self.dateFormatter.date(from: tmpDateString)
+						
+						self.dateFormatter.timeZone = TimeZone.init(abbreviation: "UTC")
+						self.dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+						
 						let meetupDate = self.dateFormatter.date(from: (offer?.meetupTime)!)
 						
 						
@@ -153,9 +157,13 @@ class BookingsViewController: UIViewController, UITableViewDelegate, UITableView
 						
 						self.dateFormatter.timeZone = TimeZone.init(abbreviation: "UTC")
 						self.dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
-						let tmpDateString = self.dateFormatter.string(from: self.date)
 						
+						let tmpDateString = self.dateFormatter.string(from: self.date)
 						let utcDate = self.dateFormatter.date(from: tmpDateString)
+						
+						self.dateFormatter.timeZone = TimeZone.init(abbreviation: "UTC")
+						self.dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+						
 						let meetupDate = self.dateFormatter.date(from: (offer?.meetupTime)!)
 
 					
@@ -233,13 +241,15 @@ class BookingsViewController: UIViewController, UITableViewDelegate, UITableView
 					return
 				}
 				
+				cell?.offer = offer
+				
 				DispatchQueue.main.async {
 					cell?.carModelLabel.text = offer.vehicleModel!
 					cell?.carNumberLabel.text = offer.vehicleNumber!
 					
 					
 					self.dateFormatter.timeZone = TimeZone.init(abbreviation: "UTC")
-					self.dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
+					self.dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
 					let date = self.dateFormatter.date(from: offer.meetupTime!)
 					
 					self.dateFormatter.timeZone = TimeZone.autoupdatingCurrent

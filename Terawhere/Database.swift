@@ -199,25 +199,20 @@ class Database {
 		self.request?.addValue("Bearer \(self.token)", forHTTPHeaderField: "Authorization")
 	}
 	
-	func getAllOffers() {
-		//		guard let lat = self.userLocation?.coordinate.latitude else {
-		//			print("User lat is unavailable")
-		//
-		//			return
-		//		}
-		//
-		//		guard let lng = self.userLocation?.coordinate.longitude else {
-		//			print("User lat is unavailable")
-		//
-		//			return
-		//		}
+	func getNearbyOffersWith(userLocation: CLLocation?) {
+		guard let userLocation = userLocation else {
+			print("User location is invalid")
 		
-		// guessing range is in meters
-		//		let json: [String: Any] = ["lat": lat, "lng": lng, "range": 5000]
-		//		let jsonData = try? JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
+			return
+		}
+		
+		let json: [String: Any] = ["lat": userLocation.coordinate.latitude, "lng": userLocation.coordinate.longitude]
+		let jsonData = try? JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
 		
 		let url = URL.init(string: self.allOffersURL)
 		self.request = URLRequest.init(url: url!)
+		self.request?.httpMethod = "POST"
+		self.request?.httpBody = jsonData!
 		
 		self.request?.addValue("Bearer \(self.token)", forHTTPHeaderField: "Authorization")
 		self.request?.addValue("application/json", forHTTPHeaderField: "Accept")

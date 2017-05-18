@@ -163,12 +163,22 @@ class BookRideViewController: UIViewController, UITableViewDataSource {
 			
 			dateFormatter.timeZone = TimeZone.init(abbreviation: "UTC")
 			dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
-			let date = dateFormatter.date(from: (offer?.meetupTime)!)
-			dateFormatter.timeZone = TimeZone.autoupdatingCurrent
-			dateFormatter.dateFormat = "yyyy-MM-dd hh:mm a"
+			if let date = dateFormatter.date(from: (offer?.meetupTime)!) {
+				dateFormatter.timeZone = TimeZone.autoupdatingCurrent
+				dateFormatter.dateFormat = "yyyy-MM-dd hh:mm a"
+				
+				let localMeetupTime = dateFormatter.string(from: date)
+				cell.detailTextLabel?.text = localMeetupTime
+			} else {
+				cell.detailTextLabel?.text = (offer?.meetupTime)!
+			}
 			
-			let localMeetupTime = dateFormatter.string(from: date!)
-			cell.detailTextLabel?.text = localMeetupTime
+//			let date = dateFormatter.date(from: (offer?.meetupTime)!)
+//			dateFormatter.timeZone = TimeZone.autoupdatingCurrent
+//			dateFormatter.dateFormat = "yyyy-MM-dd hh:mm a"
+//			
+//			let localMeetupTime = dateFormatter.string(from: date!)
+//			cell.detailTextLabel?.text = localMeetupTime
 		}
 		
 		if indexPath == self.destinationIndexPath {

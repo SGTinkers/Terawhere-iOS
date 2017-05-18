@@ -133,7 +133,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 	}
 	
 	func getAllActiveOffersNearMe() {
-		self.database.getAllOffers()
+		self.database.getNearbyOffersWith(userLocation: self.userLocation)
 		
 		var offerArr = [Offer]()
 		
@@ -167,26 +167,4 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 		
 		task.resume()
 	}
-
-//	func reloadMap() {
-//		for annotation in self.mapView.annotations {
-//			if annotation is Location {
-//				// basically fits in 1000m worth of latitude area for user to see on the map
-//				let region = MKCoordinateRegionMakeWithDistance(annotation.coordinate, 1000, 0)
-//				
-//				self.mapView.setRegion(region, animated: true)
-//			}
-//		}
-//	}
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

@@ -6,8 +6,10 @@ Let's build friendships together.
 
 ### Changelog
 18 May 2017:
+- Gets all nearby offers now instead of getting all offers
 - Standardised label displays in several screens
 - Added an alert popup for booking seats
+- Fixed: UTC issue when displaying time
 
 16 May 2017:
 - Added relevant information when displaying offers and bookings in list
