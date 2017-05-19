@@ -21,7 +21,7 @@ class Database {
 	var authURL = "http://139.59.224.66/api/v1/auth"
 	
 	var postOffersURL = "http://139.59.224.66/api/v1/offers"
-	var allOffersURL = "http://139.59.224.66/api/v1/offers"
+	var nearbyOffersURL = "http://139.59.224.66/api/v1/nearby-offers"
 	var allOffersForUserURL = "http://139.59.224.66/api/v1/offers-for-user"
 	var getSingleOfferURL = "http://139.59.224.66/api/v1/offers"
 	var getAllBookingsForOffer = "http://139.59.224.66/api/v1/bookings-for-offer"
@@ -87,9 +87,7 @@ class Database {
 			
 			return offer!
 		}
-		
-		print("Actual json data \(actualJsonData)")
-		
+
 		let endAddr = actualJsonData["end_addr"] as? String
 		let endLat = actualJsonData["end_lat"] as? Double
 		let endLng = actualJsonData["end_lng"] as? Double
@@ -209,7 +207,7 @@ class Database {
 		let json: [String: Any] = ["lat": userLocation.coordinate.latitude, "lng": userLocation.coordinate.longitude]
 		let jsonData = try? JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
 		
-		let url = URL.init(string: self.allOffersURL)
+		let url = URL.init(string: self.nearbyOffersURL)
 		self.request = URLRequest.init(url: url!)
 		self.request?.httpMethod = "POST"
 		self.request?.httpBody = jsonData!

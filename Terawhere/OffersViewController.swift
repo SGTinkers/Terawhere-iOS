@@ -20,8 +20,7 @@ class OffersViewController: UIViewController, UITableViewDelegate, UITableViewDa
 	var offersArr = [Offer]()
 	var filteredOffersArr = [Offer]()
 	
-	let date = Date()
-	let dateFormatter = DateFormatter()
+	let dateHelper = DateHelper()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,13 +49,8 @@ class OffersViewController: UIViewController, UITableViewDelegate, UITableViewDa
 				self.filteredOffersArr.removeAll()
 				
 				for offer in self.offersArr {
-					self.dateFormatter.timeZone = TimeZone.init(abbreviation: "UTC")
-					self.dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
-					
-					let tmpDateString = self.dateFormatter.string(from: self.date)
-					
-					let utcDate = self.dateFormatter.date(from: tmpDateString)
-					let meetupTime = self.dateFormatter.date(from: offer.meetupTime!)
+					let utcDate = self.dateHelper.utcDate()
+					let meetupTime = self.dateHelper.utcDateFrom(dateString: offer.meetupTime!)
 				
 					if self.segmentedControl.selectedSegmentIndex == 0 {
 						// today's offers
@@ -123,13 +117,8 @@ class OffersViewController: UIViewController, UITableViewDelegate, UITableViewDa
 				self.filteredOffersArr.removeAll()
 				
 				for offer in self.offersArr {
-					self.dateFormatter.timeZone = TimeZone.init(abbreviation: "UTC")
-					self.dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
-					
-					let tmpDateString = self.dateFormatter.string(from: self.date)
-					
-					let utcDate = self.dateFormatter.date(from: tmpDateString)
-					let meetupTime = self.dateFormatter.date(from: offer.meetupTime!)
+					let utcDate = self.dateHelper.utcDate()
+					let meetupTime = self.dateHelper.utcDateFrom(dateString: offer.meetupTime!)
 					
 					if self.segmentedControl.selectedSegmentIndex == 0 {
 						// today's offers
@@ -180,13 +169,7 @@ class OffersViewController: UIViewController, UITableViewDelegate, UITableViewDa
 		cell?.pickupLocationLabel.text = offer.startAddr!
 		cell?.destinationLabel.text = offer.endAddr!
 		
-		dateFormatter.timeZone = TimeZone.init(abbreviation: "UTC")
-		dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
-		let date = dateFormatter.date(from: offer.meetupTime!)
-		
-		dateFormatter.timeZone = TimeZone.autoupdatingCurrent
-		dateFormatter.dateFormat = "hh:mm a"
-		let localMeetupTime = dateFormatter.string(from: date!)
+		let localMeetupTime = self.dateHelper.localTimeFrom(dateString: offer.meetupTime!)
 		cell?.pickupTimeLabel.text = localMeetupTime
 		
 		cell?.vacancyLabel.text = "\(offer.vacancy!)"

@@ -19,6 +19,7 @@
 		AA2EF23C1EB99AE1000F0524 /* OffersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2EF23B1EB99AE1000F0524 /* OffersViewController.swift */; };
 		AA2EF23E1EB99AE8000F0524 /* OffersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2EF23D1EB99AE8000F0524 /* OffersTableViewCell.swift */; };
 		AA2EF2401EB99AF0000F0524 /* CreateOfferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2EF23F1EB99AF0000F0524 /* CreateOfferViewController.swift */; };
+		AA61B2FC1ECED0E8000001AC /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA61B2FB1ECED0E8000001AC /* DateHelper.swift */; };
 		AAAFBCEB1EC6C2420090D6A0 /* CreateOfferTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAFBCEA1EC6C2420090D6A0 /* CreateOfferTableViewCell.swift */; };
 		AAAFBCED1EC6C93F0090D6A0 /* PickupTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAFBCEC1EC6C93F0090D6A0 /* PickupTimeViewController.swift */; };
 		AACA92051EBA00F70024804D /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACA92041EBA00F70024804D /* Database.swift */; };
@@ -72,6 +73,7 @@
 		AA2EF23B1EB99AE1000F0524 /* OffersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OffersViewController.swift; sourceTree = "<group>"; };
 		AA2EF23D1EB99AE8000F0524 /* OffersTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OffersTableViewCell.swift; sourceTree = "<group>"; };
 		AA2EF23F1EB99AF0000F0524 /* CreateOfferViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateOfferViewController.swift; sourceTree = "<group>"; };
+		AA61B2FB1ECED0E8000001AC /* DateHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
 		AAAFBCEA1EC6C2420090D6A0 /* CreateOfferTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateOfferTableViewCell.swift; sourceTree = "<group>"; };
 		AAAFBCEC1EC6C93F0090D6A0 /* PickupTimeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickupTimeViewController.swift; sourceTree = "<group>"; };
 		AACA92041EBA00F70024804D /* Database.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 		AACA92031EBA00940024804D /* helpers */ = {
 			isa = PBXGroup;
 			children = (
+				AA61B2FB1ECED0E8000001AC /* DateHelper.swift */,
 				AACA92041EBA00F70024804D /* Database.swift */,
 			);
 			name = helpers;
@@ -553,6 +556,7 @@
 				AAAFBCEB1EC6C2420090D6A0 /* CreateOfferTableViewCell.swift in Sources */,
 				AA2EF23C1EB99AE1000F0524 /* OffersViewController.swift in Sources */,
 				AAD8EC501EB998F400BC6350 /* Terawhere.xcdatamodeld in Sources */,
+				AA61B2FC1ECED0E8000001AC /* DateHelper.swift in Sources */,
 				AACC6C491EBD81F100EFFE29 /* Booking.swift in Sources */,
 				AACA92071EBA017F0024804D /* Offer.swift in Sources */,
 				AA2EF23A1EB99AD9000F0524 /* Location.swift in Sources */,

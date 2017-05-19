@@ -5,6 +5,12 @@ Want to go for Terawih prayers? Why not broadcast it and ask nearby people if th
 Let's build friendships together.
 
 ### Changelog
+19 May 2017:
+- Improvements to handling of dates
+- Fixed: Map now displays all available offers correctly
+- Fixed: It does not crash anymore when you do not set date in the date picker screen
+- Fixed: Screen slides back into listing offers or bookings after deleting an entry
+
 18 May 2017:
 - Gets all nearby offers now instead of getting all offers
 - Standardised label displays in several screens

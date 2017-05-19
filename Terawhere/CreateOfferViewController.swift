@@ -35,6 +35,7 @@ class CreateOfferViewController: UIViewController, UITableViewDelegate, UITableV
 	// date stuff
 	var dateString = ""
 	var date: Date?
+	let dateHelper = DateHelper()
 	
 	var endLocation: MKMapItem?, startLocation: MKMapItem?
 
@@ -119,10 +120,7 @@ class CreateOfferViewController: UIViewController, UITableViewDelegate, UITableV
 		let remarksCell = self.tableView.cellForRow(at: self.remarksIndexPath) as? CreateOfferTableViewCell
 		let remarks = (remarksCell?.textfield.text)!
 		
-		let dateFormatter = DateFormatter()
-		dateFormatter.timeZone = TimeZone.init(abbreviation: "UTC")
-		dateFormatter.dateFormat = "yyyy-MM-dd hh:mm"
-		self.dateString = dateFormatter.string(from: self.date!)
+		self.dateString = self.dateHelper.utcDateStringFrom(date: self.date!)
 		
 		let offer = Offer.init(forPostWithEndAddr: endAddr,
 							   endLat: endLat,
@@ -357,10 +355,8 @@ class CreateOfferViewController: UIViewController, UITableViewDelegate, UITableV
 	// MARK: Set time protocol
 	func setTime(date: Date?) {
 		self.date = date
-	
-		let dateFormatter = DateFormatter()
-		dateFormatter.dateFormat = "yyyy-MM-dd hh:mm a"
-		self.dateString = dateFormatter.string(from: self.date!)
+		
+		self.dateString = self.dateHelper.localTimeFrom(convertedDate: self.date!)
 		
 		let cell = self.tableView.cellForRow(at: self.pickupTimeIndexPath) as? CreateOfferTableViewCell
 		cell?.textfield.text = self.dateString

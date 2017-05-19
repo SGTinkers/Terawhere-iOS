@@ -49,7 +49,7 @@ class ViewBookingTableViewController: UITableViewController {
 				print(json)
 				
 				DispatchQueue.main.async {
-					self.tabBarController?.navigationController?.popViewController(animated: true)
+					self.navigationController?.popViewController(animated: true)
 				}
 			}
 		}
@@ -111,7 +111,10 @@ class ViewBookingTableViewController: UITableViewController {
 		}
 		
 		if indexPath == self.pickupTimeIndexPath {
-			cell.detailTextLabel?.text = (offer?.meetupTime)!
+			let dateHelper = DateHelper()
+			let localTime = dateHelper.localTimeFrom(dateString: (offer?.meetupTime)!)
+		
+			cell.detailTextLabel?.text = localTime
 		}
 		
 		if indexPath == self.destinationIndexPath {

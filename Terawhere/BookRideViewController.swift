@@ -141,6 +141,8 @@ class BookRideViewController: UIViewController, UITableViewDataSource {
 			let dataTask = URLSession.shared.dataTask(with: (self.database?.request)!, completionHandler: { (data, response, error) in
 				let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
 				print("pax stuff here \(json)")
+				
+				
 			})
 			
 			dataTask.resume()
@@ -157,28 +159,10 @@ class BookRideViewController: UIViewController, UITableViewDataSource {
 		}
 		
 		if indexPath == self.pickupTimeIndexPath {
-			let dateFormatter = DateFormatter()
+			let dateHelper = DateHelper()
+			let localTime = dateHelper.localTimeFrom(dateString: (offer?.meetupTime)!)
 			
-			print("Offer meetup time: \((offer?.meetupTime)!)")
-			
-			dateFormatter.timeZone = TimeZone.init(abbreviation: "UTC")
-			dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
-			if let date = dateFormatter.date(from: (offer?.meetupTime)!) {
-				dateFormatter.timeZone = TimeZone.autoupdatingCurrent
-				dateFormatter.dateFormat = "yyyy-MM-dd hh:mm a"
-				
-				let localMeetupTime = dateFormatter.string(from: date)
-				cell.detailTextLabel?.text = localMeetupTime
-			} else {
-				cell.detailTextLabel?.text = (offer?.meetupTime)!
-			}
-			
-//			let date = dateFormatter.date(from: (offer?.meetupTime)!)
-//			dateFormatter.timeZone = TimeZone.autoupdatingCurrent
-//			dateFormatter.dateFormat = "yyyy-MM-dd hh:mm a"
-//			
-//			let localMeetupTime = dateFormatter.string(from: date!)
-//			cell.detailTextLabel?.text = localMeetupTime
+			cell.detailTextLabel?.text = localTime
 		}
 		
 		if indexPath == self.destinationIndexPath {

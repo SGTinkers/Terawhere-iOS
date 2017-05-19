@@ -44,7 +44,9 @@ class PickupTimeViewController: UIViewController {
 	}
 	
 	@IBAction func setMeetupTime() {
-		self.delegate?.setTime(date: self.date!)
+		if let timeSet = self.date {
+			self.delegate?.setTime(date: timeSet)
+		}
 
 		self.dismiss(animated: true, completion: nil)
 	}

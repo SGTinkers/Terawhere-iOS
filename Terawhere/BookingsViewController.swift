@@ -19,9 +19,8 @@ class BookingsViewController: UIViewController, UITableViewDelegate, UITableView
 	var database = (UIApplication.shared.delegate as! AppDelegate).database
 	var bookingsArr = [Booking]()
 	var filteredBookingsArr = [Booking]()
-
-	let date = Date()
-	let dateFormatter = DateFormatter()
+	
+	let dateHelper = DateHelper()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,15 +42,11 @@ class BookingsViewController: UIViewController, UITableViewDelegate, UITableView
 		let task = URLSession.shared.dataTask(with: self.database.request!) { (data, response, error) in
 			if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?] {
 				
-				print("booking json: \(json)")
-				
 				// this array carries all user's offers
 				self.bookingsArr = self.database.convertJSONToBooking(json: json!)
 				
 				// clear filtered array first
 				self.filteredBookingsArr.removeAll()
-				
-				print("booking arr count: \(self.bookingsArr.count)")
 				
 				for booking in 0 ..< self.bookingsArr.count {
 					self.database.getOfferBy(id: self.bookingsArr[booking].offerId!)
@@ -59,20 +54,9 @@ class BookingsViewController: UIViewController, UITableViewDelegate, UITableView
 					let innerTask = URLSession.shared.dataTask(with: self.database.request!, completionHandler: { (data, response, error) in
 						let innerJson = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?]
 						let offer = self.database.convertJSONToOfferObject(json: innerJson!!)
-						
-						
-						self.dateFormatter.timeZone = TimeZone.init(abbreviation: "UTC")
-						self.dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
-						
-						let tmpDateString = self.dateFormatter.string(from: self.date)
-						let utcDate = self.dateFormatter.date(from: tmpDateString)
-						
-						self.dateFormatter.timeZone = TimeZone.init(abbreviation: "UTC")
-						self.dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-						
-						let meetupDate = self.dateFormatter.date(from: (offer?.meetupTime)!)
-						
-						
+
+						let utcDate = self.dateHelper.utcDate()
+						let meetupDate = self.dateHelper.utcDateFrom(dateString: (offer?.meetupTime)!)						
 						
 						if self.segmentedControl.selectedSegmentIndex == 0 {
 							// booking nil means booking has not been cancelled
@@ -85,8 +69,6 @@ class BookingsViewController: UIViewController, UITableViewDelegate, UITableView
 							
 						} else if self.segmentedControl.selectedSegmentIndex == 1 {
 							if self.bookingsArr[booking].deletedDate == nil {
-								print("Booking is def nil")
-								
 								if meetupDate! < utcDate! {
 									self.filteredBookingsArr.append(self.bookingsArr[booking])
 								}
@@ -137,15 +119,11 @@ class BookingsViewController: UIViewController, UITableViewDelegate, UITableView
 		let task = URLSession.shared.dataTask(with: self.database.request!) { (data, response, error) in
 			if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?] {
 				
-				print("booking json: \(json)")
-				
 				// this array carries all user's offers
 				self.bookingsArr = self.database.convertJSONToBooking(json: json!)
 				
 				// clear filtered array first
 				self.filteredBookingsArr.removeAll()
-				
-				print("booking arr count: \(self.bookingsArr.count)")
 				
 				for booking in 0 ..< self.bookingsArr.count {
 					self.database.getOfferBy(id: self.bookingsArr[booking].offerId!)
@@ -153,20 +131,10 @@ class BookingsViewController: UIViewController, UITableViewDelegate, UITableView
 					let innerTask = URLSession.shared.dataTask(with: self.database.request!, completionHandler: { (data, response, error) in
 						let innerJson = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?]
 						let offer = self.database.convertJSONToOfferObject(json: innerJson!!)
-					
-						
-						self.dateFormatter.timeZone = TimeZone.init(abbreviation: "UTC")
-						self.dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
-						
-						let tmpDateString = self.dateFormatter.string(from: self.date)
-						let utcDate = self.dateFormatter.date(from: tmpDateString)
-						
-						self.dateFormatter.timeZone = TimeZone.init(abbreviation: "UTC")
-						self.dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-						
-						let meetupDate = self.dateFormatter.date(from: (offer?.meetupTime)!)
 
-					
+						let utcDate = self.dateHelper.utcDate()
+						let meetupDate = self.dateHelper.utcDateFrom(dateString: (offer?.meetupTime)!)
+						
 						
 						if self.segmentedControl.selectedSegmentIndex == 0 {
 							// booking nil means booking has not been cancelled
@@ -246,15 +214,9 @@ class BookingsViewController: UIViewController, UITableViewDelegate, UITableView
 				DispatchQueue.main.async {
 					cell?.carModelLabel.text = offer.vehicleModel!
 					cell?.carNumberLabel.text = offer.vehicleNumber!
+
+					let localMeetupTime = self.dateHelper.localTimeFrom(dateString: offer.meetupTime!)
 					
-					
-					self.dateFormatter.timeZone = TimeZone.init(abbreviation: "UTC")
-					self.dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-					let date = self.dateFormatter.date(from: offer.meetupTime!)
-					
-					self.dateFormatter.timeZone = TimeZone.autoupdatingCurrent
-					self.dateFormatter.dateFormat = "hh:mm a"
-					let localMeetupTime = self.dateFormatter.string(from: date!)
 					cell?.pickupTimeLabel.text = localMeetupTime
 					
 					cell?.pickupLocationLabel.text = offer.startAddr!

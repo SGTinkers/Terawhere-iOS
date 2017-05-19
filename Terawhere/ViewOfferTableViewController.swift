@@ -71,7 +71,7 @@ class ViewOfferTableViewController: UITableViewController {
 				print(json)
 				
 				DispatchQueue.main.async {
-					self.tabBarController?.navigationController?.popViewController(animated: true)
+					self.navigationController?.popViewController(animated: true)
 				}
 			}
 		}
@@ -133,7 +133,10 @@ class ViewOfferTableViewController: UITableViewController {
 		}
 		
 		if indexPath == self.pickupTimeIndexPath {
-			cell.detailTextLabel?.text = (offer?.meetupTime)!
+			let dateHelper = DateHelper()
+			let localTime = dateHelper.localTimeFrom(dateString: (offer?.meetupTime)!)
+			
+			cell.detailTextLabel?.text = localTime
 		}
 		
 		if indexPath == self.destinationIndexPath {
@@ -142,23 +145,6 @@ class ViewOfferTableViewController: UITableViewController {
 
 		return cell
 	}
-
-//	
-//	// MARK: tableview delegate
-//	public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//		guard let viewOfferVC = self.storyboard?.instantiateViewController(withIdentifier: "ViewOfferViewController") as? ViewOfferViewController else {
-//			print("View offer VC errors out")
-//			
-//			return
-//		}
-//		
-//		let offer = self.filteredOffersArr[indexPath.row]
-//		viewOfferVC.offer = offer
-//		viewOfferVC.database = self.database
-//		
-//		self.navigationController?.pushViewController(viewOfferVC, animated: true)
-//	}
-	
 
     /*
      MARKvar Navigation
