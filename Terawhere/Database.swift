@@ -29,7 +29,7 @@ class Database {
 	var deleteOfferURL = "http://139.59.224.66/api/v1/offers"
 	
 	var bookingURL = "http://139.59.224.66/api/v1/bookings"
-	var allBookingsForUserURL = "http://139.59.224.66/api/v1/bookings-for-user"
+	var allBookingsForUserURL = "http://139.59.224.66/api/v1/users/me/bookings"
 	var allBookingsURL = "http://139.59.224.66/api/v1/bookings"
 	var cancelBookingURL = "http://139.59.224.66/api/v1/bookings"
 	
@@ -58,18 +58,11 @@ class Database {
 	}
 	
 	func getUserAuth() {
-		let string = "token=\(self.token)"
-		var data = string.data(using: .utf8)
+		let token = "token=\(self.token)"
+		let service = "&service=facebook"
 		
-		let string2 = "&service=facebook"
-		let data2 = string2.data(using: .utf8)
-		
-		data?.append(data2!)
-		
-		let postData = NSMutableData.init(data: data!)
-		
-//		let postData = NSMutableData(data: "token=\(self.token)".data(using: String.Encoding.utf8)!)
-//		postData.append(string2.data(using: String.Encoding.utf8)!)
+		let postData = NSMutableData(data: token.data(using: String.Encoding.utf8)!)
+		postData.append(service.data(using: String.Encoding.utf8)!)
 		
 		
 		let url = URL.init(string: self.authURL)
@@ -85,7 +78,7 @@ class Database {
 		guard let actualJsonData = json["data"] as? [String: Any] else {
 			print("actualJsonData invalid")
 			
-			return offer!
+			return offer
 		}
 
 		let endAddr = actualJsonData["end_addr"] as? String

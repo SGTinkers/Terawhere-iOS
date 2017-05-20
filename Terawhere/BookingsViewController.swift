@@ -39,11 +39,15 @@ class BookingsViewController: UIViewController, UITableViewDelegate, UITableView
 		
 		self.database.getAllBookingsForUser()
 		
+		var offerDeleted = false
+		
 		let task = URLSession.shared.dataTask(with: self.database.request!) { (data, response, error) in
 			if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?] {
-				
+
 				// this array carries all user's offers
 				self.bookingsArr = self.database.convertJSONToBooking(json: json!)
+				
+				print("Booking arr count \(self.bookingsArr.count)")
 				
 				// clear filtered array first
 				self.filteredBookingsArr.removeAll()
@@ -53,26 +57,29 @@ class BookingsViewController: UIViewController, UITableViewDelegate, UITableView
 					
 					let innerTask = URLSession.shared.dataTask(with: self.database.request!, completionHandler: { (data, response, error) in
 						let innerJson = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?]
-						let offer = self.database.convertJSONToOfferObject(json: innerJson!!)
-
-						let utcDate = self.dateHelper.utcDate()
-						let meetupDate = self.dateHelper.utcDateFrom(dateString: (offer?.meetupTime)!)						
 						
-						if self.segmentedControl.selectedSegmentIndex == 0 {
-							// booking nil means booking has not been cancelled
-							// do not append cancelled bookings generally
-							if self.bookingsArr[booking].deletedDate == nil {
-								if meetupDate! > utcDate! {
-									self.filteredBookingsArr.append(self.bookingsArr[booking])
-								}
-							}
+						if let offer = self.database.convertJSONToOfferObject(json: innerJson!!) {
+							let utcDate = self.dateHelper.utcDate()
+							let meetupDate = self.dateHelper.utcDateFrom(dateString: offer.meetupTime!)
 							
-						} else if self.segmentedControl.selectedSegmentIndex == 1 {
-							if self.bookingsArr[booking].deletedDate == nil {
-								if meetupDate! < utcDate! {
-									self.filteredBookingsArr.append(self.bookingsArr[booking])
+							if self.segmentedControl.selectedSegmentIndex == 0 {
+								// booking nil means booking has not been cancelled
+								// do not append cancelled bookings generally
+								if self.bookingsArr[booking].deletedDate == nil {
+									if meetupDate! > utcDate! {
+										self.filteredBookingsArr.append(self.bookingsArr[booking])
+									}
+								}
+								
+							} else if self.segmentedControl.selectedSegmentIndex == 1 {
+								if self.bookingsArr[booking].deletedDate == nil {
+									if meetupDate! < utcDate! {
+										self.filteredBookingsArr.append(self.bookingsArr[booking])
+									}
 								}
 							}
+						} else {
+							offerDeleted = true
 						}
 						
 						// an async call in an async call
@@ -81,6 +88,15 @@ class BookingsViewController: UIViewController, UITableViewDelegate, UITableView
 						// and those are really tough to handle
 						if booking < self.bookingsArr.count {
 							DispatchQueue.main.async {
+								if offerDeleted {
+									let alert = UIAlertController.init(title: "Some bookings are not shown because their offers have been deleted", message: "", preferredStyle: .alert)
+									let okAction = UIAlertAction.init(title: "Ok", style: .default, handler: nil)
+									
+									alert.addAction(okAction)
+									
+									self.present(alert, animated: true, completion: nil)
+								}
+							
 								if self.filteredBookingsArr.count > 0 {
 									self.tableView.isHidden = false
 									self.noBookingsView.isHidden = true
@@ -116,11 +132,15 @@ class BookingsViewController: UIViewController, UITableViewDelegate, UITableView
 		
 		self.database.getAllBookingsForUser()
 		
+		var offerDeleted = false
+		
 		let task = URLSession.shared.dataTask(with: self.database.request!) { (data, response, error) in
 			if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?] {
 				
 				// this array carries all user's offers
 				self.bookingsArr = self.database.convertJSONToBooking(json: json!)
+				
+				print("Booking arr count \(self.bookingsArr.count)")
 				
 				// clear filtered array first
 				self.filteredBookingsArr.removeAll()
@@ -130,29 +150,29 @@ class BookingsViewController: UIViewController, UITableViewDelegate, UITableView
 					
 					let innerTask = URLSession.shared.dataTask(with: self.database.request!, completionHandler: { (data, response, error) in
 						let innerJson = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?]
-						let offer = self.database.convertJSONToOfferObject(json: innerJson!!)
-
-						let utcDate = self.dateHelper.utcDate()
-						let meetupDate = self.dateHelper.utcDateFrom(dateString: (offer?.meetupTime)!)
 						
-						
-						if self.segmentedControl.selectedSegmentIndex == 0 {
-							// booking nil means booking has not been cancelled
-							// do not append cancelled bookings generally
-							if self.bookingsArr[booking].deletedDate == nil {
-								if meetupDate! > utcDate! {
-									self.filteredBookingsArr.append(self.bookingsArr[booking])
-								}
-							}
+						if let offer = self.database.convertJSONToOfferObject(json: innerJson!!) {
+							let utcDate = self.dateHelper.utcDate()
+							let meetupDate = self.dateHelper.utcDateFrom(dateString: offer.meetupTime!)
 							
-						} else if self.segmentedControl.selectedSegmentIndex == 1 {
-							if self.bookingsArr[booking].deletedDate == nil {
-								print("Booking is def nil")
-
-								if meetupDate! < utcDate! {
-									self.filteredBookingsArr.append(self.bookingsArr[booking])
+							if self.segmentedControl.selectedSegmentIndex == 0 {
+								// booking nil means booking has not been cancelled
+								// do not append cancelled bookings generally
+								if self.bookingsArr[booking].deletedDate == nil {
+									if meetupDate! > utcDate! {
+										self.filteredBookingsArr.append(self.bookingsArr[booking])
+									}
+								}
+								
+							} else if self.segmentedControl.selectedSegmentIndex == 1 {
+								if self.bookingsArr[booking].deletedDate == nil {
+									if meetupDate! < utcDate! {
+										self.filteredBookingsArr.append(self.bookingsArr[booking])
+									}
 								}
 							}
+						} else {
+							offerDeleted = true
 						}
 						
 						// an async call in an async call
@@ -161,6 +181,15 @@ class BookingsViewController: UIViewController, UITableViewDelegate, UITableView
 						// and those are really tough to handle
 						if booking < self.bookingsArr.count {
 							DispatchQueue.main.async {
+								if offerDeleted {
+									let alert = UIAlertController.init(title: "Some bookings are not shown because their offers have been deleted", message: "", preferredStyle: .alert)
+									let okAction = UIAlertAction.init(title: "Ok", style: .default, handler: nil)
+									
+									alert.addAction(okAction)
+									
+									self.present(alert, animated: true, completion: nil)
+								}
+								
 								if self.filteredBookingsArr.count > 0 {
 									self.tableView.isHidden = false
 									self.noBookingsView.isHidden = true

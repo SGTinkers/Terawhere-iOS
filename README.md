@@ -5,6 +5,10 @@ Want to go for Terawih prayers? Why not broadcast it and ask nearby people if th
 Let's build friendships together.
 
 ### Changelog
+20 May 2017:
+- Improved getting info popup alert
+- Fixed: App does not crash anymore when viewing bookings whose offers have been deleted
+
 19 May 2017:
 - Improvements to handling of dates
 - Fixed: Map now displays all available offers correctly

@@ -32,6 +32,8 @@ class BookRideViewController: UIViewController, UITableViewDataSource {
         // Do any additional setup after loading the view.
 		
 		self.tableView.dataSource = self
+		
+		print("Offer id \((self.offer?.offerId)!)")
     }
 
 	@IBAction func bookRide() {
@@ -141,8 +143,6 @@ class BookRideViewController: UIViewController, UITableViewDataSource {
 			let dataTask = URLSession.shared.dataTask(with: (self.database?.request)!, completionHandler: { (data, response, error) in
 				let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
 				print("pax stuff here \(json)")
-				
-				
 			})
 			
 			dataTask.resume()

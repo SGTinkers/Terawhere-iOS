@@ -125,7 +125,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 			
 			self.present(safariVC, animated: true, completion: nil)
 		}
-		let noAction = UIAlertAction.init(title: "Nah, I'm good!", style: .cancel, handler: nil)
+		let noAction = UIAlertAction.init(title: "No", style: .default, handler: nil)
 		alert.addAction(yesAction)
 		alert.addAction(noAction)
 		
