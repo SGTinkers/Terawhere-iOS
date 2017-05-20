@@ -43,8 +43,9 @@ class BookingsViewController: UIViewController, UITableViewDelegate, UITableView
 		
 		let task = URLSession.shared.dataTask(with: self.database.request!) { (data, response, error) in
 			if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?] {
+			
+				print("Booking json \(json)")
 
-				// this array carries all user's offers
 				self.bookingsArr = self.database.convertJSONToBooking(json: json!)
 				
 				print("Booking arr count \(self.bookingsArr.count)")
@@ -59,6 +60,12 @@ class BookingsViewController: UIViewController, UITableViewDelegate, UITableView
 						let innerJson = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?]
 						
 						if let offer = self.database.convertJSONToOfferObject(json: innerJson!!) {
+							print("Booking View: Book id \(self.bookingsArr[booking].id!)")
+							print("Booking View: Offer id \(self.bookingsArr[booking].offerId!)")
+						
+							let localTime = self.dateHelper.localTimeFrom(dateString: offer.meetupTime!, withCustomFormat: "yyyy-MM-dd hh:mm:ss a")
+							print("Offer local time \(localTime)")
+						
 							let utcDate = self.dateHelper.utcDate()
 							let meetupDate = self.dateHelper.utcDateFrom(dateString: offer.meetupTime!)
 							
@@ -89,12 +96,7 @@ class BookingsViewController: UIViewController, UITableViewDelegate, UITableView
 						if booking < self.bookingsArr.count {
 							DispatchQueue.main.async {
 								if offerDeleted {
-									let alert = UIAlertController.init(title: "Some bookings are not shown because their offers have been deleted", message: "", preferredStyle: .alert)
-									let okAction = UIAlertAction.init(title: "Ok", style: .default, handler: nil)
-									
-									alert.addAction(okAction)
-									
-									self.present(alert, animated: true, completion: nil)
+									print("Some bookings are not shown because their offers have been deleted")
 								}
 							
 								if self.filteredBookingsArr.count > 0 {
@@ -137,7 +139,8 @@ class BookingsViewController: UIViewController, UITableViewDelegate, UITableView
 		let task = URLSession.shared.dataTask(with: self.database.request!) { (data, response, error) in
 			if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?] {
 				
-				// this array carries all user's offers
+				print("Booking json \(json)")
+				
 				self.bookingsArr = self.database.convertJSONToBooking(json: json!)
 				
 				print("Booking arr count \(self.bookingsArr.count)")
@@ -152,6 +155,12 @@ class BookingsViewController: UIViewController, UITableViewDelegate, UITableView
 						let innerJson = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?]
 						
 						if let offer = self.database.convertJSONToOfferObject(json: innerJson!!) {
+							print("Booking View: Book id \(self.bookingsArr[booking].id!)")
+							print("Booking View: Offer id \(self.bookingsArr[booking].offerId!)")
+							
+							let localTime = self.dateHelper.localTimeFrom(dateString: offer.meetupTime!, withCustomFormat: "yyyy-MM-dd hh:mm:ss a")
+							print("Offer local time \(localTime)")
+							
 							let utcDate = self.dateHelper.utcDate()
 							let meetupDate = self.dateHelper.utcDateFrom(dateString: offer.meetupTime!)
 							
@@ -182,12 +191,7 @@ class BookingsViewController: UIViewController, UITableViewDelegate, UITableView
 						if booking < self.bookingsArr.count {
 							DispatchQueue.main.async {
 								if offerDeleted {
-									let alert = UIAlertController.init(title: "Some bookings are not shown because their offers have been deleted", message: "", preferredStyle: .alert)
-									let okAction = UIAlertAction.init(title: "Ok", style: .default, handler: nil)
-									
-									alert.addAction(okAction)
-									
-									self.present(alert, animated: true, completion: nil)
+									print("Some bookings are not shown because their offers have been deleted")
 								}
 								
 								if self.filteredBookingsArr.count > 0 {
@@ -287,10 +291,11 @@ class BookingsViewController: UIViewController, UITableViewDelegate, UITableView
 			}
 			
 			let cell = self.tableView.cellForRow(at: indexPath) as? BookingsTableViewCell
-			let booking = self.bookingsArr[indexPath.row]
-			print("Did select: Booking id: \(booking.id!)")
 			
-			viewBookingVC.booking = booking
+			print("Did Select: Book id \((cell?.booking?.id)!)")
+			print("Did Select: Offer id \((cell?.offer?.offerId)!)")
+			
+			viewBookingVC.booking = cell?.booking
 			viewBookingVC.offer = cell?.offer
 			viewBookingVC.database = self.database
 			

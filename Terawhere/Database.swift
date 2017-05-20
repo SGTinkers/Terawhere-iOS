@@ -24,7 +24,7 @@ class Database {
 	var nearbyOffersURL = "http://139.59.224.66/api/v1/nearby-offers"
 	var allOffersForUserURL = "http://139.59.224.66/api/v1/offers-for-user"
 	var getSingleOfferURL = "http://139.59.224.66/api/v1/offers"
-	var getAllBookingsForOffer = "http://139.59.224.66/api/v1/bookings-for-offer"
+	var getAllBookingsForOffer = "http://139.59.224.66/api/v1/offers"
 	var editOfferURL = "http://139.59.224.66/api/v1/offers"
 	var deleteOfferURL = "http://139.59.224.66/api/v1/offers"
 	
@@ -354,13 +354,10 @@ class Database {
 	}
 	
 	func getAllBookingsForOfferByOffer(id: Int?) {
-		let url = URL.init(string: self.getAllBookingsForOffer)
+		let getAllBookingsForOfferWithOfferIdURL = self.getAllBookingsForOffer + "/\(id!)/bookings"
+		
+		let url = URL.init(string: getAllBookingsForOfferWithOfferIdURL)
 		self.request = URLRequest.init(url: url!)
-		
-		let json: [String: Any] = ["offer_id": id!]
-		let jsonData = try? JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
-		
-		self.request?.httpBody = jsonData
 		
 		self.request?.addValue("Bearer \(self.token)", forHTTPHeaderField: "Authorization")
 		self.request?.addValue("application/json", forHTTPHeaderField: "Accept")

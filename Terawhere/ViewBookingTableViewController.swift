@@ -41,7 +41,9 @@ class ViewBookingTableViewController: UITableViewController {
     }
 
 	func cancelBooking() {
-		print("View: Booking id: \((self.booking?.id)!)")
+		print("Booking View: Book id \((self.booking?.id)!)")
+		print("Booking View: Offer id \((self.offer?.offerId)!)")
+		
 		self.database?.cancel(booking: self.booking)
 		
 		let dataTask = URLSession.shared.dataTask(with: (self.database?.request)!) { (data, response, error) in
@@ -99,7 +101,27 @@ class ViewBookingTableViewController: UITableViewController {
 		}
 		
 		if indexPath == self.vacancyIndexPath {
-			cell.detailTextLabel?.text = String((offer?.vacancy)!)
+			var bookingsArr = [Booking]()
+			
+			self.database?.getAllBookingsForOfferByOffer(id: (self.offer?.offerId)!)
+			let dataTask = URLSession.shared.dataTask(with: (self.database?.request)!, completionHandler: { (data, response, error) in
+				let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?]
+				bookingsArr = (self.database?.convertJSONToBooking(json: json!!))!
+				
+				var paxBooked = 0
+				
+				for booking in bookingsArr {
+					paxBooked = paxBooked + booking.paxBooked!
+				}
+				
+				DispatchQueue.main.async {
+					let vacancy = (self.offer?.vacancy)! - paxBooked
+					
+					cell.detailTextLabel?.text = String(vacancy)
+				}
+			})
+			
+			dataTask.resume()
 		}
 		
 		if indexPath == self.carModelIndexPath {

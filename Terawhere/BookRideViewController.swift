@@ -37,6 +37,9 @@ class BookRideViewController: UIViewController, UITableViewDataSource {
     }
 
 	@IBAction func bookRide() {
+		print("Book Ride: Offer id \((self.offer?.offerId)!)")
+	
+	
 		let alertController = UIAlertController.init(title: "How many seats do you want to book?", message: "Defaults to 1 if no input", preferredStyle: .alert)
 		alertController.addTextField { (textfield) in
 			textfield.keyboardType = .numberPad
@@ -49,28 +52,23 @@ class BookRideViewController: UIViewController, UITableViewDataSource {
 			if (alertController.textFields?[0].text?.isEmpty)! == false  {
 				pax = Int((alertController.textFields?[0].text)!)!
 			}
-		
-			self.database?.book(offer: self.offer!, withPax: pax)
 			
-			let task = URLSession.shared.dataTask(with: (self.database?.request)!) { (data, response, error) in
-				if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?] {
-					print("booking done: \(json!)")
-					
-					var messageTitle = "Yay"
-					var message = "Book successful"
-					
-					if let jsonError = json?["error"] as? String {
-						print("Json error: \(jsonError)")
-						
-						if let jsonMessage = json?["message"] as? String {
-							print("Json message: \(jsonMessage)")
-							messageTitle = "Oops"
-							message = jsonMessage
-						}
-					}
-					
+			var bookingsArr = [Booking]()
+			
+			self.database?.getAllBookingsForOfferByOffer(id: (self.offer?.offerId)!)
+			let dataTask = URLSession.shared.dataTask(with: (self.database?.request)!, completionHandler: { (data, response, error) in
+				let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?]
+				bookingsArr = (self.database?.convertJSONToBooking(json: json!!))!
+				
+				var paxBooked = 0
+				
+				for booking in bookingsArr {
+					paxBooked = paxBooked + booking.paxBooked!
+				}
+				
+				if pax > paxBooked {
 					DispatchQueue.main.async {
-						let alert = UIAlertController.init(title: messageTitle, message: message, preferredStyle: .alert)
+						let alert = UIAlertController.init(title: "Sorry", message: "You cannot book for more than the pax available", preferredStyle: .alert)
 						let okAction = UIAlertAction.init(title: "Ok", style: .default, handler: { (action) in
 							self.dismiss(animated: true, completion: nil)
 						})
@@ -79,10 +77,45 @@ class BookRideViewController: UIViewController, UITableViewDataSource {
 						
 						self.present(alert, animated: true, completion: nil)
 					}
+				} else {
+					self.database?.book(offer: self.offer!, withPax: pax)
+					
+					let task = URLSession.shared.dataTask(with: (self.database?.request)!) { (data, response, error) in
+						if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?] {
+							print("booking done: \(json!)")
+							
+							var messageTitle = "Yay"
+							var message = "Book successful"
+							
+							// if anything goes wrong
+							if let jsonError = json?["error"] as? String {
+								print("Json error: \(jsonError)")
+								
+								if let jsonMessage = json?["message"] as? String {
+									print("Json message: \(jsonMessage)")
+									messageTitle = "Oops"
+									message = jsonMessage
+								}
+							}
+							
+							DispatchQueue.main.async {
+								let alert = UIAlertController.init(title: messageTitle, message: message, preferredStyle: .alert)
+								let okAction = UIAlertAction.init(title: "Ok", style: .default, handler: { (action) in
+									self.dismiss(animated: true, completion: nil)
+								})
+								
+								alert.addAction(okAction)
+								
+								self.present(alert, animated: true, completion: nil)
+							}
+						}
+					}
+					
+					task.resume()
 				}
-			}
+			})
 			
-			task.resume()
+			dataTask.resume()
 		}
 		
 		alertController.addAction(cancelAction)
@@ -139,15 +172,27 @@ class BookRideViewController: UIViewController, UITableViewDataSource {
 		}
 		
 		if indexPath == self.vacancyIndexPath {
+			var bookingsArr = [Booking]()
+		
 			self.database?.getAllBookingsForOfferByOffer(id: (self.offer?.offerId)!)
 			let dataTask = URLSession.shared.dataTask(with: (self.database?.request)!, completionHandler: { (data, response, error) in
-				let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
-				print("pax stuff here \(json)")
+				let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?]
+				bookingsArr = (self.database?.convertJSONToBooking(json: json!!))!
+				
+				var paxBooked = 0
+				
+				for booking in bookingsArr {
+					paxBooked = paxBooked + booking.paxBooked!
+				}
+				
+				DispatchQueue.main.async {
+					let vacancy = (self.offer?.vacancy)! - paxBooked
+				
+					cell.detailTextLabel?.text = String(vacancy)
+				}
 			})
 			
 			dataTask.resume()
-		
-			cell.detailTextLabel?.text = String((offer?.vacancy)!)
 		}
 		
 		if indexPath == self.carModelIndexPath {
@@ -160,7 +205,8 @@ class BookRideViewController: UIViewController, UITableViewDataSource {
 		
 		if indexPath == self.pickupTimeIndexPath {
 			let dateHelper = DateHelper()
-			let localTime = dateHelper.localTimeFrom(dateString: (offer?.meetupTime)!)
+//			let localTime = dateHelper.localTimeFrom(dateString: (offer?.meetupTime)!)
+			let localTime = dateHelper.localTimeFrom(dateString: (offer?.meetupTime)!, withCustomFormat: "yyyy-MM-dd hh:mm:ss a")
 			
 			cell.detailTextLabel?.text = localTime
 		}

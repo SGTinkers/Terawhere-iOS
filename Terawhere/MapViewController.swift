@@ -39,7 +39,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 //		self.locationManager.distanceFilter = 1000 // only update after the user moves 1000m
 		
 		
-		
 		// this will trigger another method that will trigger getting all the offers
 		// this is for actually getting nearby offers
 		self.locationManager.startUpdatingLocation()

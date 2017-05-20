@@ -172,7 +172,28 @@ class OffersViewController: UIViewController, UITableViewDelegate, UITableViewDa
 		let localMeetupTime = self.dateHelper.localTimeFrom(dateString: offer.meetupTime!)
 		cell?.pickupTimeLabel.text = localMeetupTime
 		
-		cell?.vacancyLabel.text = "\(offer.vacancy!)"
+		// getting vacancy
+		var bookingsArr = [Booking]()
+		
+		self.database.getAllBookingsForOfferByOffer(id: offer.offerId!)
+		let dataTask = URLSession.shared.dataTask(with: (self.database.request)!, completionHandler: { (data, response, error) in
+			let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?]
+			bookingsArr = (self.database.convertJSONToBooking(json: json!!))
+			
+			var paxBooked = 0
+			
+			for booking in bookingsArr {
+				paxBooked = paxBooked + booking.paxBooked!
+			}
+			
+			DispatchQueue.main.async {
+				let vacancy = offer.vacancy! - paxBooked
+				
+				cell?.vacancyLabel.text = String(vacancy)
+			}
+		})
+		
+		dataTask.resume()
 		
 		cell?.mapView.isScrollEnabled = false
 		

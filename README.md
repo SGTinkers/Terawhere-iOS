@@ -6,6 +6,8 @@ Let's build friendships together.
 
 ### Changelog
 20 May 2017:
+- Added pax check when you book to avoid over-booking pax limit
+- Available pax now shows correctly
 - Improved getting info popup alert
 - Fixed: App does not crash anymore when viewing bookings whose offers have been deleted
 
