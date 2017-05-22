@@ -8,6 +8,7 @@ Let's build friendships together.
 22 May 2017:
 - Auto login works
 - Improvements to booking list loading time
+- Fixed: Booking now works
 
 20 May 2017:
 - Added pax check when you book to avoid over-booking pax limit

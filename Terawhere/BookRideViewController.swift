@@ -53,22 +53,28 @@ class BookRideViewController: UIViewController, UITableViewDataSource {
 				pax = Int((alertController.textFields?[0].text)!)!
 			}
 			
-			var bookingsArr = [Booking]()
+			self.database?.book(offer: self.offer!, withPax: pax)
 			
-			self.database?.getAllBookingsForOfferByOffer(id: (self.offer?.offerId)!)
-			let dataTask = URLSession.shared.dataTask(with: (self.database?.request)!, completionHandler: { (data, response, error) in
-				let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?]
-				bookingsArr = (self.database?.convertJSONToBooking(json: json!!))!
-				
-				var paxBooked = 0
-				
-				for booking in bookingsArr {
-					paxBooked = paxBooked + booking.paxBooked!
-				}
-				
-				if pax > paxBooked {
+			let task = URLSession.shared.dataTask(with: (self.database?.request)!) { (data, response, error) in
+				if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?] {
+					print("booking done: \(json!)")
+					
+					var messageTitle = "Yay"
+					var message = "Book successful"
+					
+					// if anything goes wrong
+					if let jsonError = json?["error"] as? String {
+						print("Json error: \(jsonError)")
+						
+						if let jsonMessage = json?["message"] as? String {
+							print("Json message: \(jsonMessage)")
+							messageTitle = "Oops"
+							message = jsonMessage
+						}
+					}
+					
 					DispatchQueue.main.async {
-						let alert = UIAlertController.init(title: "Sorry", message: "You cannot book for more than the pax available", preferredStyle: .alert)
+						let alert = UIAlertController.init(title: messageTitle, message: message, preferredStyle: .alert)
 						let okAction = UIAlertAction.init(title: "Ok", style: .default, handler: { (action) in
 							self.dismiss(animated: true, completion: nil)
 						})
@@ -77,45 +83,10 @@ class BookRideViewController: UIViewController, UITableViewDataSource {
 						
 						self.present(alert, animated: true, completion: nil)
 					}
-				} else {
-					self.database?.book(offer: self.offer!, withPax: pax)
-					
-					let task = URLSession.shared.dataTask(with: (self.database?.request)!) { (data, response, error) in
-						if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?] {
-							print("booking done: \(json!)")
-							
-							var messageTitle = "Yay"
-							var message = "Book successful"
-							
-							// if anything goes wrong
-							if let jsonError = json?["error"] as? String {
-								print("Json error: \(jsonError)")
-								
-								if let jsonMessage = json?["message"] as? String {
-									print("Json message: \(jsonMessage)")
-									messageTitle = "Oops"
-									message = jsonMessage
-								}
-							}
-							
-							DispatchQueue.main.async {
-								let alert = UIAlertController.init(title: messageTitle, message: message, preferredStyle: .alert)
-								let okAction = UIAlertAction.init(title: "Ok", style: .default, handler: { (action) in
-									self.dismiss(animated: true, completion: nil)
-								})
-								
-								alert.addAction(okAction)
-								
-								self.present(alert, animated: true, completion: nil)
-							}
-						}
-					}
-					
-					task.resume()
 				}
-			})
+			}
 			
-			dataTask.resume()
+			task.resume()
 		}
 		
 		alertController.addAction(cancelAction)

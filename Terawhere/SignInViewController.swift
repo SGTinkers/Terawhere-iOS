@@ -60,6 +60,15 @@ class SignInViewController: UIViewController, LoginButtonDelegate {
 						
 						if let _ = json??["token_expire"] {
 							print("TOKEN EXPIRED, REFRESHING..")
+							
+							// delete item from context
+							self.context.delete((items?.first)!)
+							
+							do {
+								try self.context.save()
+							} catch {
+								print("Context item delete fail")
+							}
 						
 							// refresh token
 							var database = Database.init(token: token, userId: userId)
@@ -73,6 +82,18 @@ class SignInViewController: UIViewController, LoginButtonDelegate {
 									
 									return
 								}
+								
+								// insert new item into context
+								let item = NSEntityDescription.insertNewObject(forEntityName: "User", into: self.context) as? User
+								item?.token = token
+								item?.userId = userId
+								
+								do {
+									try self.context.save()
+								} catch {
+									print("Context item insert fail")
+								}
+								
 								
 								// init a new database with new token and existing user id
 								database = Database.init(token: token, userId: userId)
@@ -129,6 +150,15 @@ class SignInViewController: UIViewController, LoginButtonDelegate {
 						if let _ = json??["token_invalid"] {
 							print("TOKEN EXPIRED, SHOWING SIGN IN BUTTON..")
 							
+							// delete item from context
+							self.context.delete((items?.first)!)
+							
+							do {
+								try self.context.save()
+							} catch {
+								print("Context item delete fail")
+							}
+							
 							DispatchQueue.main.async {
 								let width: CGFloat = 300
 								let height: CGFloat = 50
@@ -148,6 +178,7 @@ class SignInViewController: UIViewController, LoginButtonDelegate {
 	}
 
 	func loginButtonDidCompleteLogin(_ loginButton: LoginButton, result: LoginResult) {
+		// insert new item into context
 		let user = NSEntityDescription.insertNewObject(forEntityName: "User", into: self.context) as? User
 		user?.token = (AccessToken.current?.authenticationToken)!
 		user?.userId = (AccessToken.current?.userId)!
@@ -175,10 +206,7 @@ class SignInViewController: UIViewController, LoginButtonDelegate {
 					}
 					
 					print("TOKEN HOORAY \(token)")
-					
-					
-					
-					
+
 					
 					let database = Database.init(token: token, userId: (AccessToken.current?.userId)!)
 					
