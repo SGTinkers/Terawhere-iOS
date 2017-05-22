@@ -12,6 +12,7 @@ import UserNotifications
 
 import FacebookCore
 import Firebase
+import HockeySDK
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -60,6 +61,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		if let token = FIRInstanceID.instanceID().token() {
 			print("Firebase Push Token: ", token)
 		}
+        
+        BITHockeyManager.shared().configure(withIdentifier: "5802f67566514de596a3ace39abda46a")
+        BITHockeyManager.shared().start()
+        BITHockeyManager.shared().authenticator.authenticateInstallation()
 		
 		return true
 	}

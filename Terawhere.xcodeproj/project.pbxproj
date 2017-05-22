@@ -269,6 +269,7 @@
 				AAD8EC421EB998F300BC6350 /* Resources */,
 				55ABC03F4C3593B68B48613C /* [CP] Embed Pods Frameworks */,
 				C6D512A2226C5E0E9799A463 /* [CP] Copy Pods Resources */,
+				DA30EAE01ED28CBE003C1443 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -513,6 +514,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Terawhere/Pods-Terawhere-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		DA30EAE01ED28CBE003C1443 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "FILE=\"${SRCROOT}/HockeySDK-iOS/BuildAgent\"\nif [ -f \"$FILE\" ]; then\n\"$FILE\"\nfi";
 		};
 		E3FC14060951A9EC07D3E0BA /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;

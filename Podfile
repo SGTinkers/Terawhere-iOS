@@ -8,6 +8,7 @@ target 'Terawhere' do
   pod 'FacebookLogin' 
   pod 'Firebase/Core'
   pod 'Firebase/Messaging'
+  pod 'HockeySDK', '~> 4.1.5'
 
   # Pods for Terawhere
 

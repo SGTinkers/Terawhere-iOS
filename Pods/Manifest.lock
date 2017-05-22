@@ -41,6 +41,9 @@ PODS:
     - GoogleToolboxForMac/Defines (= 2.1.1)
   - GoogleToolboxForMac/NSData+zlib (2.1.1):
     - GoogleToolboxForMac/Defines (= 2.1.1)
+  - HockeySDK (4.1.5):
+    - HockeySDK/DefaultLib (= 4.1.5)
+  - HockeySDK/DefaultLib (4.1.5)
   - Protobuf (3.3.0)
 
 DEPENDENCIES:
@@ -48,6 +51,7 @@ DEPENDENCIES:
   - FacebookLogin
   - Firebase/Core
   - Firebase/Messaging
+  - HockeySDK (~> 4.1.5)
 
 SPEC CHECKSUMS:
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
@@ -61,8 +65,9 @@ SPEC CHECKSUMS:
   FirebaseInstanceID: b9eedd6846fb5e1f0f7279e1deaa7a7e4cf8392e
   FirebaseMessaging: 753d05a925e9eb8eadd09a0ffc9b808578b72fac
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
+  HockeySDK: 606b537bbfbe454ee440e92cc93bc634b3c77151
   Protobuf: d582fecf68201eac3d79ed61369ef45734394b9c
 
-PODFILE CHECKSUM: 6e2eec4d456829f4d86d3b9bde5c534b4620aac7
+PODFILE CHECKSUM: 462a09881a0640e9eafeec507d487a3c7a443fbb
 
 COCOAPODS: 1.2.1
