@@ -44,6 +44,11 @@
 			<key>orderHint</key>
 			<integer>9</integer>
 		</dict>
+		<key>HockeySDK-HockeySDKResources.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>11</integer>
+		</dict>
 		<key>Pods-Terawhere.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -88,6 +93,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>55F3AB67D388C09567C5B76D057F921F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>593E9479C06FB200807D11AB29EB50BD</key>
 		<dict>
 			<key>primary</key>
@@ -124,6 +134,16 @@
 			<true/>
 		</dict>
 		<key>E3B0175817A293D951BF18C50C151100</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E7A4E1BCE9116081618357ACBC7AD957</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EB9AD825427F216B54E693242E671FA1</key>
 		<dict>
 			<key>primary</key>
 			<true/>

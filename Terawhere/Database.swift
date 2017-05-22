@@ -19,6 +19,7 @@ class Database {
 	var userId = ""
 	
 	var authURL = "http://139.59.224.66/api/v1/auth"
+	var refreshTokenURL = "http://139.59.224.66/api/v1/auth/refresh"
 	
 	var postOffersURL = "http://139.59.224.66/api/v1/offers"
 	var nearbyOffersURL = "http://139.59.224.66/api/v1/nearby-offers"
@@ -70,6 +71,15 @@ class Database {
 		self.request?.httpMethod = "POST"
 		self.request?.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
 		self.request?.httpBody = postData as Data
+	}
+	
+	func refreshToken() {
+		let url = URL.init(string: self.refreshTokenURL)
+		self.request = URLRequest.init(url: url!)
+		
+		self.request?.addValue("application/json", forHTTPHeaderField: "Accept")
+		self.request?.addValue("application/json", forHTTPHeaderField: "Content-Type")
+		self.request?.addValue("Bearer \(self.token)", forHTTPHeaderField: "Authorization")
 	}
 	
 	func convertJSONToOfferObject(json: [String: Any?]) -> Offer? {

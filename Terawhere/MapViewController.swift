@@ -35,8 +35,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 		self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
 		self.locationManager.requestWhenInUseAuthorization()
 		
-		
-//		self.locationManager.distanceFilter = 1000 // only update after the user moves 1000m
+		// only update after the user moves 500m
+		self.locationManager.distanceFilter = 500
 		
 		
 		// this will trigger another method that will trigger getting all the offers

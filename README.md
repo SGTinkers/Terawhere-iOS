@@ -5,6 +5,10 @@ Want to go for Terawih prayers? Why not broadcast it and ask nearby people if th
 Let's build friendships together.
 
 ### Changelog
+22 May 2017:
+- Auto login works
+- Improvements to booking list loading time
+
 20 May 2017:
 - Added pax check when you book to avoid over-booking pax limit
 - Available pax now shows correctly
