@@ -5,6 +5,9 @@ Want to go for Terawih prayers? Why not broadcast it and ask nearby people if th
 Let's build friendships together.
 
 ### Changelog
+24 May 2017:
+- Fixed: Login button did not appear when there is no saved facebook account
+
 22 May 2017:
 - Auto login works
 - Improvements to booking list loading time

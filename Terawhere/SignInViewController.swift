@@ -174,6 +174,14 @@ class SignInViewController: UIViewController, LoginButtonDelegate {
 				
 				dataTask.resume()
 			}
+		} else {
+			let width: CGFloat = 300
+			let height: CGFloat = 50
+			
+			self.facebookLoginButton = LoginButton(readPermissions: [.publicProfile])
+			self.facebookLoginButton?.frame = CGRect.init(x: (self.view.frame.width / 2) - (width / 2), y: CGFloat(self.view.frame.height - 100), width: width, height: height)
+			self.view.addSubview(self.facebookLoginButton!)
+			self.facebookLoginButton?.delegate = self
 		}
 	}
 
