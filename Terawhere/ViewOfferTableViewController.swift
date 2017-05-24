@@ -71,7 +71,14 @@ class ViewOfferTableViewController: UITableViewController {
 				print(json)
 				
 				DispatchQueue.main.async {
-					self.navigationController?.popViewController(animated: true)
+					let alert = UIAlertController.init(title: "Offer successfully deleted", message: "", preferredStyle: .alert)
+					let okAction = UIAlertAction.init(title: "Ok", style: .default, handler: { (action) in
+						self.navigationController?.popViewController(animated: true)
+					})
+					
+					alert.addAction(okAction)
+					
+					self.present(alert, animated: true, completion: nil)
 				}
 			}
 		}

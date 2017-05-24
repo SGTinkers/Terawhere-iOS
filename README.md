@@ -6,6 +6,7 @@ Let's build friendships together.
 
 ### Changelog
 24 May 2017:
+- Added popup when succesfully deleting offer
 - Fixed: Login button did not appear when there is no saved facebook account
 
 22 May 2017:
