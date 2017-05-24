@@ -39,8 +39,6 @@ class BookingsViewController: UIViewController, UITableViewDelegate, UITableView
 		
 		self.database.getAllBookingsForUser()
 		
-		var offerDeleted = false
-		
 		let task = URLSession.shared.dataTask(with: self.database.request!) { (data, response, error) in
 			if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?] {
 				self.bookingsArr = self.database.convertJSONToBooking(json: json!)
@@ -67,36 +65,35 @@ class BookingsViewController: UIViewController, UITableViewDelegate, UITableView
 								let utcDate = self.dateHelper.utcDate()
 								let meetupDate = self.dateHelper.utcDateFrom(dateString: offer.meetupTime!)
 								
-								if self.segmentedControl.selectedSegmentIndex == 0 {
-									// booking nil means booking has not been cancelled
-									// do not append cancelled bookings generally
-									if self.bookingsArr[booking].deletedDate == nil {
-										if meetupDate! > utcDate! {
-											self.filteredBookingsArr.append(self.bookingsArr[booking])
+								// cancel past bookings
+								if meetupDate! < utcDate! {
+									self.database.cancel(booking: self.bookingsArr[booking])
+									
+									let dataTask = URLSession.shared.dataTask(with: self.database.request!) { (data, response, error) in
+										if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) {
+											print(json)
 										}
+									}
+									
+									dataTask.resume()
+								}
+								
+								if self.segmentedControl.selectedSegmentIndex == 0 {
+									if self.bookingsArr[booking].deletedDate == nil {
+										self.filteredBookingsArr.append(self.bookingsArr[booking])
 									}
 									
 								} else if self.segmentedControl.selectedSegmentIndex == 1 {
-									if self.bookingsArr[booking].deletedDate == nil {
-										if meetupDate! < utcDate! {
-											self.filteredBookingsArr.append(self.bookingsArr[booking])
-										}
+									// for past bookings and cancelled bookings
+									if self.bookingsArr[booking].deletedDate != nil {
+										self.filteredBookingsArr.append(self.bookingsArr[booking])
 									}
 								}
-							} else {
-								offerDeleted = true
 							}
 							
-							// an async call in an async call
-							// only execute in the main queue after the last item in the for loop
-							// otherwise, it ends up being an async bug
-							// and those are really tough to handle
+							// wait for last item before reloading
 							if booking < self.bookingsArr.count {
 								DispatchQueue.main.async {
-									if offerDeleted {
-										print("Some bookings are not shown because their offers have been deleted")
-									}
-									
 									if self.filteredBookingsArr.count > 0 {
 										self.tableView.isHidden = false
 										self.noBookingsView.isHidden = true
@@ -114,13 +111,13 @@ class BookingsViewController: UIViewController, UITableViewDelegate, UITableView
 						
 						innerTask.resume()
 					}
-				}
-				
-				DispatchQueue.main.async {
-					self.tableView.isHidden = true
-					self.noBookingsView.isHidden = false
-				
-					self.activityIndicator.stopAnimating()
+				} else {
+					DispatchQueue.main.async {
+						self.tableView.isHidden = true
+						self.noBookingsView.isHidden = false
+						
+						self.activityIndicator.stopAnimating()
+					}
 				}
 			}
 		}
@@ -140,8 +137,6 @@ class BookingsViewController: UIViewController, UITableViewDelegate, UITableView
 		
 		self.database.getAllBookingsForUser()
 		
-		var offerDeleted = false
-		
 		let task = URLSession.shared.dataTask(with: self.database.request!) { (data, response, error) in
 			if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?] {
 				self.bookingsArr = self.database.convertJSONToBooking(json: json!)
@@ -168,36 +163,35 @@ class BookingsViewController: UIViewController, UITableViewDelegate, UITableView
 								let utcDate = self.dateHelper.utcDate()
 								let meetupDate = self.dateHelper.utcDateFrom(dateString: offer.meetupTime!)
 								
-								if self.segmentedControl.selectedSegmentIndex == 0 {
-									// booking nil means booking has not been cancelled
-									// do not append cancelled bookings generally
-									if self.bookingsArr[booking].deletedDate == nil {
-										if meetupDate! > utcDate! {
-											self.filteredBookingsArr.append(self.bookingsArr[booking])
+								// cancel past bookings
+								if meetupDate! < utcDate! {
+									self.database.cancel(booking: self.bookingsArr[booking])
+									
+									let dataTask = URLSession.shared.dataTask(with: self.database.request!) { (data, response, error) in
+										if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) {
+											print(json)
 										}
+									}
+									
+									dataTask.resume()
+								}
+								
+								if self.segmentedControl.selectedSegmentIndex == 0 {
+									if self.bookingsArr[booking].deletedDate == nil {
+										self.filteredBookingsArr.append(self.bookingsArr[booking])
 									}
 									
 								} else if self.segmentedControl.selectedSegmentIndex == 1 {
-									if self.bookingsArr[booking].deletedDate == nil {
-										if meetupDate! < utcDate! {
-											self.filteredBookingsArr.append(self.bookingsArr[booking])
-										}
+									// for past bookings and cancelled bookings
+									if self.bookingsArr[booking].deletedDate != nil {
+										self.filteredBookingsArr.append(self.bookingsArr[booking])
 									}
 								}
-							} else {
-								offerDeleted = true
 							}
 							
-							// an async call in an async call
-							// only execute in the main queue after the last item in the for loop
-							// otherwise, it ends up being an async bug
-							// and those are really tough to handle
+							// wait for last item before reloading
 							if booking < self.bookingsArr.count {
 								DispatchQueue.main.async {
-									if offerDeleted {
-										print("Some bookings are not shown because their offers have been deleted")
-									}
-									
 									if self.filteredBookingsArr.count > 0 {
 										self.tableView.isHidden = false
 										self.noBookingsView.isHidden = true
@@ -215,13 +209,13 @@ class BookingsViewController: UIViewController, UITableViewDelegate, UITableView
 						
 						innerTask.resume()
 					}
-				}
-				
-				DispatchQueue.main.async {
-					self.tableView.isHidden = true
-					self.noBookingsView.isHidden = false
-					
-					self.activityIndicator.stopAnimating()
+				} else {
+					DispatchQueue.main.async {
+						self.tableView.isHidden = true
+						self.noBookingsView.isHidden = false
+						
+						self.activityIndicator.stopAnimating()
+					}
 				}
 			}
 		}
