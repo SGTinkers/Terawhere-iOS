@@ -29,7 +29,12 @@ class ViewOfferTableViewController: UITableViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+		print("View did load")
     }
+
+	override func viewWillAppear(_ animated: Bool) {
+		print("View will appear")
+	}
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -48,20 +53,6 @@ class ViewOfferTableViewController: UITableViewController {
 		
 		self.present(alert, animated: true, completion: nil)
 	}
-	
-//	func editOffer() {
-//		self.database?.edit(offer: self.offer)
-//		
-//		let dataTask = URLSession.shared.dataTask(with: (self.database?.request)!) { (data, response, error) in
-//			if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) {
-//				print(json)
-//			} else {
-//				print("No JSON")
-//			}
-//		}
-//		
-//		dataTask.resume()
-//	}
 	
 	func deleteOffer() {
 		self.database?.delete(offer: self.offer)
@@ -133,8 +124,9 @@ class ViewOfferTableViewController: UITableViewController {
 			self.database?.getAllBookingsForOfferByOffer(id: (self.offer?.offerId)!)
 			let dataTask = URLSession.shared.dataTask(with: (self.database?.request)!, completionHandler: { (data, response, error) in
 				let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?]
-				bookingsArr = (self.database?.convertJSONToBooking(json: json!!))!
 				
+				bookingsArr = (self.database?.convertJSONToBooking(json: json!!))!
+
 				var paxBooked = 0
 				
 				for booking in bookingsArr {

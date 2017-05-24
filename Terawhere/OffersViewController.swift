@@ -36,22 +36,22 @@ class OffersViewController: UIViewController, UITableViewDelegate, UITableViewDa
 		self.activityIndicator.activityIndicatorViewStyle = .gray
 		self.activityIndicator.hidesWhenStopped = true
 		self.activityIndicator.startAnimating()
-	
+		
 		self.database.getAllOffersForUser()
 		
 		let task = URLSession.shared.dataTask(with: self.database.request!) { (data, response, error) in
 			if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?] {
-
+				
 				// this array carries all user's offers
 				self.offersArr = self.database.convertJSONToOffer(json: json!)
-
+				
 				// clear filtered array first
 				self.filteredOffersArr.removeAll()
 				
 				for offer in self.offersArr {
 					let utcDate = self.dateHelper.utcDate()
 					let meetupTime = self.dateHelper.utcDateFrom(dateString: offer.meetupTime!)
-				
+					
 					if self.segmentedControl.selectedSegmentIndex == 0 {
 						// today's offers
 						if meetupTime! > utcDate! {
@@ -75,7 +75,7 @@ class OffersViewController: UIViewController, UITableViewDelegate, UITableViewDa
 						self.tableView.isHidden = true
 						self.noOffersView.isHidden = false
 					}
-				
+					
 					self.tableView.reloadData()
 					
 					self.activityIndicator.stopAnimating()

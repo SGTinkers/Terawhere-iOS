@@ -51,7 +51,14 @@ class ViewBookingTableViewController: UITableViewController {
 				print(json)
 				
 				DispatchQueue.main.async {
-					self.navigationController?.popViewController(animated: true)
+					let alert = UIAlertController.init(title: "Booking successfully cancelled", message: "", preferredStyle: .alert)
+					let okAction = UIAlertAction.init(title: "Ok", style: .default, handler: { (action) in
+						self.navigationController?.popViewController(animated: true)
+					})
+					
+					alert.addAction(okAction)
+					
+					self.present(alert, animated: true, completion: nil)
 				}
 			}
 		}
@@ -106,6 +113,7 @@ class ViewBookingTableViewController: UITableViewController {
 			self.database?.getAllBookingsForOfferByOffer(id: (self.offer?.offerId)!)
 			let dataTask = URLSession.shared.dataTask(with: (self.database?.request)!, completionHandler: { (data, response, error) in
 				let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?]
+
 				bookingsArr = (self.database?.convertJSONToBooking(json: json!!))!
 				
 				var paxBooked = 0

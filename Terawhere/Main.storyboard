@@ -178,7 +178,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="250"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MWt-eM-CJV" id="Fcv-UQ-sW4">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="249.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="250"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="sJK-Fz-qUS">
@@ -752,7 +752,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KNK-yM-rDB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2936.8000000000002" y="120.98950524737631"/>
+            <point key="canvasLocation" x="2873" y="-93"/>
         </scene>
         <!--View Booking Table View Controller-->
         <scene sceneID="yW7-la-9Wd">
@@ -863,6 +863,7 @@
         <!--Navigation Controller-->
         <scene sceneID="oih-pQ-eWd">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qGz-mD-gGb" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Qws-kJ-94t" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="n8a-c6-mCS">
@@ -874,9 +875,8 @@
                         <segue destination="sEG-mJ-XPd" kind="relationship" relationship="rootViewController" id="oOK-P1-uga"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="qGz-mD-gGb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1998" y="121"/>
+            <point key="canvasLocation" x="1998" y="-93"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="bWl-Yw-bS6">

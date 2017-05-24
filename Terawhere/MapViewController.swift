@@ -24,8 +24,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 		
 //		self.navigationController?.navigationBar.barTintColor = UIColor.init(red: 73/255, green: 210/255, blue: 175/255, alpha: 1.0)
 //		self.tabBarController?.tabBar.barTintColor = UIColor.init(red: 73/255, green: 210/255, blue: 175/255, alpha: 1.0)
-		
-		
+
 		
         // Do any additional setup after loading the view.
 		self.mapView.delegate = self

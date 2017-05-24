@@ -65,19 +65,6 @@ class BookingsViewController: UIViewController, UITableViewDelegate, UITableView
 								let utcDate = self.dateHelper.utcDate()
 								let meetupDate = self.dateHelper.utcDateFrom(dateString: offer.meetupTime!)
 								
-								// cancel past bookings
-								if meetupDate! < utcDate! {
-									self.database.cancel(booking: self.bookingsArr[booking])
-									
-									let dataTask = URLSession.shared.dataTask(with: self.database.request!) { (data, response, error) in
-										if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) {
-											print(json)
-										}
-									}
-									
-									dataTask.resume()
-								}
-								
 								if self.segmentedControl.selectedSegmentIndex == 0 {
 									if self.bookingsArr[booking].deletedDate == nil {
 										self.filteredBookingsArr.append(self.bookingsArr[booking])
@@ -87,6 +74,21 @@ class BookingsViewController: UIViewController, UITableViewDelegate, UITableView
 									// for past bookings and cancelled bookings
 									if self.bookingsArr[booking].deletedDate != nil {
 										self.filteredBookingsArr.append(self.bookingsArr[booking])
+									}
+								
+									if self.bookingsArr[booking].deletedDate == nil {
+										// if the booking is in the past
+										if meetupDate! < utcDate! {
+											self.database.cancel(booking: self.bookingsArr[booking])
+											
+											let dataTask = URLSession.shared.dataTask(with: self.database.request!) { (data, response, error) in
+												if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) {
+													print(json)
+												}
+											}
+											
+											dataTask.resume()
+										}
 									}
 								}
 							}
@@ -163,19 +165,6 @@ class BookingsViewController: UIViewController, UITableViewDelegate, UITableView
 								let utcDate = self.dateHelper.utcDate()
 								let meetupDate = self.dateHelper.utcDateFrom(dateString: offer.meetupTime!)
 								
-								// cancel past bookings
-								if meetupDate! < utcDate! {
-									self.database.cancel(booking: self.bookingsArr[booking])
-									
-									let dataTask = URLSession.shared.dataTask(with: self.database.request!) { (data, response, error) in
-										if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) {
-											print(json)
-										}
-									}
-									
-									dataTask.resume()
-								}
-								
 								if self.segmentedControl.selectedSegmentIndex == 0 {
 									if self.bookingsArr[booking].deletedDate == nil {
 										self.filteredBookingsArr.append(self.bookingsArr[booking])
@@ -185,6 +174,21 @@ class BookingsViewController: UIViewController, UITableViewDelegate, UITableView
 									// for past bookings and cancelled bookings
 									if self.bookingsArr[booking].deletedDate != nil {
 										self.filteredBookingsArr.append(self.bookingsArr[booking])
+									}
+									
+									if self.bookingsArr[booking].deletedDate == nil {
+										// if the booking is in the past
+										if meetupDate! < utcDate! {
+											self.database.cancel(booking: self.bookingsArr[booking])
+											
+											let dataTask = URLSession.shared.dataTask(with: self.database.request!) { (data, response, error) in
+												if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) {
+													print(json)
+												}
+											}
+											
+											dataTask.resume()
+										}
 									}
 								}
 							}

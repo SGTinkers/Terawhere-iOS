@@ -364,7 +364,10 @@ class Database {
 	}
 	
 	func getAllBookingsForOfferByOffer(id: Int?) {
+		
 		let getAllBookingsForOfferWithOfferIdURL = self.getAllBookingsForOffer + "/\(id!)/bookings"
+		
+		print("url \(getAllBookingsForOfferWithOfferIdURL)")
 		
 		let url = URL.init(string: getAllBookingsForOfferWithOfferIdURL)
 		self.request = URLRequest.init(url: url!)
