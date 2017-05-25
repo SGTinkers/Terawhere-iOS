@@ -34,133 +34,120 @@ class BookingsViewController: UIViewController, UITableViewDelegate, UITableView
     }
 	
 	override func viewWillAppear(_ animated: Bool) {
-		self.activityIndicator.activityIndicatorViewStyle = .gray
-		self.activityIndicator.hidesWhenStopped = true
-		self.activityIndicator.startAnimating()
+		if self.segmentedControl.selectedSegmentIndex == 1 {
+			self.tableView.isHidden = true
+			self.noBookingsView.isHidden = false
 		
-		self.database.getAllBookingsForUser()
-		
-		let task = URLSession.shared.dataTask(with: self.database.request!) { (data, response, error) in
-			if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?] {
+			let alert = UIAlertController.init(title: "Coming soon!", message: "", preferredStyle: .alert)
+			let okAction = UIAlertAction.init(title: "Ok", style: .default, handler: nil)
+			alert.addAction(okAction)
 			
-				// clear arrays first
-				self.filteredBookingsArr.removeAll()
-				self.offersArr.removeAll()
-				
-				self.bookingsArr = self.database.convertJSONToBooking(json: json!)
-				
-				if let actualJsonData = json?["data"] as? [[String: Any]] {
-					for object in actualJsonData {
-						let offer = Offer()
+			self.present(alert, animated: true, completion: nil)
+		} else {
+			self.activityIndicator.activityIndicatorViewStyle = .gray
+			self.activityIndicator.hidesWhenStopped = true
+			self.activityIndicator.startAnimating()
+		
+			self.database.getAllBookingsForUser()
+			
+			let task = URLSession.shared.dataTask(with: self.database.request!) { (data, response, error) in
+				if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?] {
 					
-						let offerObject = object["offer"] as? [String: Any]
-						
-						let deletedDate = offerObject?["deleted_at"] as? String
-						let endAddr = offerObject?["end_addr"] as? String
-						let id = offerObject?["id"] as? Int
-						let meetupTime = offerObject?["meetup_time"] as? String
-						let startAddr = offerObject?["start_addr"] as? String
-						let vehicleModel = offerObject?["vehicle_model"] as? String
-						let vehicleNumber = offerObject?["vehicle_number"] as? String
-						
-						offer.deletedDateString = deletedDate
-						offer.endAddr = endAddr
-						offer.offerId = id
-						offer.meetupTime = meetupTime
-						offer.startAddr = startAddr
-						offer.vehicleModel = vehicleModel
-						offer.vehicleNumber = vehicleNumber
-						
-						self.offersArr.append(offer)
+					// clear arrays first
+					self.filteredBookingsArr.removeAll()
+					self.offersArr.removeAll()
+					
+					self.bookingsArr = self.database.convertJSONToBooking(json: json!)
+					
+					if let actualJsonData = json?["data"] as? [[String: Any]] {
+						for object in actualJsonData {
+							let offer = Offer()
+							
+							let offerObject = object["offer"] as? [String: Any]
+							
+							let deletedDate = offerObject?["deleted_at"] as? String
+							let endAddr = offerObject?["end_addr"] as? String
+							let id = offerObject?["id"] as? Int
+							let meetupTime = offerObject?["meetup_time"] as? String
+							let startAddr = offerObject?["start_addr"] as? String
+							let vehicleModel = offerObject?["vehicle_model"] as? String
+							let vehicleNumber = offerObject?["vehicle_number"] as? String
+							
+							offer.deletedDateString = deletedDate
+							offer.endAddr = endAddr
+							offer.offerId = id
+							offer.meetupTime = meetupTime
+							offer.startAddr = startAddr
+							offer.vehicleModel = vehicleModel
+							offer.vehicleNumber = vehicleNumber
+							
+							self.offersArr.append(offer)
+						}
 					}
-				}
-				
-				
-				if self.bookingsArr.count > 0 {
-					for count in 0 ..< self.bookingsArr.count {
-						print("Booking View: Book id \(self.bookingsArr[count].id!)")
-						print("Booking View: Offer id \(self.bookingsArr[count].offerId!)")
-						
-						let localTime = self.dateHelper.localTimeFrom(dateString: self.offersArr[count].meetupTime!, withCustomFormat: "yyyy-MM-dd hh:mm:ss a")
-						print("Offer local time \(localTime)")
-						
-						let utcDate = self.dateHelper.utcDate()
-						let meetupDate = self.dateHelper.utcDateFrom(dateString: self.offersArr[count].meetupTime!)
-						
-						if self.segmentedControl.selectedSegmentIndex == 0 {
-							if self.bookingsArr[count].deletedDate == nil {
-								// if the booking is in the past
-								if meetupDate! < utcDate! {
-									self.database.cancel(booking: self.bookingsArr[count])
-									
-									let dataTask = URLSession.shared.dataTask(with: self.database.request!) { (data, response, error) in
-										if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) {
-											print(json)
+					
+					
+					if self.bookingsArr.count > 0 {
+						for count in 0 ..< self.bookingsArr.count {
+							print("Booking View: Book id \(self.bookingsArr[count].id!)")
+							print("Booking View: Offer id \(self.bookingsArr[count].offerId!)")
+							
+							let localTime = self.dateHelper.localTimeFrom(dateString: self.offersArr[count].meetupTime!, withCustomFormat: "yyyy-MM-dd hh:mm:ss a")
+							print("Offer local time \(localTime)")
+							
+							let utcDate = self.dateHelper.utcDate()
+							let meetupDate = self.dateHelper.utcDateFrom(dateString: self.offersArr[count].meetupTime!)
+							
+							if self.segmentedControl.selectedSegmentIndex == 0 {
+								if self.bookingsArr[count].deletedDate == nil {
+									// if the booking is in the past
+									if meetupDate! < utcDate! {
+										self.database.cancel(booking: self.bookingsArr[count])
+										
+										let dataTask = URLSession.shared.dataTask(with: self.database.request!) { (data, response, error) in
+											if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) {
+												print(json)
+											}
 										}
+										
+										dataTask.resume()
+										
+										self.filteredBookingsArr.append(self.bookingsArr[count])
 									}
-									
-									dataTask.resume()
-									
-									self.filteredBookingsArr.append(self.bookingsArr[count])
-								}
-								
-								self.filteredBookingsArr.append(self.bookingsArr[count])
-							}
-						} else if self.segmentedControl.selectedSegmentIndex == 1 {
-							// only for deletion
-							if self.bookingsArr[count].deletedDate == nil {
-								// if the booking is in the past
-								if meetupDate! < utcDate! {
-									self.database.cancel(booking: self.bookingsArr[count])
-									
-									let dataTask = URLSession.shared.dataTask(with: self.database.request!) { (data, response, error) in
-										if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) {
-											print(json)
-										}
-									}
-									
-									dataTask.resume()
 									
 									self.filteredBookingsArr.append(self.bookingsArr[count])
 								}
 							}
 							
-							
-							// for past bookings and cancelled bookings
-							if self.bookingsArr[count].deletedDate != nil {
-								self.filteredBookingsArr.append(self.bookingsArr[count])
-							}
-						}
-					
-						// wait for last item before reloading
-						if count < self.bookingsArr.count {
-							DispatchQueue.main.async {
-								if self.filteredBookingsArr.count > 0 {
-									self.tableView.isHidden = false
-									self.noBookingsView.isHidden = true
-								} else {
-									self.tableView.isHidden = true
-									self.noBookingsView.isHidden = false
+							// wait for last item before reloading
+							if count < self.bookingsArr.count {
+								DispatchQueue.main.async {
+									if self.filteredBookingsArr.count > 0 {
+										self.tableView.isHidden = false
+										self.noBookingsView.isHidden = true
+									} else {
+										self.tableView.isHidden = true
+										self.noBookingsView.isHidden = false
+									}
+									
+									self.tableView.reloadData()
+									
+									self.activityIndicator.stopAnimating()
 								}
-								
-								self.tableView.reloadData()
-								
-								self.activityIndicator.stopAnimating()
 							}
 						}
-					}
-				} else {
-					DispatchQueue.main.async {
-						self.tableView.isHidden = true
-						self.noBookingsView.isHidden = false
-						
-						self.activityIndicator.stopAnimating()
+					} else {
+						DispatchQueue.main.async {
+							self.tableView.isHidden = true
+							self.noBookingsView.isHidden = false
+							
+							self.activityIndicator.stopAnimating()
+						}
 					}
 				}
 			}
+			
+			task.resume()
 		}
-		
-		task.resume()
 	}
 
     override func didReceiveMemoryWarning() {
@@ -169,133 +156,120 @@ class BookingsViewController: UIViewController, UITableViewDelegate, UITableView
     }
 	
 	@IBAction func changeSegmentedControl() {
-		self.activityIndicator.activityIndicatorViewStyle = .gray
-		self.activityIndicator.hidesWhenStopped = true
-		self.activityIndicator.startAnimating()
+		if self.segmentedControl.selectedSegmentIndex == 1 {
+			self.tableView.isHidden = true
+			self.noBookingsView.isHidden = false
 		
-		self.database.getAllBookingsForUser()
-		
-		let task = URLSession.shared.dataTask(with: self.database.request!) { (data, response, error) in
-			if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?] {
-				
-				// clear arrays first
-				self.filteredBookingsArr.removeAll()
-				self.offersArr.removeAll()
-				
-				self.bookingsArr = self.database.convertJSONToBooking(json: json!)
-				
-				if let actualJsonData = json?["data"] as? [[String: Any]] {
-					for object in actualJsonData {
-						let offer = Offer()
-						
-						let offerObject = object["offer"] as? [String: Any]
-						
-						let deletedDate = offerObject?["deleted_at"] as? String
-						let endAddr = offerObject?["end_addr"] as? String
-						let id = offerObject?["id"] as? Int
-						let meetupTime = offerObject?["meetup_time"] as? String
-						let startAddr = offerObject?["start_addr"] as? String
-						let vehicleModel = offerObject?["vehicle_model"] as? String
-						let vehicleNumber = offerObject?["vehicle_number"] as? String
-						
-						offer.deletedDateString = deletedDate
-						offer.endAddr = endAddr
-						offer.offerId = id
-						offer.meetupTime = meetupTime
-						offer.startAddr = startAddr
-						offer.vehicleModel = vehicleModel
-						offer.vehicleNumber = vehicleNumber
-						
-						self.offersArr.append(offer)
+			let alert = UIAlertController.init(title: "Coming soon!", message: "", preferredStyle: .alert)
+			let okAction = UIAlertAction.init(title: "Ok", style: .default, handler: nil)
+			alert.addAction(okAction)
+			
+			self.present(alert, animated: true, completion: nil)
+		} else {
+			self.activityIndicator.activityIndicatorViewStyle = .gray
+			self.activityIndicator.hidesWhenStopped = true
+			self.activityIndicator.startAnimating()
+			
+			self.database.getAllBookingsForUser()
+			
+			let task = URLSession.shared.dataTask(with: self.database.request!) { (data, response, error) in
+				if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?] {
+					
+					// clear arrays first
+					self.filteredBookingsArr.removeAll()
+					self.offersArr.removeAll()
+					
+					self.bookingsArr = self.database.convertJSONToBooking(json: json!)
+					
+					if let actualJsonData = json?["data"] as? [[String: Any]] {
+						for object in actualJsonData {
+							let offer = Offer()
+							
+							let offerObject = object["offer"] as? [String: Any]
+							
+							let deletedDate = offerObject?["deleted_at"] as? String
+							let endAddr = offerObject?["end_addr"] as? String
+							let id = offerObject?["id"] as? Int
+							let meetupTime = offerObject?["meetup_time"] as? String
+							let startAddr = offerObject?["start_addr"] as? String
+							let vehicleModel = offerObject?["vehicle_model"] as? String
+							let vehicleNumber = offerObject?["vehicle_number"] as? String
+							
+							offer.deletedDateString = deletedDate
+							offer.endAddr = endAddr
+							offer.offerId = id
+							offer.meetupTime = meetupTime
+							offer.startAddr = startAddr
+							offer.vehicleModel = vehicleModel
+							offer.vehicleNumber = vehicleNumber
+							
+							self.offersArr.append(offer)
+						}
 					}
-				}
-				
-				
-				if self.bookingsArr.count > 0 {
-					for count in 0 ..< self.bookingsArr.count {
-						print("Booking View: Book id \(self.bookingsArr[count].id!)")
-						print("Booking View: Offer id \(self.bookingsArr[count].offerId!)")
-						
-						let localTime = self.dateHelper.localTimeFrom(dateString: self.offersArr[count].meetupTime!, withCustomFormat: "yyyy-MM-dd hh:mm:ss a")
-						print("Offer local time \(localTime)")
-						
-						let utcDate = self.dateHelper.utcDate()
-						let meetupDate = self.dateHelper.utcDateFrom(dateString: self.offersArr[count].meetupTime!)
-						
-						if self.segmentedControl.selectedSegmentIndex == 0 {
-							if self.bookingsArr[count].deletedDate == nil {
-								// if the booking is in the past
-								if meetupDate! < utcDate! {
-									self.database.cancel(booking: self.bookingsArr[count])
-									
-									let dataTask = URLSession.shared.dataTask(with: self.database.request!) { (data, response, error) in
-										if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) {
-											print(json)
+					
+					
+					if self.bookingsArr.count > 0 {
+						for count in 0 ..< self.bookingsArr.count {
+							print("Booking View: Book id \(self.bookingsArr[count].id!)")
+							print("Booking View: Offer id \(self.bookingsArr[count].offerId!)")
+							
+							let localTime = self.dateHelper.localTimeFrom(dateString: self.offersArr[count].meetupTime!, withCustomFormat: "yyyy-MM-dd hh:mm:ss a")
+							print("Offer local time \(localTime)")
+							
+							let utcDate = self.dateHelper.utcDate()
+							let meetupDate = self.dateHelper.utcDateFrom(dateString: self.offersArr[count].meetupTime!)
+							
+							if self.segmentedControl.selectedSegmentIndex == 0 {
+								if self.bookingsArr[count].deletedDate == nil {
+									// if the booking is in the past
+									if meetupDate! < utcDate! {
+										self.database.cancel(booking: self.bookingsArr[count])
+										
+										let dataTask = URLSession.shared.dataTask(with: self.database.request!) { (data, response, error) in
+											if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) {
+												print(json)
+											}
 										}
+										
+										dataTask.resume()
+										
+										self.filteredBookingsArr.append(self.bookingsArr[count])
 									}
-									
-									dataTask.resume()
-									
-									self.filteredBookingsArr.append(self.bookingsArr[count])
-								}
-								
-								self.filteredBookingsArr.append(self.bookingsArr[count])
-							}
-						} else if self.segmentedControl.selectedSegmentIndex == 1 {
-							// only for deletion
-							if self.bookingsArr[count].deletedDate == nil {
-								// if the booking is in the past
-								if meetupDate! < utcDate! {
-									self.database.cancel(booking: self.bookingsArr[count])
-									
-									let dataTask = URLSession.shared.dataTask(with: self.database.request!) { (data, response, error) in
-										if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) {
-											print(json)
-										}
-									}
-									
-									dataTask.resume()
 									
 									self.filteredBookingsArr.append(self.bookingsArr[count])
 								}
 							}
 							
-							
-							// for past bookings and cancelled bookings
-							if self.bookingsArr[count].deletedDate != nil {
-								self.filteredBookingsArr.append(self.bookingsArr[count])
-							}
-						}
-						
-						// wait for last item before reloading
-						if count < self.bookingsArr.count {
-							DispatchQueue.main.async {
-								if self.filteredBookingsArr.count > 0 {
-									self.tableView.isHidden = false
-									self.noBookingsView.isHidden = true
-								} else {
-									self.tableView.isHidden = true
-									self.noBookingsView.isHidden = false
+							// wait for last item before reloading
+							if count < self.bookingsArr.count {
+								DispatchQueue.main.async {
+									if self.filteredBookingsArr.count > 0 {
+										self.tableView.isHidden = false
+										self.noBookingsView.isHidden = true
+									} else {
+										self.tableView.isHidden = true
+										self.noBookingsView.isHidden = false
+									}
+									
+									self.tableView.reloadData()
+									
+									self.activityIndicator.stopAnimating()
 								}
-								
-								self.tableView.reloadData()
-								
-								self.activityIndicator.stopAnimating()
 							}
 						}
-					}
-				} else {
-					DispatchQueue.main.async {
-						self.tableView.isHidden = true
-						self.noBookingsView.isHidden = false
-						
-						self.activityIndicator.stopAnimating()
+					} else {
+						DispatchQueue.main.async {
+							self.tableView.isHidden = true
+							self.noBookingsView.isHidden = false
+							
+							self.activityIndicator.stopAnimating()
+						}
 					}
 				}
 			}
+			
+			task.resume()
 		}
-		
-		task.resume()
 	}
 
 	// MARK: Table view data source
@@ -384,24 +358,4 @@ class BookingsViewController: UIViewController, UITableViewDelegate, UITableView
 			self.navigationController?.pushViewController(viewBookingVC, animated: true)
 		}
 	}
-
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        // Get the new view controller using segue.destinationViewController.
-//        // Pass the selected object to the new view controller.
-//		if segue.identifier == "ViewBooking" {
-//			print("Hello there booking")
-//		
-//			let selectedIndexPath = self.tableView.indexPathForSelectedRow
-//		
-//			let booking = self.bookingsArr[(selectedIndexPath?.row)!]
-//		
-//			let viewBookingVC = segue.destination as? ViewBookingTableViewController
-//			viewBookingVC?.booking = booking
-//			viewBookingVC?.database = self.database
-//		}
-//    }
-
 }

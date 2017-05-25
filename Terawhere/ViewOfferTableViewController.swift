@@ -32,16 +32,6 @@ class ViewOfferTableViewController: UITableViewController {
         // Do any additional setup after loading the view.
     }
 
-	override func viewWillAppear(_ animated: Bool) {
-		self.database?.getOfferBy(id: (self.offer?.offerId)!)
-		let dataTask = URLSession.shared.dataTask(with: (self.database?.request)!) { (data, response, error) in
-			let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
-			print(json)
-		}
-		
-		dataTask.resume()
-	}
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -85,7 +75,7 @@ class ViewOfferTableViewController: UITableViewController {
 
 	// MARK: Table view data source
 	override public func numberOfSections(in tableView: UITableView) -> Int {
-		return 2
+		return 1
 	}
 
 	override public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -201,23 +201,19 @@ class Database {
 	}
 	
 	func getNearbyOffersWith(userLocation: CLLocation?) {
-		guard let userLocation = userLocation else {
-			print("User location is invalid")
-		
-			return
+		if let userLocation = userLocation {
+			let json: [String: Any] = ["lat": userLocation.coordinate.latitude, "lng": userLocation.coordinate.longitude]
+			let jsonData = try? JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
+			
+			let url = URL.init(string: self.nearbyOffersURL)
+			self.request = URLRequest.init(url: url!)
+			self.request?.httpMethod = "POST"
+			self.request?.httpBody = jsonData!
+			
+			self.request?.addValue("Bearer \(self.token)", forHTTPHeaderField: "Authorization")
+			self.request?.addValue("application/json", forHTTPHeaderField: "Accept")
+			self.request?.addValue("application/json", forHTTPHeaderField: "Content-Type")
 		}
-		
-		let json: [String: Any] = ["lat": userLocation.coordinate.latitude, "lng": userLocation.coordinate.longitude]
-		let jsonData = try? JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
-		
-		let url = URL.init(string: self.nearbyOffersURL)
-		self.request = URLRequest.init(url: url!)
-		self.request?.httpMethod = "POST"
-		self.request?.httpBody = jsonData!
-		
-		self.request?.addValue("Bearer \(self.token)", forHTTPHeaderField: "Authorization")
-		self.request?.addValue("application/json", forHTTPHeaderField: "Accept")
-		self.request?.addValue("application/json", forHTTPHeaderField: "Content-Type")
 	}
 	
 	func get(offer: Offer?) {

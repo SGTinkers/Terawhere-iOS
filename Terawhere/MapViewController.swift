@@ -36,16 +36,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 		
 		// only update after the user moves 500m
 		self.locationManager.distanceFilter = 500
-		
-		
-		// this will trigger another method that will trigger getting all the offers
-		// this is for actually getting nearby offers
-		self.locationManager.startUpdatingLocation()
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
-		// put this here for testing purposes
-		// you do not need the user location here
+		// this will trigger another method that will trigger getting all the offers
+		// this is for actually getting nearby offers
+		print("Hello updating location")
+		
 		self.locationManager.startUpdatingLocation()
 	}
 
@@ -131,7 +128,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 	}
 	
 	func getAllActiveOffersNearMe() {
-		self.database.getNearbyOffersWith(userLocation: self.userLocation)
+		guard let userLocation = userLocation else {
+			print("User location is invalid")
+			
+			return
+		}
+	
+		self.database.getNearbyOffersWith(userLocation: userLocation)
 		
 		var offerArr = [Offer]()
 		
@@ -139,6 +142,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 			if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?] {
 				let database = Database()
 				offerArr = database.convertJSONToOffer(json: json!)
+				print("Offer array count \(offerArr.count)")
 				
 				DispatchQueue.main.async {
 					self.mapView?.removeAnnotations((self.mapView?.annotations)!)
