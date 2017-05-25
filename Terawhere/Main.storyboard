@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -603,26 +604,36 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="green" translatesAutoresizingMaskIntoConstraints="NO" id="zh2-Cb-MUk">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="green" translatesAutoresizingMaskIntoConstraints="NO" id="zh2-Cb-MUk">
                                 <rect key="frame" x="67" y="99" width="255" height="173"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Welcome to Terawhere" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lhr-iN-rCv">
-                                <rect key="frame" x="70" y="261" width="248" height="27"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to Terawhere" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lhr-iN-rCv">
+                                <rect key="frame" x="84" y="261" width="220.5" height="27"/>
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="21"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Going for Terawih has never been easier" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tyJ-Kc-jVO">
-                                <rect key="frame" x="82" y="280" width="225" height="75"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Going for Terawih has never been easier" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tyJ-Kc-jVO">
+                                <rect key="frame" x="37" y="288" width="315.5" height="22.5"/>
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" red="0.28627450980392155" green="0.82352941176470584" blue="0.68627450980392157" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="dMQ-oP-nqK" firstAttribute="top" secondItem="zh2-Cb-MUk" secondAttribute="bottom" constant="395" id="3jn-dF-TQ9"/>
+                            <constraint firstItem="zh2-Cb-MUk" firstAttribute="top" secondItem="cCg-4n-x5H" secondAttribute="bottom" constant="79" id="BIV-2O-ydA"/>
+                            <constraint firstItem="tyJ-Kc-jVO" firstAttribute="leading" secondItem="64B-3N-33r" secondAttribute="leadingMargin" constant="21" id="Hmf-Kr-LLE"/>
+                            <constraint firstItem="Lhr-iN-rCv" firstAttribute="centerX" secondItem="zh2-Cb-MUk" secondAttribute="centerX" id="bjF-Av-fiD"/>
+                            <constraint firstItem="tyJ-Kc-jVO" firstAttribute="top" secondItem="Lhr-iN-rCv" secondAttribute="bottom" id="cnD-re-HGE"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="zh2-Cb-MUk" secondAttribute="trailing" constant="37" id="enP-Yi-elN"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="tyJ-Kc-jVO" secondAttribute="trailing" constant="6.5" id="ov1-AQ-WK1"/>
+                            <constraint firstItem="Lhr-iN-rCv" firstAttribute="top" secondItem="zh2-Cb-MUk" secondAttribute="bottom" constant="-11" id="rPb-PI-ZJb"/>
+                            <constraint firstItem="zh2-Cb-MUk" firstAttribute="centerX" secondItem="64B-3N-33r" secondAttribute="centerX" id="rqH-f5-oOR"/>
+                            <constraint firstItem="tyJ-Kc-jVO" firstAttribute="centerX" secondItem="Lhr-iN-rCv" secondAttribute="centerX" id="uY3-vM-6G8"/>
+                            <constraint firstItem="zh2-Cb-MUk" firstAttribute="leading" secondItem="64B-3N-33r" secondAttribute="leadingMargin" constant="51" id="yRk-mF-xoK"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jwx-ob-VIF" userLabel="First Responder" sceneMemberID="firstResponder"/>
