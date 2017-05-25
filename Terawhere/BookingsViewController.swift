@@ -18,6 +18,7 @@ class BookingsViewController: UIViewController, UITableViewDelegate, UITableView
 	
 	var database = (UIApplication.shared.delegate as! AppDelegate).database
 	var bookingsArr = [Booking]()
+	var offersArr = [Offer]()
 	var filteredBookingsArr = [Booking]()
 	
 	let dateHelper = DateHelper()
@@ -41,77 +42,112 @@ class BookingsViewController: UIViewController, UITableViewDelegate, UITableView
 		
 		let task = URLSession.shared.dataTask(with: self.database.request!) { (data, response, error) in
 			if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?] {
+			
+				// clear arrays first
+				self.filteredBookingsArr.removeAll()
+				self.offersArr.removeAll()
+				
 				self.bookingsArr = self.database.convertJSONToBooking(json: json!)
 				
-				print("Booking arr count \(self.bookingsArr.count)")
+				if let actualJsonData = json?["data"] as? [[String: Any]] {
+					for object in actualJsonData {
+						let offer = Offer()
+					
+						let offerObject = object["offer"] as? [String: Any]
+						
+						let deletedDate = offerObject?["deleted_at"] as? String
+						let endAddr = offerObject?["end_addr"] as? String
+						let id = offerObject?["id"] as? Int
+						let meetupTime = offerObject?["meetup_time"] as? String
+						let startAddr = offerObject?["start_addr"] as? String
+						let vehicleModel = offerObject?["vehicle_model"] as? String
+						let vehicleNumber = offerObject?["vehicle_number"] as? String
+						
+						offer.deletedDateString = deletedDate
+						offer.endAddr = endAddr
+						offer.offerId = id
+						offer.meetupTime = meetupTime
+						offer.startAddr = startAddr
+						offer.vehicleModel = vehicleModel
+						offer.vehicleNumber = vehicleNumber
+						
+						self.offersArr.append(offer)
+					}
+				}
 				
-				// clear filtered array first
-				self.filteredBookingsArr.removeAll()
 				
 				if self.bookingsArr.count > 0 {
-					for booking in 0 ..< self.bookingsArr.count {
-						self.database.getOfferBy(id: self.bookingsArr[booking].offerId!)
+					for count in 0 ..< self.bookingsArr.count {
+						print("Booking View: Book id \(self.bookingsArr[count].id!)")
+						print("Booking View: Offer id \(self.bookingsArr[count].offerId!)")
 						
-						let innerTask = URLSession.shared.dataTask(with: self.database.request!, completionHandler: { (data, response, error) in
-							let innerJson = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?]
-							
-							if let offer = self.database.convertJSONToOfferObject(json: innerJson!!) {
-								print("Booking View: Book id \(self.bookingsArr[booking].id!)")
-								print("Booking View: Offer id \(self.bookingsArr[booking].offerId!)")
-								
-								let localTime = self.dateHelper.localTimeFrom(dateString: offer.meetupTime!, withCustomFormat: "yyyy-MM-dd hh:mm:ss a")
-								print("Offer local time \(localTime)")
-								
-								let utcDate = self.dateHelper.utcDate()
-								let meetupDate = self.dateHelper.utcDateFrom(dateString: offer.meetupTime!)
-								
-								if self.segmentedControl.selectedSegmentIndex == 0 {
-									if self.bookingsArr[booking].deletedDate == nil {
-										self.filteredBookingsArr.append(self.bookingsArr[booking])
-									}
+						let localTime = self.dateHelper.localTimeFrom(dateString: self.offersArr[count].meetupTime!, withCustomFormat: "yyyy-MM-dd hh:mm:ss a")
+						print("Offer local time \(localTime)")
+						
+						let utcDate = self.dateHelper.utcDate()
+						let meetupDate = self.dateHelper.utcDateFrom(dateString: self.offersArr[count].meetupTime!)
+						
+						if self.segmentedControl.selectedSegmentIndex == 0 {
+							if self.bookingsArr[count].deletedDate == nil {
+								// if the booking is in the past
+								if meetupDate! < utcDate! {
+									self.database.cancel(booking: self.bookingsArr[count])
 									
-								} else if self.segmentedControl.selectedSegmentIndex == 1 {
-									// for past bookings and cancelled bookings
-									if self.bookingsArr[booking].deletedDate != nil {
-										self.filteredBookingsArr.append(self.bookingsArr[booking])
-									}
-								
-									if self.bookingsArr[booking].deletedDate == nil {
-										// if the booking is in the past
-										if meetupDate! < utcDate! {
-											self.database.cancel(booking: self.bookingsArr[booking])
-											
-											let dataTask = URLSession.shared.dataTask(with: self.database.request!) { (data, response, error) in
-												if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) {
-													print(json)
-												}
-											}
-											
-											dataTask.resume()
+									let dataTask = URLSession.shared.dataTask(with: self.database.request!) { (data, response, error) in
+										if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) {
+											print(json)
 										}
 									}
+									
+									dataTask.resume()
+									
+									self.filteredBookingsArr.append(self.bookingsArr[count])
+								}
+								
+								self.filteredBookingsArr.append(self.bookingsArr[count])
+							}
+						} else if self.segmentedControl.selectedSegmentIndex == 1 {
+							// only for deletion
+							if self.bookingsArr[count].deletedDate == nil {
+								// if the booking is in the past
+								if meetupDate! < utcDate! {
+									self.database.cancel(booking: self.bookingsArr[count])
+									
+									let dataTask = URLSession.shared.dataTask(with: self.database.request!) { (data, response, error) in
+										if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) {
+											print(json)
+										}
+									}
+									
+									dataTask.resume()
+									
+									self.filteredBookingsArr.append(self.bookingsArr[count])
 								}
 							}
 							
-							// wait for last item before reloading
-							if booking < self.bookingsArr.count {
-								DispatchQueue.main.async {
-									if self.filteredBookingsArr.count > 0 {
-										self.tableView.isHidden = false
-										self.noBookingsView.isHidden = true
-									} else {
-										self.tableView.isHidden = true
-										self.noBookingsView.isHidden = false
-									}
-									
-									self.tableView.reloadData()
-									
-									self.activityIndicator.stopAnimating()
-								}
+							
+							// for past bookings and cancelled bookings
+							if self.bookingsArr[count].deletedDate != nil {
+								self.filteredBookingsArr.append(self.bookingsArr[count])
 							}
-						})
-						
-						innerTask.resume()
+						}
+					
+						// wait for last item before reloading
+						if count < self.bookingsArr.count {
+							DispatchQueue.main.async {
+								if self.filteredBookingsArr.count > 0 {
+									self.tableView.isHidden = false
+									self.noBookingsView.isHidden = true
+								} else {
+									self.tableView.isHidden = true
+									self.noBookingsView.isHidden = false
+								}
+								
+								self.tableView.reloadData()
+								
+								self.activityIndicator.stopAnimating()
+							}
+						}
 					}
 				} else {
 					DispatchQueue.main.async {
@@ -141,77 +177,112 @@ class BookingsViewController: UIViewController, UITableViewDelegate, UITableView
 		
 		let task = URLSession.shared.dataTask(with: self.database.request!) { (data, response, error) in
 			if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?] {
+				
+				// clear arrays first
+				self.filteredBookingsArr.removeAll()
+				self.offersArr.removeAll()
+				
 				self.bookingsArr = self.database.convertJSONToBooking(json: json!)
 				
-				print("Booking arr count \(self.bookingsArr.count)")
+				if let actualJsonData = json?["data"] as? [[String: Any]] {
+					for object in actualJsonData {
+						let offer = Offer()
+						
+						let offerObject = object["offer"] as? [String: Any]
+						
+						let deletedDate = offerObject?["deleted_at"] as? String
+						let endAddr = offerObject?["end_addr"] as? String
+						let id = offerObject?["id"] as? Int
+						let meetupTime = offerObject?["meetup_time"] as? String
+						let startAddr = offerObject?["start_addr"] as? String
+						let vehicleModel = offerObject?["vehicle_model"] as? String
+						let vehicleNumber = offerObject?["vehicle_number"] as? String
+						
+						offer.deletedDateString = deletedDate
+						offer.endAddr = endAddr
+						offer.offerId = id
+						offer.meetupTime = meetupTime
+						offer.startAddr = startAddr
+						offer.vehicleModel = vehicleModel
+						offer.vehicleNumber = vehicleNumber
+						
+						self.offersArr.append(offer)
+					}
+				}
 				
-				// clear filtered array first
-				self.filteredBookingsArr.removeAll()
 				
 				if self.bookingsArr.count > 0 {
-					for booking in 0 ..< self.bookingsArr.count {
-						self.database.getOfferBy(id: self.bookingsArr[booking].offerId!)
+					for count in 0 ..< self.bookingsArr.count {
+						print("Booking View: Book id \(self.bookingsArr[count].id!)")
+						print("Booking View: Offer id \(self.bookingsArr[count].offerId!)")
 						
-						let innerTask = URLSession.shared.dataTask(with: self.database.request!, completionHandler: { (data, response, error) in
-							let innerJson = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?]
-							
-							if let offer = self.database.convertJSONToOfferObject(json: innerJson!!) {
-								print("Booking View: Book id \(self.bookingsArr[booking].id!)")
-								print("Booking View: Offer id \(self.bookingsArr[booking].offerId!)")
-								
-								let localTime = self.dateHelper.localTimeFrom(dateString: offer.meetupTime!, withCustomFormat: "yyyy-MM-dd hh:mm:ss a")
-								print("Offer local time \(localTime)")
-								
-								let utcDate = self.dateHelper.utcDate()
-								let meetupDate = self.dateHelper.utcDateFrom(dateString: offer.meetupTime!)
-								
-								if self.segmentedControl.selectedSegmentIndex == 0 {
-									if self.bookingsArr[booking].deletedDate == nil {
-										self.filteredBookingsArr.append(self.bookingsArr[booking])
-									}
+						let localTime = self.dateHelper.localTimeFrom(dateString: self.offersArr[count].meetupTime!, withCustomFormat: "yyyy-MM-dd hh:mm:ss a")
+						print("Offer local time \(localTime)")
+						
+						let utcDate = self.dateHelper.utcDate()
+						let meetupDate = self.dateHelper.utcDateFrom(dateString: self.offersArr[count].meetupTime!)
+						
+						if self.segmentedControl.selectedSegmentIndex == 0 {
+							if self.bookingsArr[count].deletedDate == nil {
+								// if the booking is in the past
+								if meetupDate! < utcDate! {
+									self.database.cancel(booking: self.bookingsArr[count])
 									
-								} else if self.segmentedControl.selectedSegmentIndex == 1 {
-									// for past bookings and cancelled bookings
-									if self.bookingsArr[booking].deletedDate != nil {
-										self.filteredBookingsArr.append(self.bookingsArr[booking])
-									}
-									
-									if self.bookingsArr[booking].deletedDate == nil {
-										// if the booking is in the past
-										if meetupDate! < utcDate! {
-											self.database.cancel(booking: self.bookingsArr[booking])
-											
-											let dataTask = URLSession.shared.dataTask(with: self.database.request!) { (data, response, error) in
-												if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) {
-													print(json)
-												}
-											}
-											
-											dataTask.resume()
+									let dataTask = URLSession.shared.dataTask(with: self.database.request!) { (data, response, error) in
+										if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) {
+											print(json)
 										}
 									}
+									
+									dataTask.resume()
+									
+									self.filteredBookingsArr.append(self.bookingsArr[count])
+								}
+								
+								self.filteredBookingsArr.append(self.bookingsArr[count])
+							}
+						} else if self.segmentedControl.selectedSegmentIndex == 1 {
+							// only for deletion
+							if self.bookingsArr[count].deletedDate == nil {
+								// if the booking is in the past
+								if meetupDate! < utcDate! {
+									self.database.cancel(booking: self.bookingsArr[count])
+									
+									let dataTask = URLSession.shared.dataTask(with: self.database.request!) { (data, response, error) in
+										if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) {
+											print(json)
+										}
+									}
+									
+									dataTask.resume()
+									
+									self.filteredBookingsArr.append(self.bookingsArr[count])
 								}
 							}
 							
-							// wait for last item before reloading
-							if booking < self.bookingsArr.count {
-								DispatchQueue.main.async {
-									if self.filteredBookingsArr.count > 0 {
-										self.tableView.isHidden = false
-										self.noBookingsView.isHidden = true
-									} else {
-										self.tableView.isHidden = true
-										self.noBookingsView.isHidden = false
-									}
-									
-									self.tableView.reloadData()
-									
-									self.activityIndicator.stopAnimating()
-								}
+							
+							// for past bookings and cancelled bookings
+							if self.bookingsArr[count].deletedDate != nil {
+								self.filteredBookingsArr.append(self.bookingsArr[count])
 							}
-						})
+						}
 						
-						innerTask.resume()
+						// wait for last item before reloading
+						if count < self.bookingsArr.count {
+							DispatchQueue.main.async {
+								if self.filteredBookingsArr.count > 0 {
+									self.tableView.isHidden = false
+									self.noBookingsView.isHidden = true
+								} else {
+									self.tableView.isHidden = true
+									self.noBookingsView.isHidden = false
+								}
+								
+								self.tableView.reloadData()
+								
+								self.activityIndicator.stopAnimating()
+							}
+						}
 					}
 				} else {
 					DispatchQueue.main.async {
@@ -240,6 +311,7 @@ class BookingsViewController: UIViewController, UITableViewDelegate, UITableView
 		cell?.booking = self.filteredBookingsArr[indexPath.row]
 		
 		// get offer
+		// API calls are needed here because of missing information
 		self.database.getOfferBy(id: (cell?.booking?.offerId)!)
 		let dataTask = URLSession.shared.dataTask(with: self.database.request!) { (data, response, error) in
 			if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?] {

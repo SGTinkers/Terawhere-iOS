@@ -34,8 +34,13 @@ class Offer {
 	
 	var createdDateString: String? = nil
 	var updatedDateString: String? = nil
+	var deletedDateString: String? = nil
 	
 	var vacancy: Int?
+	
+	init() {
+		
+	}
 	
 	// to post
 	init(forPostWithEndAddr endAddr: String?, endLat: Double?, endLng: Double?, endName: String?, meetupTime: String?, startAddr: String?, startLat: Double?, startLng: Double?, startName: String?, remarks: String?, userId: String?, vehicleDesc: String?, vehicleModel: String?, vehicleNumber: String?, status: Int?, vacancy: Int?) {

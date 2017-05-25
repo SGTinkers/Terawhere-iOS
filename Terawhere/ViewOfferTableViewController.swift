@@ -15,6 +15,7 @@ class ViewOfferTableViewController: UITableViewController {
 	var offer: Offer?
 	
 	var tableItems = ["Meet pt name", "Meet pt", "Driver name", "No. of pax left", "Car model", "Vehicle no.", "Pick up time", "Destination"]
+	var passengers = [String]()
 	
 	var meetupPointNameIndexPath = IndexPath.init(row: 0, section: 0)
 	var meetupPointIndexPath = IndexPath.init(row: 1, section: 0)
@@ -29,11 +30,16 @@ class ViewOfferTableViewController: UITableViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-		print("View did load")
     }
 
 	override func viewWillAppear(_ animated: Bool) {
-		print("View will appear")
+		self.database?.getOfferBy(id: (self.offer?.offerId)!)
+		let dataTask = URLSession.shared.dataTask(with: (self.database?.request)!) { (data, response, error) in
+			let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
+			print(json)
+		}
+		
+		dataTask.resume()
 	}
 
     override func didReceiveMemoryWarning() {
@@ -79,7 +85,7 @@ class ViewOfferTableViewController: UITableViewController {
 
 	// MARK: Table view data source
 	override public func numberOfSections(in tableView: UITableView) -> Int {
-		return 1
+		return 2
 	}
 
 	override public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
