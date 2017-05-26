@@ -5,6 +5,9 @@ Want to go for Terawih prayers? Why not broadcast it and ask nearby people if th
 Let's build friendships together.
 
 ### Changelog
+27 May 2017
+- You can now search for more accurate addresses
+
 26 May 2017:
 - Autolayout done
 

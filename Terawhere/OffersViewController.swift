@@ -213,7 +213,10 @@ class OffersViewController: UIViewController, UITableViewDelegate, UITableViewDa
 		let offer = self.filteredOffersArr[indexPath.row]
 		
 		cell?.pickupLocationLabel.text = offer.startAddr!
+		print("Start addr: \(offer.startAddr!)")
+		
 		cell?.destinationLabel.text = offer.endAddr!
+		print("Start addr: \(offer.endAddr!)")
 		
 		let localMeetupTime = self.dateHelper.localTimeFrom(dateString: offer.meetupTime!)
 		cell?.pickupTimeLabel.text = localMeetupTime

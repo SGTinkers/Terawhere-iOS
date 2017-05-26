@@ -13,11 +13,12 @@ protocol LocationSelectProtocol {
 	func use(mapItem: MKMapItem, forLocationState state: String)
 }
 
-class LocationSearchTableViewController: UITableViewController, UISearchResultsUpdating, UISearchBarDelegate {
+class LocationSearchTableViewController: UITableViewController, UISearchResultsUpdating, UISearchBarDelegate, MKLocalSearchCompleterDelegate {
 
 	var searchController: UISearchController?
+	var localSearchCompleter: MKLocalSearchCompleter?
 	
-	var filteredLocations: [MKMapItem]?
+	var filteredLocations: [MKLocalSearchCompletion]?
 	
 	var delegate: LocationSelectProtocol?
 	
@@ -39,6 +40,9 @@ class LocationSearchTableViewController: UITableViewController, UISearchResultsU
 		searchController?.dimsBackgroundDuringPresentation = false
 		searchController?.hidesNavigationBarDuringPresentation = false
 		self.definesPresentationContext = true
+		
+		self.localSearchCompleter = MKLocalSearchCompleter()
+		self.localSearchCompleter?.delegate = self
 		
 		self.searchController?.searchBar.delegate = self
 		self.tableView.tableHeaderView = self.searchController?.searchBar
@@ -65,46 +69,77 @@ class LocationSearchTableViewController: UITableViewController, UISearchResultsU
         return 0
     }
 	
+	// MARK: search bar delegate
+	public func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+		self.localSearchCompleter?.queryFragment = searchText
+	}
+	
+	// MARK: MKLocalSearchCompleter delegate
+	public func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
+		self.filteredLocations = completer.results
+		
+		self.tableView.reloadData()
+		
+	}
+	
 	// MARK: Search results updating delegate
 	public func updateSearchResults(for searchController: UISearchController) {
-		if let searchBarText = self.searchController?.searchBar.text {
-			if searchBarText.isEmpty {
-				self.filteredLocations?.removeAll()
-				
-				self.tableView.reloadData()
-			}
-		}
-	
-		let localSearchReq = MKLocalSearchRequest()
-		localSearchReq.naturalLanguageQuery = self.searchController?.searchBar.text
-		
-		let localSearch = MKLocalSearch.init(request: localSearchReq)
-		localSearch.start { (response, error) in
-			self.filteredLocations = response?.mapItems
-			
-			self.tableView.reloadData()
-		}
+//		if let searchBarText = self.searchController?.searchBar.text {
+//			if searchBarText.isEmpty {
+//				self.filteredLocations?.removeAll()
+//				
+//				self.tableView.reloadData()
+//			}
+//		}
+//	
+//		let localSearchReq = MKLocalSearchRequest()
+//		localSearchReq.naturalLanguageQuery = self.searchController?.searchBar.text
+//		
+//		let localSearch = MKLocalSearch.init(request: localSearchReq)
+//		localSearch.start { (response, error) in
+//			self.filteredLocations = response?.mapItems.
+//			
+//			self.tableView.reloadData()
+//		}
 	}
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
 
         // Configure the cell...
-		cell.textLabel?.text = self.filteredLocations?[indexPath.row].name
+		cell.textLabel?.text = self.filteredLocations?[indexPath.row].title
+		cell.detailTextLabel?.text = self.filteredLocations?[indexPath.row].subtitle
 
         return cell
     }
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		if let mapItem = self.filteredLocations?[indexPath.row] {
+		let item = self.filteredLocations?[indexPath.row]
+		let request = MKLocalSearchRequest()
+		request.naturalLanguageQuery = item?.title
+		let search = MKLocalSearch(request: request)
+		search.start { (response, error) in
+			
+			guard let response = response else {
+				print("Response is nil")
+			
+				return
+			}
+			
+			guard let item = response.mapItems.first else {
+				print("Item is nil")
+				
+				return
+			}
+			
 			if self.state == "end" {
-				self.delegate?.use(mapItem: mapItem, forLocationState: self.state!)
+				self.delegate?.use(mapItem: item, forLocationState: self.state!)
 			}
 			
 			if self.state == "start" {
-				self.delegate?.use(mapItem: mapItem, forLocationState: self.state!)
+				self.delegate?.use(mapItem: item, forLocationState: self.state!)
 			}
-		
+			
 			_ = self.navigationController?.popViewController(animated: true)
 		}
 	}
