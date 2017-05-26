@@ -5,6 +5,9 @@ Want to go for Terawih prayers? Why not broadcast it and ask nearby people if th
 Let's build friendships together.
 
 ### Changelog
+26 May 2017:
+- Autolayout done
+
 24 May 2017:
 - Added popup when succesfully deleting offer
 - Fixed: Vacancy now displays the correct amount
