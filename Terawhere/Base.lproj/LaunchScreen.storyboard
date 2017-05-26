@@ -1,37 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="5E6-jn-IqE">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="dGt-4i-Sfp">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
-        <scene sceneID="ReQ-N6-mJI">
+        <scene sceneID="ePr-y1-zRk">
             <objects>
-                <viewController id="5E6-jn-IqE" sceneMemberID="viewController">
+                <viewController id="dGt-4i-Sfp" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Fye-DS-jH0"/>
-                        <viewControllerLayoutGuide type="bottom" id="6B1-iN-g7p"/>
+                        <viewControllerLayoutGuide type="top" id="3nY-re-fZJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="83t-0N-djR"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="u5T-dq-Rml">
+                    <view key="view" contentMode="scaleToFill" id="DAA-3m-8fM">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="green" translatesAutoresizingMaskIntoConstraints="NO" id="Vmu-KC-OeO">
-                                <rect key="frame" x="67" y="99" width="255" height="173"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to Terawhere" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bck-HT-pLg">
+                                <rect key="frame" x="36" y="255" width="302" height="27"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="green" translatesAutoresizingMaskIntoConstraints="NO" id="5XT-x1-mkU">
+                                <rect key="frame" x="90" y="98" width="194" height="149"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="194" id="b4t-Sa-pLc"/>
+                                    <constraint firstAttribute="height" constant="149" id="sBF-tO-2Yl"/>
+                                </constraints>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Going for Terawih has never been easier" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W2u-hD-aMR">
+                                <rect key="frame" x="34" y="290" width="306.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.28627450980000002" green="0.82352941180000006" blue="0.68627450980000004" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="W2u-hD-aMR" firstAttribute="top" secondItem="bck-HT-pLg" secondAttribute="bottom" constant="8" symbolic="YES" id="D1M-Z2-8gO"/>
+                            <constraint firstAttribute="trailing" secondItem="5XT-x1-mkU" secondAttribute="trailing" constant="91" id="HUD-2K-1dM"/>
+                            <constraint firstItem="5XT-x1-mkU" firstAttribute="leading" secondItem="DAA-3m-8fM" secondAttribute="leading" constant="90" id="J3P-Fa-1ig"/>
+                            <constraint firstItem="bck-HT-pLg" firstAttribute="leading" secondItem="DAA-3m-8fM" secondAttribute="leadingMargin" constant="20" id="akU-Ho-hfa"/>
+                            <constraint firstItem="5XT-x1-mkU" firstAttribute="top" secondItem="3nY-re-fZJ" secondAttribute="bottom" constant="78" id="edN-yt-Nld"/>
+                            <constraint firstItem="bck-HT-pLg" firstAttribute="centerX" secondItem="W2u-hD-aMR" secondAttribute="centerX" id="k6v-VS-IYZ"/>
+                            <constraint firstItem="bck-HT-pLg" firstAttribute="top" secondItem="5XT-x1-mkU" secondAttribute="bottom" constant="8" id="uCI-Ql-vH7"/>
+                            <constraint firstItem="bck-HT-pLg" firstAttribute="centerX" secondItem="5XT-x1-mkU" secondAttribute="centerX" id="uUq-T2-SRH"/>
+                        </constraints>
                     </view>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Wis-Cm-yaj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KmW-gM-RUJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="63" y="407"/>
+            <point key="canvasLocation" x="-1333.5999999999999" y="-281.10944527736132"/>
         </scene>
     </scenes>
     <resources>

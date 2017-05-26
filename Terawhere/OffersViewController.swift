@@ -33,57 +33,80 @@ class OffersViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
 
 	override func viewWillAppear(_ animated: Bool) {
-		self.activityIndicator.activityIndicatorViewStyle = .gray
-		self.activityIndicator.hidesWhenStopped = true
-		self.activityIndicator.startAnimating()
-		
-		self.database.getAllOffersForUser()
-		
-		let task = URLSession.shared.dataTask(with: self.database.request!) { (data, response, error) in
-			if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?] {
-				
-				// this array carries all user's offers
-				self.offersArr = self.database.convertJSONToOffer(json: json!)
-				
-				// clear filtered array first
-				self.filteredOffersArr.removeAll()
-				
-				for offer in self.offersArr {
-					let utcDate = self.dateHelper.utcDate()
-					let meetupTime = self.dateHelper.utcDateFrom(dateString: offer.meetupTime!)
+		if self.segmentedControl.selectedSegmentIndex == 1 {
+			//						// past offers
+			//						if meetupTime! < utcDate! {
+			//							print("Adding one offer for the past")
+			//							self.filteredOffersArr.append(offer)
+			//						}
+			
+			self.tableView.isHidden = true
+			self.noOffersView.isHidden = false
+			
+			let alert = UIAlertController.init(title: "Coming soon!", message: "", preferredStyle: .alert)
+			let okAction = UIAlertAction.init(title: "Ok", style: .default, handler: nil)
+			alert.addAction(okAction)
+			
+			self.present(alert, animated: true, completion: nil)
+		} else {
+			self.activityIndicator.activityIndicatorViewStyle = .gray
+			self.activityIndicator.hidesWhenStopped = true
+			self.activityIndicator.startAnimating()
+			
+			self.database.getAllOffersForUser()
+			
+			let task = URLSession.shared.dataTask(with: self.database.request!) { (data, response, error) in
+				if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?] {
 					
-					if self.segmentedControl.selectedSegmentIndex == 0 {
-						// today's offers
-						if meetupTime! > utcDate! {
-							print("Adding one offer for today")
-							self.filteredOffersArr.append(offer)
-						}
-					} else if self.segmentedControl.selectedSegmentIndex == 1 {
-						// past offers
-						if meetupTime! < utcDate! {
-							print("Adding one offer for the past")
-							self.filteredOffersArr.append(offer)
+					// this array carries all user's offers
+					self.offersArr = self.database.convertJSONToOffer(json: json!)
+					
+					// clear filtered array first
+					self.filteredOffersArr.removeAll()
+					
+					for offer in self.offersArr {
+						let utcDate = self.dateHelper.utcDate()
+						let meetupTime = self.dateHelper.utcDateFrom(dateString: offer.meetupTime!)
+						
+						if self.segmentedControl.selectedSegmentIndex == 0 {
+							// today's offers
+							if meetupTime! > utcDate! {
+								print("Adding one offer for today")
+								self.filteredOffersArr.append(offer)
+							}
+						} else if self.segmentedControl.selectedSegmentIndex == 1 {
+							//						// past offers
+							//						if meetupTime! < utcDate! {
+							//							print("Adding one offer for the past")
+							//							self.filteredOffersArr.append(offer)
+							//						}
+							
+							let alert = UIAlertController.init(title: "Coming soon!", message: "", preferredStyle: .alert)
+							let okAction = UIAlertAction.init(title: "Ok", style: .default, handler: nil)
+							alert.addAction(okAction)
+							
+							self.present(alert, animated: true, completion: nil)
 						}
 					}
-				}
-				
-				DispatchQueue.main.async {
-					if self.filteredOffersArr.count > 0 {
-						self.tableView.isHidden = false
-						self.noOffersView.isHidden = true
-					} else {
-						self.tableView.isHidden = true
-						self.noOffersView.isHidden = false
+					
+					DispatchQueue.main.async {
+						if self.filteredOffersArr.count > 0 {
+							self.tableView.isHidden = false
+							self.noOffersView.isHidden = true
+						} else {
+							self.tableView.isHidden = true
+							self.noOffersView.isHidden = false
+						}
+						
+						self.tableView.reloadData()
+						
+						self.activityIndicator.stopAnimating()
 					}
-					
-					self.tableView.reloadData()
-					
-					self.activityIndicator.stopAnimating()
 				}
 			}
+			
+			task.resume()
 		}
-		
-		task.resume()
 	}
 
     override func didReceiveMemoryWarning() {
@@ -101,57 +124,80 @@ class OffersViewController: UIViewController, UITableViewDelegate, UITableViewDa
 	}
 	
 	@IBAction func changeSegmentedControl() {
-		self.activityIndicator.activityIndicatorViewStyle = .gray
-		self.activityIndicator.hidesWhenStopped = true
-		self.activityIndicator.startAnimating()
-		
-		self.database.getAllOffersForUser()
-		
-		let task = URLSession.shared.dataTask(with: self.database.request!) { (data, response, error) in
-			if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?] {
-				
-				// this array carries all user's offers
-				self.offersArr = self.database.convertJSONToOffer(json: json!)
-				
-				// clear filtered array first
-				self.filteredOffersArr.removeAll()
-				
-				for offer in self.offersArr {
-					let utcDate = self.dateHelper.utcDate()
-					let meetupTime = self.dateHelper.utcDateFrom(dateString: offer.meetupTime!)
+		if self.segmentedControl.selectedSegmentIndex == 1 {
+			//						// past offers
+			//						if meetupTime! < utcDate! {
+			//							print("Adding one offer for the past")
+			//							self.filteredOffersArr.append(offer)
+			//						}
+			
+			self.tableView.isHidden = true
+			self.noOffersView.isHidden = false
+			
+			let alert = UIAlertController.init(title: "Coming soon!", message: "", preferredStyle: .alert)
+			let okAction = UIAlertAction.init(title: "Ok", style: .default, handler: nil)
+			alert.addAction(okAction)
+			
+			self.present(alert, animated: true, completion: nil)
+		} else {
+			self.activityIndicator.activityIndicatorViewStyle = .gray
+			self.activityIndicator.hidesWhenStopped = true
+			self.activityIndicator.startAnimating()
+			
+			self.database.getAllOffersForUser()
+			
+			let task = URLSession.shared.dataTask(with: self.database.request!) { (data, response, error) in
+				if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?] {
 					
-					if self.segmentedControl.selectedSegmentIndex == 0 {
-						// today's offers
-						if meetupTime! > utcDate! {
-							print("Adding one offer for today")
-							self.filteredOffersArr.append(offer)
-						}
-					} else if self.segmentedControl.selectedSegmentIndex == 1 {
-						// past offers
-						if meetupTime! < utcDate! {
-							print("Adding one offer for the past")
-							self.filteredOffersArr.append(offer)
+					// this array carries all user's offers
+					self.offersArr = self.database.convertJSONToOffer(json: json!)
+					
+					// clear filtered array first
+					self.filteredOffersArr.removeAll()
+					
+					for offer in self.offersArr {
+						let utcDate = self.dateHelper.utcDate()
+						let meetupTime = self.dateHelper.utcDateFrom(dateString: offer.meetupTime!)
+						
+						if self.segmentedControl.selectedSegmentIndex == 0 {
+							// today's offers
+							if meetupTime! > utcDate! {
+								print("Adding one offer for today")
+								self.filteredOffersArr.append(offer)
+							}
+						} else if self.segmentedControl.selectedSegmentIndex == 1 {
+							//						// past offers
+							//						if meetupTime! < utcDate! {
+							//							print("Adding one offer for the past")
+							//							self.filteredOffersArr.append(offer)
+							//						}
+							
+							let alert = UIAlertController.init(title: "Coming soon!", message: "", preferredStyle: .alert)
+							let okAction = UIAlertAction.init(title: "Ok", style: .default, handler: nil)
+							alert.addAction(okAction)
+							
+							self.present(alert, animated: true, completion: nil)
 						}
 					}
-				}
-				
-				DispatchQueue.main.async {
-					if self.filteredOffersArr.count > 0 {
-						self.tableView.isHidden = false
-						self.noOffersView.isHidden = true
-					} else {
-						self.tableView.isHidden = true
-						self.noOffersView.isHidden = false
+					
+					DispatchQueue.main.async {
+						if self.filteredOffersArr.count > 0 {
+							self.tableView.isHidden = false
+							self.noOffersView.isHidden = true
+						} else {
+							self.tableView.isHidden = true
+							self.noOffersView.isHidden = false
+						}
+						
+						self.tableView.reloadData()
+						
+						self.activityIndicator.stopAnimating()
 					}
-					
-					self.tableView.reloadData()
-					
-					self.activityIndicator.stopAnimating()
 				}
 			}
+			
+			task.resume()
 		}
-		
-		task.resume()
 	}
 	
 	// MARK: Table view data source

@@ -147,11 +147,22 @@ class CreateOfferViewController: UIViewController, UITableViewDelegate, UITableV
 			}
 			
 			if let data = data {
-				if let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) {
+				if let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as? [String: Any] {
 					print("json: \(json)")
 					
+					var messageTitle = "Yay"
+					var message = "Offer successfully created"
+					
+					// if anything goes wrong
+					if let _ = json?["error"] as? String {
+						if let jsonMessage = json?["message"] as? String {
+							messageTitle = "Oops"
+							message = jsonMessage
+						}
+					}
+					
 					DispatchQueue.main.async {
-						let alert = UIAlertController.init(title: "Offer successfully created", message: "", preferredStyle: .alert)
+						let alert = UIAlertController.init(title: messageTitle, message: message, preferredStyle: .alert)
 						let okAction = UIAlertAction.init(title: "Ok", style: .default, handler: { (action) in
 							self.dismiss(animated: true, completion: nil)
 						})
