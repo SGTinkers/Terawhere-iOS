@@ -22,10 +22,14 @@ class SignInViewController: UIViewController, LoginButtonDelegate {
 		super.viewDidLoad()
 		// Do any additional setup after loading the view, typically from a nib.
 		
+		
+		print("View did load")
+		
 		let request = NSFetchRequest<User>.init(entityName: "User")
 		let items = try? self.context.fetch(request)
 		
 		if let user = items?.first {
+			print("Existing cred")
 			if let token = user.token, let userId = user.userId {
 				let database = Database.init(token: token, userId: userId)
 				database.getUserAuth()
@@ -100,37 +104,29 @@ class SignInViewController: UIViewController, LoginButtonDelegate {
 								database.getUserAuth()
 
 								let dataTask = URLSession.shared.dataTask(with: database.request!, completionHandler: { (data, response, error) -> Void in
-									if (error != nil) {
-										print(error!)
-									} else {
-										guard let json = try? JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments) as? [String: Any] else {
-											print("JSON invalid")
+									guard let json = try? JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments) as? [String: Any] else {
+										print("JSON invalid")
+										
+										return
+									}
+									
+									guard let token = json?["token"] as? String else {
+										print("No token")
+										
+										return
+									}
+									
+									print("TOKEN HOORAY \(token)")
+
+									let database = Database.init(token: token, userId: (AccessToken.current?.userId)!)
+									
+									(UIApplication.shared.delegate as! AppDelegate).database = database
+									
+									DispatchQueue.main.async {
+										if let tabBarVC = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "tabBar") as? UITabBarController {
+											tabBarVC.selectedIndex = 1
 											
-											return
-										}
-										
-										guard let token = json?["token"] as? String else {
-											print("No token")
-											
-											return
-										}
-										
-										print("TOKEN HOORAY \(token)")
-										
-										
-										
-										
-										
-										let database = Database.init(token: token, userId: (AccessToken.current?.userId)!)
-										
-										(UIApplication.shared.delegate as! AppDelegate).database = database
-										
-										DispatchQueue.main.async {
-											if let tabBarVC = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "tabBar") as? UITabBarController {
-												tabBarVC.selectedIndex = 1
-												
-												(UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(tabBarVC, animated: true, completion: nil)
-											}
+											(UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(tabBarVC, animated: true, completion: nil)
 										}
 									}
 								})
@@ -141,12 +137,8 @@ class SignInViewController: UIViewController, LoginButtonDelegate {
 							dataTask.resume()
 						}
 						
-						
-						
-						
-						
-						
-						
+
+
 						if let _ = json??["token_invalid"] {
 							print("TOKEN EXPIRED, SHOWING SIGN IN BUTTON..")
 							
@@ -174,8 +166,19 @@ class SignInViewController: UIViewController, LoginButtonDelegate {
 				})
 				
 				dataTask.resume()
+			} else {
+				let width: CGFloat = 300
+				let height: CGFloat = 50
+				
+				self.facebookLoginButton = LoginButton(readPermissions: [.publicProfile])
+				self.facebookLoginButton?.frame = CGRect.init(x: (self.view.frame.width / 2) - (width / 2), y: CGFloat(self.view.frame.height - 200), width: width, height: height)
+				
+				self.view.addSubview(self.facebookLoginButton!)
+				self.facebookLoginButton?.delegate = self
 			}
 		} else {
+			print("Non existing cred")
+		
 			let width: CGFloat = 300
 			let height: CGFloat = 50
 			
