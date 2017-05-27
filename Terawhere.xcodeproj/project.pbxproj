@@ -35,6 +35,7 @@
 		AAD8EC601EB998F400BC6350 /* TerawhereTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD8EC5F1EB998F400BC6350 /* TerawhereTests.swift */; };
 		AAD8EC6B1EB998F400BC6350 /* TerawhereUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD8EC6A1EB998F400BC6350 /* TerawhereUITests.swift */; };
 		AADC0B6C1EC83ED10061F077 /* ViewBookingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADC0B6B1EC83ED10061F077 /* ViewBookingTableViewController.swift */; };
+		DA49BF6B1ED93146001FDC3F /* terawhere-firebase-crashreporting-xfncm-e648562bf5.json in Resources */ = {isa = PBXBuildFile; fileRef = DA49BF6A1ED93146001FDC3F /* terawhere-firebase-crashreporting-xfncm-e648562bf5.json */; };
 		DABC1F251ECA6CDB00CFCF90 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DABC1F241ECA6CDB00CFCF90 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
@@ -95,6 +96,7 @@
 		AAD8EC6A1EB998F400BC6350 /* TerawhereUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerawhereUITests.swift; sourceTree = "<group>"; };
 		AAD8EC6C1EB998F400BC6350 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AADC0B6B1EC83ED10061F077 /* ViewBookingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewBookingTableViewController.swift; sourceTree = "<group>"; };
+		DA49BF6A1ED93146001FDC3F /* terawhere-firebase-crashreporting-xfncm-e648562bf5.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "terawhere-firebase-crashreporting-xfncm-e648562bf5.json"; sourceTree = "<group>"; };
 		DABC1F241ECA6CDB00CFCF90 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DABC1F261ECA77C900CFCF90 /* Terawhere.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Terawhere.entitlements; sourceTree = "<group>"; };
 		F0E992F9AF5C96C203687119 /* Pods-TerawhereUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TerawhereUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TerawhereUITests/Pods-TerawhereUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 		AAD8EC461EB998F300BC6350 /* Terawhere */ = {
 			isa = PBXGroup;
 			children = (
+				DA49BF6A1ED93146001FDC3F /* terawhere-firebase-crashreporting-xfncm-e648562bf5.json */,
 				DABC1F261ECA77C900CFCF90 /* Terawhere.entitlements */,
 				DABC1F241ECA6CDB00CFCF90 /* GoogleService-Info.plist */,
 				AA2EF2411EB99B05000F0524 /* view controllers */,
@@ -270,6 +273,7 @@
 				55ABC03F4C3593B68B48613C /* [CP] Embed Pods Frameworks */,
 				C6D512A2226C5E0E9799A463 /* [CP] Copy Pods Resources */,
 				DA30EAE01ED28CBE003C1443 /* ShellScript */,
+				DA49BF691ED93118001FDC3F /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -389,6 +393,7 @@
 				AA2EF2341EB99A41000F0524 /* Main.storyboard in Resources */,
 				DABC1F251ECA6CDB00CFCF90 /* GoogleService-Info.plist in Resources */,
 				AAD8EC551EB998F400BC6350 /* LaunchScreen.storyboard in Resources */,
+				DA49BF6B1ED93146001FDC3F /* terawhere-firebase-crashreporting-xfncm-e648562bf5.json in Resources */,
 				AAD8EC521EB998F400BC6350 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -527,6 +532,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "FILE=\"${SRCROOT}/HockeySDK-iOS/BuildAgent\"\nif [ -f \"$FILE\" ]; then\n\"$FILE\"\nfi";
+		};
+		DA49BF691ED93118001FDC3F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Replace this with the GOOGLE_APP_ID from your GoogleService-Info.plist file\nGOOGLE_APP_ID=1:145760395523:ios:9d15b649147ef940\n\n# Replace the /Path/To/ServiceAccount.json with the path to the key you just downloaded\n\"${PODS_ROOT}\"/FirebaseCrash/upload-sym \"${SRCROOT}/Terawhere/terawhere-firebase-crashreporting-xfncm-e648562bf5.json\"";
 		};
 		E3FC14060951A9EC07D3E0BA /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
