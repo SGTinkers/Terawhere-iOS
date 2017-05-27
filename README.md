@@ -7,6 +7,7 @@ Let's build friendships together.
 ### Changelog
 27 May 2017
 - You can now search for more accurate addresses
+- Fixed: Bookings list does not crash anymore
 
 26 May 2017:
 - Autolayout done

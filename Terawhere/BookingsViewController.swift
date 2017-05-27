@@ -50,7 +50,7 @@ class BookingsViewController: UIViewController, UITableViewDelegate, UITableView
 		
 			self.database.getAllBookingsForUser()
 			
-			let task = URLSession.shared.dataTask(with: self.database.request!) { (data, response, error) in
+			let task = URLSession.shared.dataTask(with: self.database.request!) { (data, response, error) in			
 				if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?] {
 					
 					// clear arrays first

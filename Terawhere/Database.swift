@@ -14,25 +14,28 @@ class Database {
 	// treat this class as a setup class
 	// no network calls done here
 	// to avoid UI stuff from messing with database stuff
+	
+	static let baseURL = "http://139.59.224.66"
+	// https://api.terawhere.com
 
 	var token = ""
 	var userId = ""
 	
-	var authURL = "http://139.59.224.66/api/v1/auth"
-	var refreshTokenURL = "http://139.59.224.66/api/v1/auth/refresh"
+	var authURL = baseURL + "/api/v1/auth"
+	var refreshTokenURL = baseURL + "/api/v1/auth/refresh"
 	
-	var postOffersURL = "http://139.59.224.66/api/v1/offers"
-	var nearbyOffersURL = "http://139.59.224.66/api/v1/nearby-offers"
-	var allOffersForUserURL = "http://139.59.224.66/api/v1/offers-for-user"
-	var getSingleOfferURL = "http://139.59.224.66/api/v1/offers"
-	var getAllBookingsForOffer = "http://139.59.224.66/api/v1/offers"
-	var editOfferURL = "http://139.59.224.66/api/v1/offers"
-	var deleteOfferURL = "http://139.59.224.66/api/v1/offers"
+	var postOffersURL = baseURL + "/api/v1/offers"
+	var nearbyOffersURL = baseURL + "/api/v1/nearby-offers"
+	var allOffersForUserURL = baseURL + "/api/v1/offers-for-user"
+	var getSingleOfferURL = baseURL + "/api/v1/offers"
+	var getAllBookingsForOffer = baseURL + "/api/v1/offers"
+	var editOfferURL = baseURL + "/api/v1/offers"
+	var deleteOfferURL = baseURL + "/api/v1/offers"
 	
-	var bookingURL = "http://139.59.224.66/api/v1/bookings"
-	var allBookingsForUserURL = "http://139.59.224.66/api/v1/users/me/bookings"
-	var allBookingsURL = "http://139.59.224.66/api/v1/bookings"
-	var cancelBookingURL = "http://139.59.224.66/api/v1/bookings"
+	var bookingURL = baseURL + "/api/v1/bookings"
+	var allBookingsForUserURL = baseURL + "/api/v1/users/me/bookings"
+	var allBookingsURL = baseURL + "/api/v1/bookings"
+	var cancelBookingURL = baseURL + "/api/v1/bookings"
 	
 	
 	var request: URLRequest?
