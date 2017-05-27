@@ -8,6 +8,7 @@ Let's build friendships together.
 27 May 2017
 - You can now search for more accurate addresses
 - Fixed: Bookings list does not crash anymore
+- Fixed: Bookings cell labels are now correct
 
 26 May 2017:
 - Autolayout done

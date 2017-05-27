@@ -11,31 +11,30 @@ import MapKit
 
 class Database {
 
+    static let serverBaseUrl = "http://139.59.224.66" // dev
+//    static let serverBaseUrl = "https://api.terawhere.com" // prod
+    
 	// treat this class as a setup class
 	// no network calls done here
 	// to avoid UI stuff from messing with database stuff
-	
-	static let baseURL = "http://139.59.224.66"
-	// https://api.terawhere.com
-
 	var token = ""
 	var userId = ""
+
+	var authURL = serverBaseUrl + "/api/v1/auth"
+	var refreshTokenURL = serverBaseUrl + "/api/v1/auth/refresh"
 	
-	var authURL = baseURL + "/api/v1/auth"
-	var refreshTokenURL = baseURL + "/api/v1/auth/refresh"
+	var postOffersURL = serverBaseUrl + "/api/v1/offers"
+	var nearbyOffersURL = serverBaseUrl + "/api/v1/nearby-offers"
+	var allOffersForUserURL = serverBaseUrl + "/api/v1/offers-for-user"
+	var getSingleOfferURL = serverBaseUrl + "/api/v1/offers"
+	var getAllBookingsForOffer = serverBaseUrl + "/api/v1/offers"
+	var editOfferURL = serverBaseUrl + "/api/v1/offers"
+	var deleteOfferURL = serverBaseUrl + "/api/v1/offers"
 	
-	var postOffersURL = baseURL + "/api/v1/offers"
-	var nearbyOffersURL = baseURL + "/api/v1/nearby-offers"
-	var allOffersForUserURL = baseURL + "/api/v1/offers-for-user"
-	var getSingleOfferURL = baseURL + "/api/v1/offers"
-	var getAllBookingsForOffer = baseURL + "/api/v1/offers"
-	var editOfferURL = baseURL + "/api/v1/offers"
-	var deleteOfferURL = baseURL + "/api/v1/offers"
-	
-	var bookingURL = baseURL + "/api/v1/bookings"
-	var allBookingsForUserURL = baseURL + "/api/v1/users/me/bookings"
-	var allBookingsURL = baseURL + "/api/v1/bookings"
-	var cancelBookingURL = baseURL + "/api/v1/bookings"
+	var bookingURL = serverBaseUrl + "/api/v1/bookings"
+	var allBookingsForUserURL = serverBaseUrl + "/api/v1/users/me/bookings"
+	var allBookingsURL = serverBaseUrl + "/api/v1/bookings"
+	var cancelBookingURL = serverBaseUrl + "/api/v1/bookings"
 	
 	
 	var request: URLRequest?

@@ -648,7 +648,7 @@
                                 <rect key="frame" x="0.0" y="123" width="375" height="495"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="sJK-Aa-eez" customClass="OffersTableViewCell" customModule="Terawhere" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="sJK-Aa-eez" customClass="BookingsTableViewCell" customModule="Terawhere" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="300"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sJK-Aa-eez" id="WLH-za-F69">
@@ -673,38 +673,38 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Start address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O2n-d7-I6z">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Car model" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O2n-d7-I6z">
                                                     <rect key="frame" x="18" y="152" width="119" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="End address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lGZ-qj-WUL">
-                                                    <rect key="frame" x="18" y="207" width="95" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Car number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lGZ-qj-WUL">
+                                                    <rect key="frame" x="18" y="207" width="91" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Vacancy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yva-jn-Z6e">
-                                                    <rect key="frame" x="214" y="207" width="65" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Meet up time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PMk-BU-YXG">
-                                                    <rect key="frame" x="214" y="153" width="119" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Pick up location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yva-jn-Z6e">
+                                                    <rect key="frame" x="191" y="207" width="121" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="coD-4w-OHC">
-                                                    <rect key="frame" x="214" y="178" width="119" height="21"/>
+                                                    <rect key="frame" x="192" y="178" width="119" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fIv-Ok-1gg">
-                                                    <rect key="frame" x="214" y="228" width="42" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Meet up time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PMk-BU-YXG">
+                                                    <rect key="frame" x="191" y="152" width="119" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fIv-Ok-1gg">
+                                                    <rect key="frame" x="192" y="228" width="118" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -728,7 +728,7 @@
                                                 <constraint firstItem="PMk-BU-YXG" firstAttribute="leading" secondItem="O2n-d7-I6z" secondAttribute="trailing" constant="24.5" id="c6m-l1-CFG"/>
                                                 <constraint firstItem="GyD-Lt-Yug" firstAttribute="top" secondItem="lGZ-qj-WUL" secondAttribute="bottom" id="cvp-4o-4v7"/>
                                                 <constraint firstItem="coD-4w-OHC" firstAttribute="leading" secondItem="R3b-gb-bB5" secondAttribute="trailing" constant="91.5" id="duR-eW-BpE"/>
-                                                <constraint firstItem="fIv-Ok-1gg" firstAttribute="top" secondItem="yva-jn-Z6e" secondAttribute="bottom" constant="-1" id="hY9-JN-75l"/>
+                                                <constraint firstItem="fIv-Ok-1gg" firstAttribute="top" secondItem="yva-jn-Z6e" secondAttribute="bottom" id="hY9-JN-75l"/>
                                                 <constraint firstItem="GyD-Lt-Yug" firstAttribute="leading" secondItem="lGZ-qj-WUL" secondAttribute="leading" id="kJA-zb-ijf"/>
                                                 <constraint firstAttribute="trailing" secondItem="PMk-BU-YXG" secondAttribute="trailing" constant="39.5" id="pWO-No-e8Y"/>
                                                 <constraint firstAttribute="trailing" secondItem="ORM-L2-22V" secondAttribute="trailing" id="tO2-fv-9ij"/>
@@ -738,11 +738,11 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="destinationLabel" destination="GyD-Lt-Yug" id="ugV-Pc-DnU"/>
-                                            <outlet property="mapView" destination="ORM-L2-22V" id="PHq-2G-EFN"/>
-                                            <outlet property="pickupLocationLabel" destination="R3b-gb-bB5" id="iyJ-38-HlL"/>
-                                            <outlet property="pickupTimeLabel" destination="coD-4w-OHC" id="ndm-sv-QRr"/>
-                                            <outlet property="vacancyLabel" destination="fIv-Ok-1gg" id="O2T-Kk-tUd"/>
+                                            <outlet property="carModelLabel" destination="R3b-gb-bB5" id="n2E-Pc-Fyu"/>
+                                            <outlet property="carNumberLabel" destination="GyD-Lt-Yug" id="C25-9Q-O43"/>
+                                            <outlet property="mapView" destination="ORM-L2-22V" id="cT2-8X-PZ2"/>
+                                            <outlet property="pickupLocationLabel" destination="fIv-Ok-1gg" id="sea-Fk-fG7"/>
+                                            <outlet property="pickupTimeLabel" destination="coD-4w-OHC" id="XUy-eb-kcd"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -782,12 +782,12 @@
                         <outlet property="activityIndicator" destination="I3X-sq-INO" id="7FB-Cq-xZS"/>
                         <outlet property="noBookingsView" destination="D3F-we-oRq" id="M5p-JT-00O"/>
                         <outlet property="segmentedControl" destination="yu7-CP-Aii" id="M40-pc-0bY"/>
-                        <outlet property="tableView" destination="IEy-D8-5NX" id="PzD-ta-lLe"/>
+                        <outlet property="tableView" destination="IEy-D8-5NX" id="N9E-Do-gJ0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JqX-IH-woZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1729" y="1059"/>
+            <point key="canvasLocation" x="1728.8" y="1058.3208395802101"/>
         </scene>
         <!--My Offers-->
         <scene sceneID="vca-pR-TIj">
