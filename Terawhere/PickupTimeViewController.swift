@@ -28,8 +28,10 @@ class PickupTimeViewController: UIViewController {
 
         // Do any additional setup after loading the view.
 		
+		self.date = Date()
+		
 		self.datePicker.calendar = Calendar.autoupdatingCurrent
-		self.datePicker.date = Date()
+		self.datePicker.date = self.date!
 		self.datePicker.minimumDate = Date()
     }
 

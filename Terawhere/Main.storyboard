@@ -770,14 +770,7 @@
                             <constraint firstAttribute="trailing" secondItem="IEA-q7-7p4" secondAttribute="trailing" id="tG4-qt-44j"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="My Bookings" id="HO2-9n-d3S">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="FKC-I3-bpE">
-                            <color key="tintColor" red="0.28627450980000002" green="0.82352941180000006" blue="0.68627450980000004" alpha="1" colorSpace="calibratedRGB"/>
-                            <connections>
-                                <action selector="showCreateOfferScreen" destination="GOC-0g-ds5" id="klO-de-Lkv"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="My Bookings" id="HO2-9n-d3S"/>
                     <connections>
                         <outlet property="activityIndicator" destination="I3X-sq-INO" id="7FB-Cq-xZS"/>
                         <outlet property="noBookingsView" destination="D3F-we-oRq" id="M5p-JT-00O"/>

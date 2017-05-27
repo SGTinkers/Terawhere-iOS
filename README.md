@@ -9,6 +9,8 @@ Let's build friendships together.
 - You can now search for more accurate addresses
 - Fixed: Bookings list does not crash anymore
 - Fixed: Bookings cell labels are now correct
+- Fixed: Removed extra "add" sign in Booking screen
+- Fixed: Setting a date just by tapping the "Done" button now works as expected
 
 26 May 2017:
 - Autolayout done

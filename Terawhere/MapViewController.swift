@@ -141,32 +141,36 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 		var offerArr = [Offer]()
 		
 		let task = URLSession.shared.dataTask(with: self.database.request!) { (data, response, error) in
-			if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?] {
-				let database = Database()
-				offerArr = database.convertJSONToOffer(json: json!)
-				print("Offer array count \(offerArr.count)")
-				
-				DispatchQueue.main.async {
-					self.mapView?.removeAnnotations((self.mapView?.annotations)!)
-					self.mapView?.selectedAnnotations.removeAll()
+			if let error = error {
+				print("Getting nearby offers error: \(error)")
+			} else {
+				if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?] {
+					let database = Database()
+					offerArr = database.convertJSONToOffer(json: json!)
+					print("Offer array count \(offerArr.count)")
 					
-					for offer in offerArr {
-						print("Adding offer")
-					
-						let location = CLLocationCoordinate2D.init(latitude: offer.startLat!, longitude: offer.startLng!)
+					DispatchQueue.main.async {
+						self.mapView?.removeAnnotations((self.mapView?.annotations)!)
+						self.mapView?.selectedAnnotations.removeAll()
 						
-						let annotation = Location.init(withCoordinate: location, AndOffer: offer)
-						self.mapView?.addAnnotation(annotation)
-					}
-					
-					guard let userLocation = self.userLocation else {
-						print("User location is nil")
+						for offer in offerArr {
+							print("Adding offer")
+							
+							let location = CLLocationCoordinate2D.init(latitude: offer.startLat!, longitude: offer.startLng!)
+							
+							let annotation = Location.init(withCoordinate: location, AndOffer: offer)
+							self.mapView?.addAnnotation(annotation)
+						}
 						
-						return
+						guard let userLocation = self.userLocation else {
+							print("User location is nil")
+							
+							return
+						}
+						
+						let region = MKCoordinateRegionMakeWithDistance(userLocation.coordinate, 5000, 5000)
+						self.mapView?.setRegion(region, animated: true)
 					}
-					
-					let region = MKCoordinateRegionMakeWithDistance(userLocation.coordinate, 5000, 5000)
-					self.mapView?.setRegion(region, animated: true)
 				}
 			}
 		}
