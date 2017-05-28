@@ -33,16 +33,17 @@ class Database {
 	
 	var bookingURL = serverBaseUrl + "/api/v1/bookings"
 	var allBookingsForUserURL = serverBaseUrl + "/api/v1/users/me/bookings"
-	var allBookingsURL = serverBaseUrl + "/api/v1/bookings"
-	var cancelBookingURL = serverBaseUrl + "/api/v1/bookings"
+//	var allBookingsURL = serverBaseUrl + "/api/v1/bookings"
+	var cancelBookingURL = serverBaseUrl + "api/v1/bookings"
 	
 	
 	var request: URLRequest?
 	
 	init() {
-//		print("This initializer is only for SignInViewController")
+
 	}
 	
+	// MARK: Auth and tokens
 	init(token: String?, userId: String?) {
 		guard let token = token else {
 			print("Token is not available")
@@ -84,6 +85,7 @@ class Database {
 		self.request?.addValue("Bearer \(self.token)", forHTTPHeaderField: "Authorization")
 	}
 	
+	// MARK: Conversions
 	func convertJSONToOfferObject(json: [String: Any?]) -> Offer? {
 		var offer: Offer?
 	
@@ -118,10 +120,11 @@ class Database {
 		
 		let createdDateString = actualJsonData["created_at"] as? String
 		let updatedDateString = actualJsonData["updated_at"] as? String
+		let deletedDateString = actualJsonData["deleted_at"] as? String
 		
 		let vacancy = actualJsonData["vacancy"] as? Int
 		
-		offer = Offer.init(forRetrievewithName: name, EndAddr: endAddr, endLat: endLat, endLng: endLng, endName: endName, meetupTime: meetupTime, startAddr: startAddr, startLat: startLat, startLng: startLng, startName: startName, remarks: remarks, userId: userId, offerId: offerId, vehicleDesc: vehicleDesc, vehicleModel: vehicleModel, vehicleNumber: vehicleNumber, status: status, createdDateString: createdDateString, updatedDateString: updatedDateString, vacancy: vacancy)
+		offer = Offer.init(WithEndAddr: endAddr, endLat: endLat, endLng: endLng, endName: endName, meetupTime: meetupTime, startAddr: startAddr, startLat: startLat, startLng: startLng, startName: startName, remarks: remarks, userId: userId, name: name, offerId: offerId, vehicleDesc: vehicleDesc, vehicleModel: vehicleModel, vehicleNumber: vehicleNumber, status: status, createdDateString: createdDateString, updatedDateString: updatedDateString, deletedDateString: deletedDateString, vacancy: vacancy)
 		
 		
 		return offer
@@ -143,9 +146,10 @@ class Database {
 				let startLat = object["start_lat"] as? Double
 				let startLng = object["start_lng"] as? Double
 				let startName = object["start_name"] as? String
-
+				
 				let remarks = object["remarks"] as? String
 				let userId = object["user_id"] as? String
+				let name = object["name"] as? String
 				let offerId = object["id"] as? Int
 				
 				let vehicleDesc = object["vehicle_desc"] as? String
@@ -156,10 +160,11 @@ class Database {
 				
 				let createdDateString = object["created_at"] as? String
 				let updatedDateString = object["updated_at"] as? String
+				let deletedDateString = object["deleted_at"] as? String
 				
 				let vacancy = object["vacancy"] as? Int
 				
-				let offer = Offer.init(forRetrievewithEndAddr: endAddr, endLat: endLat, endLng: endLng, endName: endName, meetupTime: meetupTime, startAddr: startAddr, startLat: startLat, startLng: startLng, startName: startName, remarks: remarks, userId: userId, offerId: offerId, vehicleDesc: vehicleDesc, vehicleModel: vehicleModel, vehicleNumber: vehicleNumber, status: status, createdDateString: createdDateString, updatedDateString: updatedDateString, vacancy: vacancy)
+				let offer = Offer.init(WithEndAddr: endAddr, endLat: endLat, endLng: endLng, endName: endName, meetupTime: meetupTime, startAddr: startAddr, startLat: startLat, startLng: startLng, startName: startName, remarks: remarks, userId: userId, name: name, offerId: offerId, vehicleDesc: vehicleDesc, vehicleModel: vehicleModel, vehicleNumber: vehicleNumber, status: status, createdDateString: createdDateString, updatedDateString: updatedDateString, deletedDateString: deletedDateString, vacancy: vacancy)
 				
 				offerArr.append(offer)
 			}
@@ -168,7 +173,26 @@ class Database {
 		return offerArr
 	}
 
+	func convertJSONToBooking(json: [String: Any?]) -> [Booking] {
+		var bookingArr = [Booking]()
+		
+		if let actualJsonData = json["data"] as? [[String: Any]] {
+			for object in actualJsonData {
+				let offerId = object["offer_id"] as? Int
+				let id = object["id"] as? Int
+				let paxBooked = object["pax"] as? Int
+				let createdDate = object["created_at"] as? String
+				let deletedDate = object["deleted_at"] as? String
+				
+				let booking = Booking.init(offerId: offerId, id: id, paxBooked: paxBooked, createdDate: createdDate, deletedDate: deletedDate)
+				bookingArr.append(booking)
+			}
+		}
+		
+		return bookingArr
+	}
 	
+	// MARK: Offers
 	func post(offer: Offer?) {
 		guard let offer = offer else {
 			print("Invalid offer")
@@ -333,25 +357,7 @@ class Database {
 		self.request?.addValue("application/json", forHTTPHeaderField: "Content-Type")
 	}
 	
-	func convertJSONToBooking(json: [String: Any?]) -> [Booking] {
-		var bookingArr = [Booking]()
-		
-		if let actualJsonData = json["data"] as? [[String: Any]] {
-			for object in actualJsonData {
-				let offerId = object["offer_id"] as? Int
-				let id = object["id"] as? Int
-				let paxBooked = object["pax"] as? Int
-				let createdDate = object["created_at"] as? String
-				let deletedDate = object["deleted_at"] as? String
-				
-				let booking = Booking.init(offerId: offerId, id: id, paxBooked: paxBooked, createdDate: createdDate, deletedDate: deletedDate)
-				bookingArr.append(booking)
-			}
-		}
-		
-		return bookingArr
-	}
-	
+	// MARK: Bookings
 	func getAllBookingsForUser() {
 		let url = URL.init(string: self.allBookingsForUserURL)
 		self.request = URLRequest.init(url: url!)

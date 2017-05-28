@@ -82,10 +82,20 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 		}
 	
 		if annotation is Location {
-			let annotationView = MKPinAnnotationView.init(annotation: annotation, reuseIdentifier: "pin")
+			let annotationView = MKAnnotationView.init(annotation: annotation, reuseIdentifier: "pin")
 			annotationView.canShowCallout = true
 			let button = UIButton.init(type: .detailDisclosure)
 			annotationView.rightCalloutAccessoryView = button
+			
+			let image = UIImage.init(named: "car_pin")
+			
+			// resize image using a new image graphics context
+			UIGraphicsBeginImageContextWithOptions(CGSize.init(width: 30, height: 40), false, 0.0)
+			image?.draw(in: CGRect.init(x: 0, y: 0, width: 30, height: 40))
+			let newImage = UIGraphicsGetImageFromCurrentImageContext()
+			UIGraphicsEndImageContext()
+			
+			annotationView.image = newImage
 			
 			return annotationView
 		}
@@ -162,14 +172,14 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 							self.mapView?.addAnnotation(annotation)
 						}
 						
-						guard let userLocation = self.userLocation else {
-							print("User location is nil")
-							
-							return
-						}
+//						guard let userLocation = self.userLocation else {
+//							print("User location is nil")
+//							
+//							return
+//						}
 						
-						let region = MKCoordinateRegionMakeWithDistance(userLocation.coordinate, 5000, 5000)
-						self.mapView?.setRegion(region, animated: true)
+//						let region = MKCoordinateRegionMakeWithDistance(userLocation.coordinate, 5000, 5000)
+//						self.mapView?.setRegion(region, animated: true)
 					}
 				}
 			}

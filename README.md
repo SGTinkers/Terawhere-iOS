@@ -5,6 +5,11 @@ Want to go for Terawih prayers? Why not broadcast it and ask nearby people if th
 Let's build friendships together.
 
 ### Changelog
+28 May 2017:
+- Added map pin icon
+- Slight change to table display in the screen for booking a ride
+- Standardised labels
+
 27 May 2017
 - You can now search for more accurate addresses
 - Fixed: Bookings list does not crash anymore

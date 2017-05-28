@@ -15,7 +15,7 @@ class BookRideViewController: UIViewController, UITableViewDataSource {
 	var database: Database?
 	var offer: Offer?
 	
-	var tableItems = ["Meet pt name", "Meet pt", "Driver name", "No. of pax left", "Car model", "Vehicle no.", "Pick up time", "Destination"]
+	var tableItems = ["Meet pt name", "Meet pt", "Driver name", "Vacancy", "Vehicle model", "Vehicle number", "Pickup time", "Destination"]
 	
 	var meetupPointNameIndexPath = IndexPath.init(row: 0, section: 0)
 	var meetupPointIndexPath = IndexPath.init(row: 1, section: 0)
@@ -176,8 +176,7 @@ class BookRideViewController: UIViewController, UITableViewDataSource {
 		
 		if indexPath == self.pickupTimeIndexPath {
 			let dateHelper = DateHelper()
-//			let localTime = dateHelper.localTimeFrom(dateString: (offer?.meetupTime)!)
-			let localTime = dateHelper.localTimeFrom(dateString: (offer?.meetupTime)!, withCustomFormat: "yyyy-MM-dd hh:mm:ss a")
+			let localTime = dateHelper.localTimeFrom(dateString: (offer?.meetupTime)!)
 			
 			cell.detailTextLabel?.text = localTime
 		}

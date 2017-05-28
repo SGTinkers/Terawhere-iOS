@@ -289,7 +289,7 @@ class BookingsViewController: UIViewController, UITableViewDelegate, UITableView
 		cell?.booking = self.filteredBookingsArr[indexPath.row]
 		
 		let offer = self.offersArr[indexPath.row]
-		
+
 		// get offer
 		// API calls are needed here because of missing information
 		self.database.getOfferBy(id: offer.offerId!)

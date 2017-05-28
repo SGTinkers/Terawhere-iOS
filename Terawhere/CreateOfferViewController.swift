@@ -43,8 +43,6 @@ class CreateOfferViewController: UIViewController, UITableViewDelegate, UITableV
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-//		self.navigationController?.navigationBar.barTintColor = UIColor.init(red: 73/255, green: 210/255, blue: 175/255, alpha: 1.0)
-		
 		self.tableView.dataSource = self
 		self.tableView.delegate = self
 		
@@ -362,6 +360,7 @@ class CreateOfferViewController: UIViewController, UITableViewDelegate, UITableV
 	
 		return true
 	}
+	
 	
 	// MARK: Set time protocol
 	func setTime(date: Date?) {

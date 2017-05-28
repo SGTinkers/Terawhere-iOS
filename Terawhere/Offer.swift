@@ -23,8 +23,8 @@ class Offer {
 	
 	var remarks: String?
 	var userId: String?
-	var name: String? = nil
-	var offerId: Int? = nil
+	var name: String?
+	var offerId: Int?
 	
 	var vehicleDesc: String?
 	var vehicleModel: String?
@@ -32,9 +32,9 @@ class Offer {
 	
 	var status: Int?
 	
-	var createdDateString: String? = nil
-	var updatedDateString: String? = nil
-	var deletedDateString: String? = nil
+	var createdDateString: String?
+	var updatedDateString: String?
+	var deletedDateString: String?
 	
 	var vacancy: Int?
 	
@@ -70,7 +70,7 @@ class Offer {
 	
 	
 	// to retrieve
-	init(forRetrievewithEndAddr endAddr: String?, endLat: Double?, endLng: Double?, endName: String?, meetupTime: String?, startAddr: String?, startLat: Double?, startLng: Double?, startName: String?, remarks: String?, userId: String?, offerId: Int?, vehicleDesc: String?, vehicleModel: String?, vehicleNumber: String?, status: Int?, createdDateString: String?, updatedDateString: String?, vacancy: Int?) {
+	init(WithEndAddr endAddr: String?, endLat: Double?, endLng: Double?, endName: String?, meetupTime: String?, startAddr: String?, startLat: Double?, startLng: Double?, startName: String?, remarks: String?, userId: String?, name: String?, offerId: Int?, vehicleDesc: String?, vehicleModel: String?, vehicleNumber: String?, status: Int?, createdDateString: String?, updatedDateString: String?, deletedDateString: String?, vacancy: Int?) {
 		self.endAddr = endAddr
 		self.endLat = endLat
 		self.endLng = endLng
@@ -85,37 +85,7 @@ class Offer {
 		
 		self.remarks = remarks
 		self.userId = userId
-		self.offerId = offerId
-		
-		self.vehicleDesc = vehicleDesc
-		self.vehicleModel = vehicleModel
-		self.vehicleNumber = vehicleNumber
-		
-		self.status = status
-		
-		self.createdDateString = createdDateString
-		self.updatedDateString = updatedDateString
-		
-		self.vacancy = vacancy
-	}
-	
-	init(forRetrievewithName name: String?, EndAddr endAddr: String?, endLat: Double?, endLng: Double?, endName: String?, meetupTime: String?, startAddr: String?, startLat: Double?, startLng: Double?, startName: String?, remarks: String?, userId: String?, offerId: Int?, vehicleDesc: String?, vehicleModel: String?, vehicleNumber: String?, status: Int?, createdDateString: String?, updatedDateString: String?, vacancy: Int?) {
 		self.name = name
-		
-		self.endAddr = endAddr
-		self.endLat = endLat
-		self.endLng = endLng
-		self.endName = endName
-		
-		self.meetupTime = meetupTime
-		
-		self.startAddr = startAddr
-		self.startLat = startLat
-		self.startLng = startLng
-		self.startName = startName
-		
-		self.remarks = remarks
-		self.userId = userId
 		self.offerId = offerId
 		
 		self.vehicleDesc = vehicleDesc
@@ -126,6 +96,7 @@ class Offer {
 		
 		self.createdDateString = createdDateString
 		self.updatedDateString = updatedDateString
+		self.deletedDateString = deletedDateString
 		
 		self.vacancy = vacancy
 	}
