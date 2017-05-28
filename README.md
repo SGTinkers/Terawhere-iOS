@@ -6,9 +6,12 @@ Let's build friendships together.
 
 ### Changelog
 28 May 2017:
+- Improvement to autolayout in Bookings list and Offers list screen
 - Added map pin icon
+- Changed map default zoom
 - Slight change to table display in the screen for booking a ride
 - Standardised labels
+- Standardised Create Offer screen with Android counterpart
 
 27 May 2017
 - You can now search for more accurate addresses

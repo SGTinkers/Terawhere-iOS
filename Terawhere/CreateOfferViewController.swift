@@ -15,20 +15,19 @@ class CreateOfferViewController: UIViewController, UITableViewDelegate, UITableV
 	
 	var database: Database?
 	
-	var vehicleArr = ["Vehicle description", "Vehicle model", "Vehicle number", "Vacancy"]
-	var timeAndLocation = ["Pickup time", "Meet pt name", "Meet pt", "Destination"]
+	var timeAndLocation = ["Meetup Time", "Meetup Place", "Destination", "Number of Seats"]
+	var vehicleArr = ["Vehicle number", "Vehicle brand", "Vehicle color"]
 	var remarks = ["Remarks"]
 	
 	// mostly for didSelect tableview method
-	var vehicleDescIndexPath = IndexPath.init(row: 0, section: 0)
-	var vehicleModelIndexPath = IndexPath.init(row: 1, section: 0)
-	var vehicleNumberIndexPath = IndexPath.init(row: 2, section: 0)
-	var vacancyIndexPath = IndexPath.init(row: 3, section: 0)
+	var meetupTimeIndexPath = IndexPath.init(row: 0, section: 0)
+	var meetupPlaceIndexPath = IndexPath.init(row: 1, section: 0)
+	var destinationIndexPath = IndexPath.init(row: 2, section: 0)
+	var noOfSeatsIndexPath = IndexPath.init(row: 3, section: 0)
 	
-	var pickupTimeIndexPath = IndexPath.init(row: 0, section: 1)
-	var meetupPointNameIndexPath = IndexPath.init(row: 1, section: 1)
-	var meetupPointIndexPath = IndexPath.init(row: 2, section: 1)
-	var destinationIndexPath = IndexPath.init(row: 3, section: 1)
+	var vehicleNumberIndexPath = IndexPath.init(row: 0, section: 1)
+	var vehicleBrandIndexPath = IndexPath.init(row: 1, section: 1)
+	var vehicleColorIndexPath = IndexPath.init(row: 2, section: 1)
 	
 	var remarksIndexPath = IndexPath.init(row: 0, section: 2)
 	
@@ -48,6 +47,33 @@ class CreateOfferViewController: UIViewController, UITableViewDelegate, UITableV
 		
 		self.tableView.separatorInset = UIEdgeInsets.init(top: 0, left: 50, bottom: 0, right: 0)
     }
+	
+	func dismissKeyboard() {
+		let noOfSeatsCell = self.tableView.cellForRow(at: self.noOfSeatsIndexPath) as? CreateOfferTableViewCell
+		if noOfSeatsCell?.textfield.isFirstResponder == true {
+			noOfSeatsCell?.textfield.resignFirstResponder()
+		}
+		
+		let vehicleNumberCell = self.tableView.cellForRow(at: self.vehicleNumberIndexPath) as? CreateOfferTableViewCell
+		if vehicleNumberCell?.textfield.isFirstResponder == true {
+			vehicleNumberCell?.textfield.resignFirstResponder()
+		}
+		
+		let vehicleBrandCell = self.tableView.cellForRow(at: self.vehicleBrandIndexPath) as? CreateOfferTableViewCell
+		if vehicleBrandCell?.textfield.isFirstResponder == true {
+			vehicleBrandCell?.textfield.resignFirstResponder()
+		}
+		
+		let vehicleColorCell = self.tableView.cellForRow(at: self.vehicleColorIndexPath) as? CreateOfferTableViewCell
+		if vehicleColorCell?.textfield.isFirstResponder == true {
+			vehicleColorCell?.textfield.resignFirstResponder()
+		}
+		
+		let remarksCell = self.tableView.cellForRow(at: self.remarksIndexPath) as? CreateOfferTableViewCell
+		if remarksCell?.textfield.isFirstResponder == true {
+			remarksCell?.textfield.resignFirstResponder()
+		}
+	}
 	
 	@IBAction func createOffer() {
 		// addr vars
@@ -86,11 +112,11 @@ class CreateOfferViewController: UIViewController, UITableViewDelegate, UITableV
 		}
 		
 		// vehicle vars
-		let vehicleDescCell = self.tableView.cellForRow(at: self.vehicleDescIndexPath) as? CreateOfferTableViewCell
-		let vehicleDesc = (vehicleDescCell?.textfield.text)!
+		let vehicleColorCell = self.tableView.cellForRow(at: self.vehicleColorIndexPath) as? CreateOfferTableViewCell
+		let vehicleColor = (vehicleColorCell?.textfield.text)!
 		
-		let vehicleModelCell = self.tableView.cellForRow(at: self.vehicleModelIndexPath) as? CreateOfferTableViewCell
-		let vehicleModel = (vehicleModelCell?.textfield.text)!
+		let vehicleBrandCell = self.tableView.cellForRow(at: self.vehicleBrandIndexPath) as? CreateOfferTableViewCell
+		let vehicleBrand = (vehicleBrandCell?.textfield.text)!
 		
 		let vehicleNumberCell = self.tableView.cellForRow(at: self.vehicleNumberIndexPath) as? CreateOfferTableViewCell
 		let vehicleNumber = (vehicleNumberCell?.textfield.text)!
@@ -98,8 +124,8 @@ class CreateOfferViewController: UIViewController, UITableViewDelegate, UITableV
 		let vehicleNumberTrimmed = vehicleNumber.replacingOccurrences(of: " ", with: "")
 		print("Vehicle Number trimmed: \(vehicleNumberTrimmed)")
 		
-		let vacancyCell = self.tableView.cellForRow(at: self.vacancyIndexPath) as? CreateOfferTableViewCell
-		let vacancy = (vacancyCell?.textfield.text)!
+		let noOfSeatsCell = self.tableView.cellForRow(at: self.noOfSeatsIndexPath) as? CreateOfferTableViewCell
+		let noOfSeats = (noOfSeatsCell?.textfield.text)!
 		
 		
 		// address setting
@@ -109,9 +135,7 @@ class CreateOfferViewController: UIViewController, UITableViewDelegate, UITableV
 		let endLng = (self.endLocation?.placemark.coordinate.longitude)!
 		
 		let startAddr = "\(startLocation.name!), \(startSubThoroughfare) \(startThoroughfare)"
-		
-		let meetupPointNameCell = self.tableView.cellForRow(at: self.meetupPointNameIndexPath) as? CreateOfferTableViewCell
-		let startName = (meetupPointNameCell?.textfield.text)!
+		let startName = startLocation.name!
 		let startLat = (self.startLocation?.placemark.coordinate.latitude)!
 		let startLng = (self.startLocation?.placemark.coordinate.longitude)!
 		
@@ -131,11 +155,11 @@ class CreateOfferViewController: UIViewController, UITableViewDelegate, UITableV
 							   startName: startName,
 							   remarks: remarks,
 							   userId: (self.database?.userId)!,
-							   vehicleDesc: vehicleDesc,
-							   vehicleModel: vehicleModel,
+							   vehicleDesc: vehicleColor,
+							   vehicleModel: vehicleBrand,
 							   vehicleNumber: vehicleNumberTrimmed,
 							   status: 1,
-							   vacancy: Int(vacancy))
+							   vacancy: Int(noOfSeats))
 	
 		self.database?.post(offer: offer)
 		
@@ -178,7 +202,7 @@ class CreateOfferViewController: UIViewController, UITableViewDelegate, UITableV
 	override func viewWillAppear(_ animated: Bool) {
 		// things that require to be appeared everytime the view loads
 	
-		let dateCell = self.tableView.cellForRow(at: self.pickupTimeIndexPath) as? CreateOfferTableViewCell
+		let dateCell = self.tableView.cellForRow(at: self.meetupTimeIndexPath) as? CreateOfferTableViewCell
 		dateCell?.textfield.text = self.dateString
 		
 		guard let startLocation = self.startLocation else {
@@ -187,7 +211,7 @@ class CreateOfferViewController: UIViewController, UITableViewDelegate, UITableV
 			return
 		}
 		
-		let meetupPointCell = self.tableView.cellForRow(at: self.meetupPointIndexPath) as? CreateOfferTableViewCell
+		let meetupPointCell = self.tableView.cellForRow(at: self.meetupPlaceIndexPath) as? CreateOfferTableViewCell
 		meetupPointCell?.textfield.text = startLocation.placemark.name!
 		
 		guard let endLocation = self.endLocation else {
@@ -218,11 +242,11 @@ class CreateOfferViewController: UIViewController, UITableViewDelegate, UITableV
 		var rows = 0
 	
 		if section == 0 {
-			rows = self.vehicleArr.count
+			rows = self.timeAndLocation.count
 		}
 		
 		if section == 1 {
-			rows = self.timeAndLocation.count
+			rows = self.vehicleArr.count
 		}
 		
 		if section == 2 {
@@ -238,26 +262,21 @@ class CreateOfferViewController: UIViewController, UITableViewDelegate, UITableV
 		
 		// Configure the cell...
 		if indexPath.section == 0 {
-			cell?.textfield.placeholder = self.vehicleArr[indexPath.row]
+			cell?.textfield.placeholder = self.timeAndLocation[indexPath.row]
+			cell?.textfield.isEnabled = false
 			
-			// make sure every other textfield can be dismissed by hitting the return key
-			cell?.textfield.delegate = self
-			
-			if indexPath.row == 3 { // vacancy keyboard numeric only
+			if indexPath.row == 3 {
+				cell?.textfield.isEnabled = true
+				cell?.textfield.delegate = self
 				cell?.textfield.keyboardType = .numberPad
 			}
 		}
 		
 		if indexPath.section == 1 {
-			cell?.textfield.placeholder = self.timeAndLocation[indexPath.row]
+			cell?.textfield.placeholder = self.vehicleArr[indexPath.row]
 			
-			if indexPath.row == 1 {
-				// this is meeting point name where user can input custom name
-				cell?.textfield.isEnabled = true
-				cell?.textfield.delegate = self
-			} else {
-				cell?.textfield.isEnabled = false
-			}
+			// make sure every other textfield can be dismissed by hitting the return key
+			cell?.textfield.delegate = self
 		}
 		
 		if indexPath.section == 2 {
@@ -276,27 +295,14 @@ class CreateOfferViewController: UIViewController, UITableViewDelegate, UITableV
 	
 	// MARK: tableview delegate
 	public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		if indexPath == self.vehicleDescIndexPath {
+		self.dismissKeyboard()
+		
+		if indexPath == self.noOfSeatsIndexPath {
 			let cell = self.tableView.cellForRow(at: indexPath) as? CreateOfferTableViewCell
 			cell?.textfield.becomeFirstResponder()
 		}
 		
-		if indexPath == self.vehicleModelIndexPath {
-			let cell = self.tableView.cellForRow(at: indexPath) as? CreateOfferTableViewCell
-			cell?.textfield.becomeFirstResponder()
-		}
-		
-		if indexPath == self.vehicleNumberIndexPath {
-			let cell = self.tableView.cellForRow(at: indexPath) as? CreateOfferTableViewCell
-			cell?.textfield.becomeFirstResponder()
-		}
-		
-		if indexPath == self.vacancyIndexPath {
-			let cell = self.tableView.cellForRow(at: indexPath) as? CreateOfferTableViewCell
-			cell?.textfield.becomeFirstResponder()
-		}
-		
-		if indexPath == self.pickupTimeIndexPath {
+		if indexPath == self.meetupTimeIndexPath {
 			guard let pickupTimeVC = self.storyboard?.instantiateViewController(withIdentifier: "PickupTimeViewController") as? PickupTimeViewController else {
 				print("Pick up time VC errors out")
 				
@@ -310,7 +316,7 @@ class CreateOfferViewController: UIViewController, UITableViewDelegate, UITableV
 			self.present(navController, animated: true)
 		}
 	
-		if indexPath == self.meetupPointIndexPath {
+		if indexPath == self.meetupPlaceIndexPath {
 			guard let locationSearchTVC = self.storyboard?.instantiateViewController(withIdentifier: "LocationSearchTableViewController") as? LocationSearchTableViewController else {
 				print("Location search TVC errors out")
 				
@@ -368,7 +374,7 @@ class CreateOfferViewController: UIViewController, UITableViewDelegate, UITableV
 		
 		self.dateString = self.dateHelper.localTimeFrom(convertedDate: self.date!)
 		
-		let cell = self.tableView.cellForRow(at: self.pickupTimeIndexPath) as? CreateOfferTableViewCell
+		let cell = self.tableView.cellForRow(at: self.meetupTimeIndexPath) as? CreateOfferTableViewCell
 		cell?.textfield.text = self.dateString
 	}
 
@@ -384,7 +390,7 @@ class CreateOfferViewController: UIViewController, UITableViewDelegate, UITableV
 		if state == "start" {
 			self.startLocation = mapItem
 			
-			let cell = self.tableView.cellForRow(at: self.meetupPointIndexPath) as? CreateOfferTableViewCell
+			let cell = self.tableView.cellForRow(at: self.meetupPlaceIndexPath) as? CreateOfferTableViewCell
 			cell?.textfield.text = (self.startLocation?.placemark.name)!
 		}
 	}
