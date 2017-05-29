@@ -5,6 +5,10 @@ Want to go for Terawih prayers? Why not broadcast it and ask nearby people if th
 Let's build friendships together.
 
 ### Changelog
+29 May 2017:
+- Added a custom map annotation
+- Slight UI change to screens for booking rides, viewing offers and viewing bookings
+
 28 May 2017:
 - Improvement to autolayout in Bookings list and Offers list screen
 - Added map pin icon

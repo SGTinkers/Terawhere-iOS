@@ -18,6 +18,6 @@ class Location: NSObject, MKAnnotation {
 		self.coordinate = coord
 		
 		self.offer = offer
-		self.title = (self.offer?.endAddr)!
+		self.title = "Click to view"
 	}
 }

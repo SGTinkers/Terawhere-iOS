@@ -82,11 +82,14 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 		}
 	
 		if annotation is Location {
-			let annotationView = MKAnnotationView.init(annotation: annotation, reuseIdentifier: "pin")
-			annotationView.canShowCallout = true
-			let button = UIButton.init(type: .detailDisclosure)
-			annotationView.rightCalloutAccessoryView = button
+			// cast back to Location to access variables
+			let annotation = annotation as? Location
 			
+			let annotationView = LocationAnnotationView.init(annotation: annotation, reuseIdentifier: "pin")
+			// no need to show callout
+			// we are using custom callout
+			annotationView.canShowCallout = false
+
 			let image = UIImage.init(named: "car_pin")
 			
 			// resize image using a new image graphics context
@@ -103,11 +106,59 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 		return nil
 	}
 	
-	public func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+	public func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+		let dateHelper = DateHelper()
+		let views = Bundle.main.loadNibNamed("CustomCalloutView", owner: nil, options: nil)
+		let customCalloutView = views?.first as! CustomCalloutView
+		
+		if let annotation = view.annotation as? Location {
+			customCalloutView.destinationLabel.text = (annotation.offer?.endAddr)!
+			
+			let localMeetupTime = dateHelper.localTimeFrom(dateString: (annotation.offer?.meetupTime)!)
+			customCalloutView.pickupTimeLabel.text = localMeetupTime
+			
+			var bookingsArr = [Booking]()
+			
+			self.database.getAllBookingsForOfferByOffer(id: (annotation.offer?.offerId)!)
+			let dataTask = URLSession.shared.dataTask(with: self.database.request!, completionHandler: { (data, response, error) in
+				let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?]
+				bookingsArr = self.database.convertJSONToBooking(json: json!!)
+				
+				var paxBooked = 0
+				
+				for booking in bookingsArr {
+					paxBooked = paxBooked + booking.paxBooked!
+				}
+				
+				DispatchQueue.main.async {
+					let vacancy = (annotation.offer?.vacancy)! - paxBooked
+					
+					customCalloutView.seatsLeftLabel.text = String(vacancy)
+				}
+			})
+			
+			customCalloutView.viewMoreButton.addTarget(self, action: #selector(self.viewMore), for: .touchUpInside)
+			
+			dataTask.resume()
+			
+			// imagine grid is crosshair and middle is the center origin
+			// drawing box from center results in box going south-east
+			customCalloutView.center = CGPoint(x: view.bounds.size.width / 2, y: -customCalloutView.bounds.size.height * 0.52)
+			
+			// add to subview works but it does not recognise touch
+			// that's where custom AnnotationView class in viewForAnnotation class comes in
+			view.addSubview(customCalloutView)
+		}
+	}
+	
+	
+	
+	// MARK: Helper functions
+	func viewMore() {
 		guard let bookRideVC = self.storyboard?.instantiateViewController(withIdentifier: "BookRideViewController") as? BookRideViewController else {
 			return
 		}
-	
+		
 		let selectedAnnotation = self.mapView.selectedAnnotations.first as? Location
 		
 		bookRideVC.database = self.database
@@ -118,7 +169,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 		self.present(navController, animated: true, completion: nil)
 	}
 	
-	// MARK: Helper functions
 	@IBAction func getInfo() {
 		guard let url = URL.init(string: "https://terawhere.com") else {
 			print("Innvalid url")

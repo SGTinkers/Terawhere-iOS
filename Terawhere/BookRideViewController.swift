@@ -15,16 +15,15 @@ class BookRideViewController: UIViewController, UITableViewDataSource {
 	var database: Database?
 	var offer: Offer?
 	
-	var tableItems = ["Meet pt name", "Meet pt", "Driver name", "Vacancy", "Vehicle model", "Vehicle number", "Pickup time", "Destination"]
+	var tableItems = ["Meetup place", "Driver name", "Vacancy", "Vehicle model", "Vehicle number", "Pickup time", "Destination"]
 	
-	var meetupPointNameIndexPath = IndexPath.init(row: 0, section: 0)
-	var meetupPointIndexPath = IndexPath.init(row: 1, section: 0)
-	var driverNameIndexPath = IndexPath.init(row: 2, section: 0)
-	var vacancyIndexPath = IndexPath.init(row: 3, section: 0)
-	var carModelIndexPath = IndexPath.init(row: 4, section: 0)
-	var vehicleNumberIndexPath = IndexPath.init(row: 5, section: 0)
-	var pickupTimeIndexPath = IndexPath.init(row: 6, section: 0)
-	var destinationIndexPath = IndexPath.init(row: 7, section: 0)
+	var meetupPlaceIndexPath = IndexPath.init(row: 0, section: 0)
+	var driverNameIndexPath = IndexPath.init(row: 1, section: 0)
+	var vacancyIndexPath = IndexPath.init(row: 2, section: 0)
+	var vehicleModelIndexPath = IndexPath.init(row: 3, section: 0)
+	var vehicleNumberIndexPath = IndexPath.init(row: 4, section: 0)
+	var pickupTimeIndexPath = IndexPath.init(row: 5, section: 0)
+	var destinationIndexPath = IndexPath.init(row: 6, section: 0)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -116,11 +115,9 @@ class BookRideViewController: UIViewController, UITableViewDataSource {
 		cell.textLabel?.text = self.tableItems[indexPath.row]
 		cell.textLabel?.textAlignment = .left
 		
-		if indexPath == self.meetupPointNameIndexPath {
-			cell.detailTextLabel?.text = String((offer?.startName)!)
-		}
+		cell.isUserInteractionEnabled = false
 		
-		if indexPath == self.meetupPointIndexPath {
+		if indexPath == self.meetupPlaceIndexPath {
 			cell.detailTextLabel?.text = String((offer?.startAddr)!)
 		}
 		
@@ -166,12 +163,12 @@ class BookRideViewController: UIViewController, UITableViewDataSource {
 			dataTask.resume()
 		}
 		
-		if indexPath == self.carModelIndexPath {
+		if indexPath == self.vehicleModelIndexPath {
 			cell.detailTextLabel?.text = (offer?.vehicleModel)!
 		}
 		
 		if indexPath == self.vehicleNumberIndexPath {
-			cell.detailTextLabel?.text = String((offer?.vehicleNumber)!)
+			cell.detailTextLabel?.text = String((offer?.vehicleNumber)!)?.uppercased()
 		}
 		
 		if indexPath == self.pickupTimeIndexPath {
