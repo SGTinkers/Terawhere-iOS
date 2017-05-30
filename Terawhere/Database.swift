@@ -33,8 +33,7 @@ class Database {
 	
 	var bookingURL = serverBaseUrl + "/api/v1/bookings"
 	var allBookingsForUserURL = serverBaseUrl + "/api/v1/users/me/bookings"
-//	var allBookingsURL = serverBaseUrl + "/api/v1/bookings"
-	var cancelBookingURL = serverBaseUrl + "api/v1/bookings"
+	var cancelBookingURL = serverBaseUrl + "/api/v1/bookings"
 	
 	
 	var request: URLRequest?

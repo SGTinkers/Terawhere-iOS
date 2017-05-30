@@ -8,6 +8,7 @@ Let's build friendships together.
 30 May 2017:
 - You can now view who booked your offer and how many seats they booked
 - Fixed: Custom map annotation views are now able to be dismissed as expected
+- Fixed: Cancelling a booking now no longer crashes
 
 29 May 2017:
 - Added a custom map annotation
