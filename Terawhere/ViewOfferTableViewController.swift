@@ -29,6 +29,31 @@ class ViewOfferTableViewController: UITableViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+		
+		self.database?.getAllBookingsForOfferByOffer(id: (self.offer?.offerId)!)
+		let dataTask = URLSession.shared.dataTask(with: (self.database?.request)!) { (data, response, error) in
+			let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
+			if let actualJson = json??["data"] as? [[String: Any]] {
+				if actualJson.count > 0 {
+					print("Hello json: \(actualJson)")
+					
+					for booking in actualJson {
+						let pax = booking["pax"] as? Int
+						
+						let user = booking["user"] as? [String: Any]
+						let name = user?["name"] as? String
+						
+						self.passengers.append("\(name!) booked \(pax!) seat(s)")
+					}
+					
+					self.tableView.reloadData()
+				}
+			}
+			
+			print("Passenger count \(self.passengers.count)")
+		}
+		
+		dataTask.resume()
     }
 
     override func didReceiveMemoryWarning() {
@@ -74,86 +99,114 @@ class ViewOfferTableViewController: UITableViewController {
 
 	// MARK: Table view data source
 	override public func numberOfSections(in tableView: UITableView) -> Int {
+		if self.passengers.count > 0 {
+			return 2
+		}
+		
 		return 1
 	}
 
 	override public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		if self.passengers.count > 0 {
+			var rows = 0
+		
+			if section == 0 {
+				rows = self.tableItems.count
+			}
+			
+			if section == 1 {
+				rows = self.passengers.count
+			}
+			
+			return rows
+		}
+		
 		return self.tableItems.count
 	}
 
 	override public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell  {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
 		
-		cell.textLabel?.text = self.tableItems[indexPath.row]
+		if indexPath.section == 0 {
+			cell.textLabel?.text = self.tableItems[indexPath.row]
+			
+			if indexPath == self.meetupPlaceIndexPath {
+				cell.detailTextLabel?.text = String((offer?.startAddr)!)
+			}
+			
+			if indexPath == self.driverNameIndexPath {
+				// get single offer
+				self.database?.get(offer: offer)
+				let dataTask = URLSession.shared.dataTask(with: (self.database?.request)!) { (data, response, error) in
+					let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
+					
+					let actualJson = json??["data"] as? [String: Any]
+					
+					let driverName = actualJson?["name"] as? String
+					
+					DispatchQueue.main.async {
+						cell.detailTextLabel?.text = driverName
+					}
+				}
+				
+				dataTask.resume()
+			}
+			
+			if indexPath == self.vacancyIndexPath {
+				var bookingsArr = [Booking]()
+				
+				self.database?.getAllBookingsForOfferByOffer(id: (self.offer?.offerId)!)
+				let dataTask = URLSession.shared.dataTask(with: (self.database?.request)!, completionHandler: { (data, response, error) in
+					let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?]
+					
+					bookingsArr = (self.database?.convertJSONToBooking(json: json!!))!
+					
+					var paxBooked = 0
+					
+					for booking in bookingsArr {
+						paxBooked = paxBooked + booking.paxBooked!
+					}
+					
+					DispatchQueue.main.async {
+						let vacancy = (self.offer?.vacancy)! - paxBooked
+						
+						cell.detailTextLabel?.text = String(vacancy)
+					}
+				})
+				
+				dataTask.resume()
+			}
+			
+			if indexPath == self.vehicleModelIndexPath {
+				cell.detailTextLabel?.text = (offer?.vehicleModel)!
+			}
+			
+			if indexPath == self.vehicleNumberIndexPath {
+				cell.detailTextLabel?.text = String((offer?.vehicleNumber)!)
+			}
+			
+			if indexPath == self.pickupTimeIndexPath {
+				let dateHelper = DateHelper()
+				let localTime = dateHelper.localTimeFrom(dateString: (offer?.meetupTime)!)
+				
+				cell.detailTextLabel?.text = localTime
+			}
+			
+			if indexPath == self.destinationIndexPath {
+				cell.detailTextLabel?.text = String((offer?.endName)!)
+			}
+		}
+		
+		if self.passengers.count > 0 {
+			if indexPath.section == 1 {
+				cell.textLabel?.text = "Passenger"
+				cell.detailTextLabel?.text = self.passengers[indexPath.row]
+			}
+		}
+
 		cell.textLabel?.textAlignment = .left
 		
 		cell.isUserInteractionEnabled = false
-
-		if indexPath == self.meetupPlaceIndexPath {
-			cell.detailTextLabel?.text = String((offer?.startAddr)!)
-		}
-		
-		if indexPath == self.driverNameIndexPath {
-			// get single offer
-			self.database?.get(offer: offer)
-			let dataTask = URLSession.shared.dataTask(with: (self.database?.request)!) { (data, response, error) in
-				let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
-				
-				let actualJson = json??["data"] as? [String: Any]
-				
-				let driverName = actualJson?["name"] as? String
-				
-				DispatchQueue.main.async {
-					cell.detailTextLabel?.text = driverName
-				}
-			}
-			
-			dataTask.resume()
-		}
-		
-		if indexPath == self.vacancyIndexPath {
-			var bookingsArr = [Booking]()
-			
-			self.database?.getAllBookingsForOfferByOffer(id: (self.offer?.offerId)!)
-			let dataTask = URLSession.shared.dataTask(with: (self.database?.request)!, completionHandler: { (data, response, error) in
-				let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?]
-				
-				bookingsArr = (self.database?.convertJSONToBooking(json: json!!))!
-
-				var paxBooked = 0
-				
-				for booking in bookingsArr {
-					paxBooked = paxBooked + booking.paxBooked!
-				}
-				
-				DispatchQueue.main.async {
-					let vacancy = (self.offer?.vacancy)! - paxBooked
-					
-					cell.detailTextLabel?.text = String(vacancy)
-				}
-			})
-			
-			dataTask.resume()
-		}
-		
-		if indexPath == self.vehicleModelIndexPath {
-			cell.detailTextLabel?.text = (offer?.vehicleModel)!
-		}
-		
-		if indexPath == self.vehicleNumberIndexPath {
-			cell.detailTextLabel?.text = String((offer?.vehicleNumber)!)
-		}
-		
-		if indexPath == self.pickupTimeIndexPath {
-			let dateHelper = DateHelper()
-			let localTime = dateHelper.localTimeFrom(dateString: (offer?.meetupTime)!)
-			
-			cell.detailTextLabel?.text = localTime
-		}
-		
-		if indexPath == self.destinationIndexPath {
-			cell.detailTextLabel?.text = String((offer?.endName)!)
-		}
 
 		return cell
 	}

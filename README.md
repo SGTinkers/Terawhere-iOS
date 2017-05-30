@@ -5,6 +5,10 @@ Want to go for Terawih prayers? Why not broadcast it and ask nearby people if th
 Let's build friendships together.
 
 ### Changelog
+30 May 2017:
+- You can now view who booked your offer and how many seats they booked
+- Fixed: Custom map annotation views are now able to be dismissed as expected
+
 29 May 2017:
 - Added a custom map annotation
 - Slight UI change to screens for booking rides, viewing offers and viewing bookings

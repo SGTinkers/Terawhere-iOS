@@ -36,6 +36,22 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 		
 		// only update after the user moves 10m
 		self.locationManager.distanceFilter = 10
+		
+		let tap = UITapGestureRecognizer.init(target: self, action: #selector(self.removeView))
+		tap.numberOfTapsRequired = 1
+		tap.numberOfTouchesRequired = 1
+		
+		self.mapView.addGestureRecognizer(tap)
+	}
+	
+	func removeView() {
+		if self.mapView.selectedAnnotations.count > 0 {
+			for annotation in self.mapView.selectedAnnotations {
+				self.mapView.deselectAnnotation(annotation, animated: true)
+			}
+		}
+		
+		self.getAllActiveOffersNearMe()
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
