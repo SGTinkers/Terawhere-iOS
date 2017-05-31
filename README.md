@@ -5,6 +5,9 @@ Want to go for Terawih prayers? Why not broadcast it and ask nearby people if th
 Let's build friendships together.
 
 ### Changelog
+31 May 2017:
+- Fixed: Keyboard scroll 
+
 30 May 2017:
 - You can now view who booked your offer and how many seats they booked
 - Fixed: Custom map annotation views are now able to be dismissed as expected
