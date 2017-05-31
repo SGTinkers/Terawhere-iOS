@@ -282,10 +282,6 @@ class CreateOfferViewController: UIViewController, UITableViewDelegate, UITableV
 		if indexPath.section == 2 {
 			cell?.textfield.placeholder = self.remarks[indexPath.row]
 			cell?.textfield.delegate = self
-			
-			// this is to identify remarks textfield
-			// make sure only remarks textfield needs scrolling
-			cell?.textfield.tag = 1
 		}
 		
 		cell?.selectionStyle = .none
@@ -351,10 +347,8 @@ class CreateOfferViewController: UIViewController, UITableViewDelegate, UITableV
 	
 	// MARK: Textfield delegate
 	public func textFieldDidBeginEditing(_ textField: UITextField) {
-		if textField.tag == 1 {
-			let point = CGPoint.init(x: 0, y: textField.frame.origin.y + 100)
-			self.tableView.setContentOffset(point, animated: true)
-		}
+		let point = CGPoint.init(x: 0, y: textField.frame.origin.y + 160)
+		self.tableView.setContentOffset(point, animated: true)
 	}
 	
 	public func textFieldDidEndEditing(_ textField: UITextField) {
