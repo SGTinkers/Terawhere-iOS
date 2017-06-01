@@ -7,6 +7,9 @@ Let's build friendships together.
 ### Changelog
 1 June 2017:
 - Switched to Google Maps
+- Offers now have ongoing and completion statuses
+- Fixed: Capitalised all vehicle numbers
+- Fixed: Creating offer now includes vehicle description
 - Fixed: Map view does not flicker anymore
 - Fixed: Custom map annotation view now dismisses as expected
 - Fixed: Booking is fixed

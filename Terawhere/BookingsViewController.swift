@@ -276,7 +276,7 @@ class BookingsViewController: UIViewController, UITableViewDelegate, UITableView
 				
 				DispatchQueue.main.async {
 					cell?.carModelLabel.text = offer.vehicleModel!
-					cell?.carNumberLabel.text = offer.vehicleNumber!
+					cell?.carNumberLabel.text = offer.vehicleNumber!.uppercased()
 
 					let localMeetupTime = self.dateHelper.localTimeFrom(dateString: offer.meetupTime!)
 					
@@ -311,25 +311,21 @@ class BookingsViewController: UIViewController, UITableViewDelegate, UITableView
 	
 	// MARK: tableview delegate
 	public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		
-		// only display details if it is current bookings
-		if self.segmentedControl.selectedSegmentIndex == 0 {
-			guard let viewBookingVC = self.storyboard?.instantiateViewController(withIdentifier: "ViewBookingTableViewController") as? ViewBookingTableViewController else {
-				print("View booking VC errors out")
-				
-				return
-			}
+		guard let viewBookingVC = self.storyboard?.instantiateViewController(withIdentifier: "ViewBookingTableViewController") as? ViewBookingTableViewController else {
+			print("View booking VC errors out")
 			
-			let cell = self.tableView.cellForRow(at: indexPath) as? BookingsTableViewCell
-			
-			print("Did Select: Book id \((cell?.booking?.id)!)")
-			print("Did Select: Offer id \((cell?.offer?.offerId)!)")
-			
-			viewBookingVC.booking = cell?.booking
-			viewBookingVC.offer = cell?.offer
-			viewBookingVC.database = self.database
-			
-			self.navigationController?.pushViewController(viewBookingVC, animated: true)
+			return
 		}
+		
+		let cell = self.tableView.cellForRow(at: indexPath) as? BookingsTableViewCell
+		
+		print("Did Select: Book id \((cell?.booking?.id)!)")
+		print("Did Select: Offer id \((cell?.offer?.offerId)!)")
+		
+		viewBookingVC.booking = cell?.booking
+		viewBookingVC.offer = cell?.offer
+		viewBookingVC.database = self.database
+		
+		self.navigationController?.pushViewController(viewBookingVC, animated: true)
 	}
 }

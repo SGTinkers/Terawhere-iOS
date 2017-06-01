@@ -144,6 +144,8 @@ class CreateOfferViewController: UIViewController, UITableViewDelegate, UITableV
 		
 		self.dateString = self.dateHelper.utcDateStringFrom(date: self.date!)
 		
+		print("Vehicle colour: \(vehicleColor)")
+		
 		let offer = Offer.init(forPostWithEndAddr: endAddr,
 							   endLat: endLat,
 							   endLng: endLng,
@@ -183,9 +185,21 @@ class CreateOfferViewController: UIViewController, UITableViewDelegate, UITableV
 						}
 					}
 					
+					let offerWithId = self.database?.convertJSONToOfferObject(json: json!)
+					
+					self.database?.setOngoing(offer: offerWithId)
+					let dataTask = URLSession.shared.dataTask(with: (self.database?.request)!, completionHandler: { (data, response, error) in
+						if let _ = try? JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments) as? [String: Any] {
+							print("Successfully set ongoing but you may need to check json if there are errors")
+						}
+					})
+					
+					dataTask.resume()
+					
 					DispatchQueue.main.async {
 						let alert = UIAlertController.init(title: messageTitle, message: message, preferredStyle: .alert)
 						let okAction = UIAlertAction.init(title: "Ok", style: .default, handler: { (action) in
+						
 							self.dismiss(animated: true, completion: nil)
 						})
 						
@@ -196,6 +210,7 @@ class CreateOfferViewController: UIViewController, UITableViewDelegate, UITableV
 				}
 			}
 		}
+		
 		task.resume()
 	}
 

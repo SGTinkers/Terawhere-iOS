@@ -24,8 +24,9 @@ class Database {
 	var refreshTokenURL = serverBaseUrl + "/api/v1/auth/refresh"
 	
 	var postOffersURL = serverBaseUrl + "/api/v1/offers"
+	
 	var nearbyOffersURL = serverBaseUrl + "/api/v1/nearby-offers"
-	var allOffersForUserURL = serverBaseUrl + "/api/v1/offers-for-user"
+	var allOffersForUserURL = serverBaseUrl + "/api/v1/users/me/offers"
 	var getSingleOfferURL = serverBaseUrl + "/api/v1/offers"
 	var getAllBookingsForOffer = serverBaseUrl + "/api/v1/offers"
 	var editOfferURL = serverBaseUrl + "/api/v1/offers"
@@ -209,6 +210,7 @@ class Database {
 		                           "start_lng": offer.startLng!,
 		                           "start_name": offer.startName!,
 								   "remarks": offer.remarks!,
+								   "vehicle_desc": offer.vehicleDesc!,
 								   "vehicle_model": offer.vehicleModel!,
 								   "vehicle_number": offer.vehicleNumber!,
 		                           "vacancy": offer.vacancy!]
@@ -223,6 +225,42 @@ class Database {
 		self.request?.addValue("application/json", forHTTPHeaderField: "Accept")
 		self.request?.addValue("application/json", forHTTPHeaderField: "Content-Type")
 		self.request?.addValue("Bearer \(self.token)", forHTTPHeaderField: "Authorization")
+	}
+	
+	func setOngoing(offer: Offer?) {
+		guard let offer = offer else {
+			print("Offer is invalid")
+			
+			return
+		}
+
+		let postOngoingOfferWithIdURL = self.postOffersURL + "\(offer.offerId!)/ongoing"
+		
+		let url = URL.init(string: postOngoingOfferWithIdURL)
+		self.request = URLRequest.init(url: url!)
+		self.request?.httpMethod = "POST"
+		
+		self.request?.addValue("Bearer \(self.token)", forHTTPHeaderField: "Authorization")
+		self.request?.addValue("application/json", forHTTPHeaderField: "Accept")
+		self.request?.addValue("application/json", forHTTPHeaderField: "Content-Type")
+	}
+	
+	func setCompleted(offer: Offer?) {
+		guard let offer = offer else {
+			print("Offer is invalid")
+			
+			return
+		}
+		
+		let postCompletedOfferWithIdURL = self.postOffersURL + "\(offer.offerId!)/completed"
+		
+		let url = URL.init(string: postCompletedOfferWithIdURL)
+		self.request = URLRequest.init(url: url!)
+		self.request?.httpMethod = "POST"
+		
+		self.request?.addValue("Bearer \(self.token)", forHTTPHeaderField: "Authorization")
+		self.request?.addValue("application/json", forHTTPHeaderField: "Accept")
+		self.request?.addValue("application/json", forHTTPHeaderField: "Content-Type")
 	}
 	
 	func getNearbyOffersWith(userLocation: CLLocation?) {

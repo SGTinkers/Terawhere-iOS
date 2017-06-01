@@ -133,7 +133,7 @@ class ViewBookingTableViewController: UITableViewController {
 		}
 		
 		if indexPath == self.vehicleNumberIndexPath {
-			cell.detailTextLabel?.text = String((offer?.vehicleNumber)!)
+			cell.detailTextLabel?.text = String((offer?.vehicleNumber)!)?.uppercased()
 		}
 		
 		if indexPath == self.pickupTimeIndexPath {

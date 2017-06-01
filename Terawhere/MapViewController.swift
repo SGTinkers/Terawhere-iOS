@@ -17,8 +17,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
 	@IBOutlet var activityIndicator: UIActivityIndicatorView!
 	
 	var database = (UIApplication.shared.delegate as! AppDelegate).database
-	
-	let alert = UIAlertController.init(title: "", message: "", preferredStyle: .alert)
 
 	var mapView: GMSMapView?
 	
@@ -41,12 +39,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
 		// this will trigger another method that will trigger getting all the offers
 		// this is for actually getting nearby offers
 		print("Hello updating location")
-		
-		
-		self.alert.title = "Getting user location.."
-		self.present(self.alert, animated: true, completion: nil)
-		
-		
+
 		self.activityIndicator.hidesWhenStopped = true
 		self.activityIndicator.startAnimating()
 		
@@ -109,8 +102,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
 			
 			return
 		}
-	
-		self.alert.title = "Getting nearby offers.."
+
 		self.database.getNearbyOffersWith(userLocation: userLocation)
 		
 		var offerArr = [Offer]()
@@ -144,8 +136,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
 							marker.userData = location
 							marker.map = self.mapView
 						}
-						
-						self.alert.dismiss(animated: true, completion: nil)
+
 						self.activityIndicator.stopAnimating()
 					}
 				}

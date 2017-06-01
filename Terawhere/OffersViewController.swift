@@ -41,6 +41,8 @@ class OffersViewController: UIViewController, UITableViewDelegate, UITableViewDa
 		let task = URLSession.shared.dataTask(with: self.database.request!) { (data, response, error) in
 			if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?] {
 				
+				print("Offer JSON: \(json)")
+				
 				// this array carries all user's offers
 				self.offersArr = self.database.convertJSONToOffer(json: json!)
 				
@@ -62,13 +64,17 @@ class OffersViewController: UIViewController, UITableViewDelegate, UITableViewDa
 						if meetupTime! < utcDate! {
 							print("Adding one offer for the past")
 							self.filteredOffersArr.append(offer)
+							
+							self.database.setCompleted(offer: offer)
+							
+							let dataTask = URLSession.shared.dataTask(with: self.database.request!, completionHandler: { (data, response, error) in
+								if let json = try? JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments) as? [String: Any] {
+									print("json: \(json)")
+								}
+							})
+							
+							dataTask.resume()
 						}
-						
-						let alert = UIAlertController.init(title: "Coming soon!", message: "", preferredStyle: .alert)
-						let okAction = UIAlertAction.init(title: "Ok", style: .default, handler: nil)
-						alert.addAction(okAction)
-						
-						self.present(alert, animated: true, completion: nil)
 					}
 				}
 				
@@ -114,6 +120,8 @@ class OffersViewController: UIViewController, UITableViewDelegate, UITableViewDa
 		let task = URLSession.shared.dataTask(with: self.database.request!) { (data, response, error) in
 			if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?] {
 				
+				print("Offer JSON: \(json)")
+				
 				// this array carries all user's offers
 				self.offersArr = self.database.convertJSONToOffer(json: json!)
 				
@@ -135,13 +143,17 @@ class OffersViewController: UIViewController, UITableViewDelegate, UITableViewDa
 						if meetupTime! < utcDate! {
 							print("Adding one offer for the past")
 							self.filteredOffersArr.append(offer)
+							
+							self.database.setCompleted(offer: offer)
+							
+							let dataTask = URLSession.shared.dataTask(with: self.database.request!, completionHandler: { (data, response, error) in
+								if let json = try? JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments) as? [String: Any] {
+									print("json: \(json)")
+								}
+							})
+							
+							dataTask.resume()
 						}
-						
-						let alert = UIAlertController.init(title: "Coming soon!", message: "", preferredStyle: .alert)
-						let okAction = UIAlertAction.init(title: "Ok", style: .default, handler: nil)
-						alert.addAction(okAction)
-						
-						self.present(alert, animated: true, completion: nil)
 					}
 				}
 				
@@ -230,21 +242,18 @@ class OffersViewController: UIViewController, UITableViewDelegate, UITableViewDa
 	
 	// MARK: tableview delegate
 	public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		// allow only for current offers
-		if self.segmentedControl.selectedSegmentIndex == 0 {
-			guard let viewOfferTVC = self.storyboard?.instantiateViewController(withIdentifier: "ViewOfferTableViewController") as? ViewOfferTableViewController else {
-				print("View offer TVC errors out")
-				
-				return
-			}
+		guard let viewOfferTVC = self.storyboard?.instantiateViewController(withIdentifier: "ViewOfferTableViewController") as? ViewOfferTableViewController else {
+			print("View offer TVC errors out")
 			
-			// may need to retrieve in this view controller for driver name
-			let offer = self.filteredOffersArr[indexPath.row]
-			viewOfferTVC.offer = offer
-			viewOfferTVC.database = self.database
-			
-			self.navigationController?.pushViewController(viewOfferTVC, animated: true)
+			return
 		}
+		
+		// may need to retrieve in this view controller for driver name
+		let offer = self.filteredOffersArr[indexPath.row]
+		viewOfferTVC.offer = offer
+		viewOfferTVC.database = self.database
+		
+		self.navigationController?.pushViewController(viewOfferTVC, animated: true)
 	}
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
