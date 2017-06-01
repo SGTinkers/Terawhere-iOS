@@ -33,7 +33,6 @@ class OffersViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
 
 	override func viewWillAppear(_ animated: Bool) {
-		self.activityIndicator.activityIndicatorViewStyle = .gray
 		self.activityIndicator.hidesWhenStopped = true
 		self.activityIndicator.startAnimating()
 		
@@ -107,7 +106,6 @@ class OffersViewController: UIViewController, UITableViewDelegate, UITableViewDa
 	}
 	
 	@IBAction func changeSegmentedControl() {
-		self.activityIndicator.activityIndicatorViewStyle = .gray
 		self.activityIndicator.hidesWhenStopped = true
 		self.activityIndicator.startAnimating()
 		

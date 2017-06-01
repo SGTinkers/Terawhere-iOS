@@ -10,11 +10,17 @@ import UIKit
 import MapKit
 import SafariServices
 
-class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
+import GoogleMaps
 
-	@IBOutlet var mapView: MKMapView!
+class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate {
+	
+	@IBOutlet var activityIndicator: UIActivityIndicatorView!
 	
 	var database = (UIApplication.shared.delegate as! AppDelegate).database
+	
+	let alert = UIAlertController.init(title: "", message: "", preferredStyle: .alert)
+
+	var mapView: GMSMapView?
 	
 	let locationManager = CLLocationManager()
 	var userLocation: CLLocation?
@@ -22,36 +28,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     override func viewDidLoad() {
         super.viewDidLoad()
 		
-//		self.navigationController?.navigationBar.barTintColor = UIColor.init(red: 73/255, green: 210/255, blue: 175/255, alpha: 1.0)
-//		self.tabBarController?.tabBar.barTintColor = UIColor.init(red: 73/255, green: 210/255, blue: 175/255, alpha: 1.0)
-
-		
         // Do any additional setup after loading the view.
-		self.mapView.delegate = self
-		self.mapView.showsUserLocation = true
-		
 		self.locationManager.delegate = self
 		self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
 		self.locationManager.requestWhenInUseAuthorization()
 		
 		// only update after the user moves 10m
 		self.locationManager.distanceFilter = 10
-		
-		let tap = UITapGestureRecognizer.init(target: self, action: #selector(self.removeView))
-		tap.numberOfTapsRequired = 1
-		tap.numberOfTouchesRequired = 1
-		
-		self.mapView.addGestureRecognizer(tap)
-	}
-	
-	func removeView() {
-		if self.mapView.selectedAnnotations.count > 0 {
-			for annotation in self.mapView.selectedAnnotations {
-				self.mapView.deselectAnnotation(annotation, animated: true)
-			}
-		}
-		
-		self.getAllActiveOffersNearMe()
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -59,7 +42,15 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 		// this is for actually getting nearby offers
 		print("Hello updating location")
 		
-		self.locationManager.startUpdatingLocation()
+		
+		self.alert.title = "Getting user location.."
+		self.present(self.alert, animated: true, completion: nil)
+		
+		
+		self.activityIndicator.hidesWhenStopped = true
+		self.activityIndicator.startAnimating()
+		
+		self.locationManager.requestLocation()
 	}
 
     override func didReceiveMemoryWarning() {
@@ -91,100 +82,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 		print("Unable to get location: \(error)")
 	}
 	
-	// MARK: MKMapView Delegate
-	public func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-		if annotation is MKUserLocation {
-			return nil
-		}
-	
-		if annotation is Location {
-			// cast back to Location to access variables
-			let annotation = annotation as? Location
-			
-			let annotationView = LocationAnnotationView.init(annotation: annotation, reuseIdentifier: "pin")
-			// no need to show callout
-			// we are using custom callout
-			annotationView.canShowCallout = false
-
-			let image = UIImage.init(named: "car_pin")
-			
-			// resize image using a new image graphics context
-			UIGraphicsBeginImageContextWithOptions(CGSize.init(width: 30, height: 40), false, 0.0)
-			image?.draw(in: CGRect.init(x: 0, y: 0, width: 30, height: 40))
-			let newImage = UIGraphicsGetImageFromCurrentImageContext()
-			UIGraphicsEndImageContext()
-			
-			annotationView.image = newImage
-			
-			return annotationView
-		}
-		
-		return nil
-	}
-	
-	public func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-		let dateHelper = DateHelper()
-		let views = Bundle.main.loadNibNamed("CustomCalloutView", owner: nil, options: nil)
-		let customCalloutView = views?.first as! CustomCalloutView
-		
-		if let annotation = view.annotation as? Location {
-			customCalloutView.destinationLabel.text = (annotation.offer?.endAddr)!
-			
-			let localMeetupTime = dateHelper.localTimeFrom(dateString: (annotation.offer?.meetupTime)!)
-			customCalloutView.pickupTimeLabel.text = localMeetupTime
-			
-			var bookingsArr = [Booking]()
-			
-			self.database.getAllBookingsForOfferByOffer(id: (annotation.offer?.offerId)!)
-			let dataTask = URLSession.shared.dataTask(with: self.database.request!, completionHandler: { (data, response, error) in
-				let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?]
-				bookingsArr = self.database.convertJSONToBooking(json: json!!)
-				
-				var paxBooked = 0
-				
-				for booking in bookingsArr {
-					paxBooked = paxBooked + booking.paxBooked!
-				}
-				
-				DispatchQueue.main.async {
-					let vacancy = (annotation.offer?.vacancy)! - paxBooked
-					
-					customCalloutView.seatsLeftLabel.text = String(vacancy)
-				}
-			})
-			
-			customCalloutView.viewMoreButton.addTarget(self, action: #selector(self.viewMore), for: .touchUpInside)
-			
-			dataTask.resume()
-			
-			// imagine grid is crosshair and middle is the center origin
-			// drawing box from center results in box going south-east
-			customCalloutView.center = CGPoint(x: view.bounds.size.width / 2, y: -customCalloutView.bounds.size.height * 0.52)
-			
-			// add to subview works but it does not recognise touch
-			// that's where custom AnnotationView class in viewForAnnotation class comes in
-			view.addSubview(customCalloutView)
-		}
-	}
-	
-	
-	
 	// MARK: Helper functions
-	func viewMore() {
-		guard let bookRideVC = self.storyboard?.instantiateViewController(withIdentifier: "BookRideViewController") as? BookRideViewController else {
-			return
-		}
-		
-		let selectedAnnotation = self.mapView.selectedAnnotations.first as? Location
-		
-		bookRideVC.database = self.database
-		bookRideVC.offer = selectedAnnotation?.offer
-		
-		
-		let navController = UINavigationController.init(rootViewController: bookRideVC)
-		self.present(navController, animated: true, completion: nil)
-	}
-	
 	@IBAction func getInfo() {
 		guard let url = URL.init(string: "https://terawhere.com") else {
 			print("Innvalid url")
@@ -212,6 +110,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 			return
 		}
 	
+		self.alert.title = "Getting nearby offers.."
 		self.database.getNearbyOffersWith(userLocation: userLocation)
 		
 		var offerArr = [Offer]()
@@ -226,31 +125,90 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 					print("Offer array count \(offerArr.count)")
 					
 					DispatchQueue.main.async {
-						self.mapView?.removeAnnotations((self.mapView?.annotations)!)
-						self.mapView?.selectedAnnotations.removeAll()
+						let camera = GMSCameraPosition.camera(withLatitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude, zoom: 10.0)
+						self.mapView = GMSMapView.map(withFrame: .zero, camera: camera)
+						self.mapView?.delegate = self
+						self.view = self.mapView
 						
 						for offer in offerArr {
 							print("Adding offer")
 							
-							let location = CLLocationCoordinate2D.init(latitude: offer.startLat!, longitude: offer.startLng!)
+							let coord = CLLocationCoordinate2D.init(latitude: offer.startLat!, longitude: offer.startLng!)
+							let location = Location.init(withCoordinate: coord, AndOffer: offer)
 							
-							let annotation = Location.init(withCoordinate: location, AndOffer: offer)
-							self.mapView?.addAnnotation(annotation)
+							let marker = GMSMarker()
+							marker.position = CLLocationCoordinate2D(latitude: offer.startLat!, longitude: offer.startLng!)
+							marker.title = "Test"
+							marker.snippet = "Hello"
+							marker.icon = UIImage.init(named: "car_pin")
+							marker.userData = location
+							marker.map = self.mapView
 						}
 						
-//						guard let userLocation = self.userLocation else {
-//							print("User location is nil")
-//							
-//							return
-//						}
-						
-//						let region = MKCoordinateRegionMakeWithDistance(userLocation.coordinate, 5000, 5000)
-//						self.mapView?.setRegion(region, animated: true)
+						self.alert.dismiss(animated: true, completion: nil)
+						self.activityIndicator.stopAnimating()
 					}
 				}
 			}
 		}
 		
 		task.resume()
+	}
+	
+	// MARK: Google maps delegate
+	public func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
+		marker.tracksInfoWindowChanges = true
+	
+		let dateHelper = DateHelper()
+	
+		let views = Bundle.main.loadNibNamed("CustomCalloutView", owner: nil, options: nil)
+		let customCalloutView = views?.first as! CustomCalloutView
+		
+		let userData = marker.userData as? Location
+		
+		
+		customCalloutView.destinationLabel.text = (userData?.offer?.endAddr)!
+		
+		let localMeetupTime = dateHelper.localTimeFrom(dateString: (userData?.offer?.meetupTime)!)
+		customCalloutView.pickupTimeLabel.text = localMeetupTime
+		
+		var bookingsArr = [Booking]()
+		
+		self.database.getAllBookingsForOfferByOffer(id: (userData?.offer?.offerId)!)
+		let dataTask = URLSession.shared.dataTask(with: self.database.request!, completionHandler: { (data, response, error) in
+			let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?]
+			bookingsArr = self.database.convertJSONToBooking(json: json!!)
+			
+			var paxBooked = 0
+			
+			for booking in bookingsArr {
+				paxBooked = paxBooked + booking.paxBooked!
+			}
+			
+			DispatchQueue.main.async {
+				let vacancy = (userData?.offer?.vacancy)! - paxBooked
+				
+				customCalloutView.seatsLeftLabel.text = String(vacancy)
+			}
+		})
+		
+		dataTask.resume()
+		
+		return customCalloutView
+	}
+	
+	public func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
+		guard let bookRideVC = self.storyboard?.instantiateViewController(withIdentifier: "BookRideViewController") as? BookRideViewController else {
+			return
+		}
+		
+		let selectedAnnotation = self.mapView?.selectedMarker?.userData as? Location
+		
+		bookRideVC.database = self.database
+		bookRideVC.offer = selectedAnnotation?.offer
+		
+		
+		let navController = UINavigationController.init(rootViewController: bookRideVC)
+		self.present(navController, animated: true, completion: nil)
 	}
 }

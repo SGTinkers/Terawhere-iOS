@@ -45,6 +45,11 @@ PODS:
     - FirebaseInstanceID (~> 1.0)
     - GoogleToolboxForMac/Logger (~> 2.1)
     - Protobuf (~> 3.1)
+  - GoogleMaps (2.2.0):
+    - GoogleMaps/Maps (= 2.2.0)
+  - GoogleMaps/Base (2.2.0)
+  - GoogleMaps/Maps (2.2.0):
+    - GoogleMaps/Base
   - GoogleToolboxForMac/Defines (2.1.1)
   - GoogleToolboxForMac/Logger (2.1.1):
     - GoogleToolboxForMac/Defines (= 2.1.1)
@@ -61,6 +66,7 @@ DEPENDENCIES:
   - Firebase/Core
   - Firebase/Crash
   - Firebase/Messaging
+  - GoogleMaps
   - HockeySDK (~> 4.1.5)
 
 SPEC CHECKSUMS:
@@ -75,10 +81,11 @@ SPEC CHECKSUMS:
   FirebaseCrash: db4c05d9c75baa050744d31b36357c8f1efba481
   FirebaseInstanceID: b9eedd6846fb5e1f0f7279e1deaa7a7e4cf8392e
   FirebaseMessaging: 753d05a925e9eb8eadd09a0ffc9b808578b72fac
+  GoogleMaps: 104c418d61ab8a05dff06ed0784c25ea9d37da45
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   HockeySDK: 606b537bbfbe454ee440e92cc93bc634b3c77151
   Protobuf: d582fecf68201eac3d79ed61369ef45734394b9c
 
-PODFILE CHECKSUM: 4b55caec47d6d36c67216e5aa21b6a82c2f756c3
+PODFILE CHECKSUM: 03737989adc1fa36b02ea0649b3f7c27634a6324
 
 COCOAPODS: 1.2.1

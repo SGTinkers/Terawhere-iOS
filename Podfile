@@ -10,6 +10,7 @@ target 'Terawhere' do
   pod 'Firebase/Messaging'
   pod 'Firebase/Crash'
   pod 'HockeySDK', '~> 4.1.5'
+  pod 'GoogleMaps'
 
   # Pods for Terawhere
 

@@ -34,7 +34,6 @@ class BookingsViewController: UIViewController, UITableViewDelegate, UITableView
     }
 	
 	override func viewWillAppear(_ animated: Bool) {
-		self.activityIndicator.activityIndicatorViewStyle = .gray
 		self.activityIndicator.hidesWhenStopped = true
 		self.activityIndicator.startAnimating()
 		
@@ -143,7 +142,6 @@ class BookingsViewController: UIViewController, UITableViewDelegate, UITableView
     }
 	
 	@IBAction func changeSegmentedControl() {
-		self.activityIndicator.activityIndicatorViewStyle = .gray
 		self.activityIndicator.hidesWhenStopped = true
 		self.activityIndicator.startAnimating()
 		

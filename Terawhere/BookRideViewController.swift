@@ -39,18 +39,18 @@ class BookRideViewController: UIViewController, UITableViewDataSource {
 		print("Book Ride: Offer id \((self.offer?.offerId)!)")
 	
 	
-		let alertController = UIAlertController.init(title: "How many seats do you want to book?", message: "Defaults to 1 if no input", preferredStyle: .alert)
-		alertController.addTextField { (textfield) in
-			textfield.keyboardType = .numberPad
-		}
+		let alertController = UIAlertController.init(title: "Are you sure?", message: "", preferredStyle: .alert)
+//		alertController.addTextField { (textfield) in
+//			textfield.keyboardType = .numberPad
+//		}
 		let cancelAction = UIAlertAction.init(title: "Cancel", style: .cancel, handler: nil)
 		let bookAction = UIAlertAction.init(title: "Book", style: .default) { (action) in
-			var pax = 1
+			let pax = 1
 		
 			// if textfield is not empty
-			if (alertController.textFields?[0].text?.isEmpty)! == false  {
-				pax = Int((alertController.textFields?[0].text)!)!
-			}
+//			if (alertController.textFields?[0].text?.isEmpty)! == false  {
+//				pax = Int((alertController.textFields?[0].text)!)!
+//			}
 			
 			self.database?.book(offer: self.offer!, withPax: pax)
 			
@@ -174,6 +174,7 @@ class BookRideViewController: UIViewController, UITableViewDataSource {
 		if indexPath == self.pickupTimeIndexPath {
 			let dateHelper = DateHelper()
 			let localTime = dateHelper.localTimeFrom(dateString: (offer?.meetupTime)!)
+//			let localTime = dateHelper.localTimeFrom(dateString: (offer?.meetupTime)!, withCustomFormat: "yyyy-MM-dd hh:mm:ss a")
 			
 			cell.detailTextLabel?.text = localTime
 		}

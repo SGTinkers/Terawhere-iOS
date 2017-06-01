@@ -5,6 +5,15 @@ Want to go for Terawih prayers? Why not broadcast it and ask nearby people if th
 Let's build friendships together.
 
 ### Changelog
+1 June 2017:
+- Switched to Google Maps
+- Fixed: Map view does not flicker anymore
+- Fixed: Custom map annotation view now dismisses as expected
+- Fixed: Booking is fixed
+- Fixed: Loading UI now follows application colour scheme
+- Fixed: Offer list text is now centralised when there are no offers to display
+- Fixed: Booking list text is now centralised when there are no bookings to display
+
 31 May 2017:
 - Fixed: Keyboard scroll 
 

@@ -20,7 +20,6 @@
 		AA2EF23E1EB99AE8000F0524 /* OffersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2EF23D1EB99AE8000F0524 /* OffersTableViewCell.swift */; };
 		AA2EF2401EB99AF0000F0524 /* CreateOfferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2EF23F1EB99AF0000F0524 /* CreateOfferViewController.swift */; };
 		AA61B2FC1ECED0E8000001AC /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA61B2FB1ECED0E8000001AC /* DateHelper.swift */; };
-		AA8EC7BB1EDB4118003708FD /* LocationAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8EC7BA1EDB4118003708FD /* LocationAnnotationView.swift */; };
 		AAAFBCEB1EC6C2420090D6A0 /* CreateOfferTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAFBCEA1EC6C2420090D6A0 /* CreateOfferTableViewCell.swift */; };
 		AAAFBCED1EC6C93F0090D6A0 /* PickupTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAFBCEC1EC6C93F0090D6A0 /* PickupTimeViewController.swift */; };
 		AACA92051EBA00F70024804D /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACA92041EBA00F70024804D /* Database.swift */; };
@@ -78,7 +77,6 @@
 		AA2EF23D1EB99AE8000F0524 /* OffersTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OffersTableViewCell.swift; sourceTree = "<group>"; };
 		AA2EF23F1EB99AF0000F0524 /* CreateOfferViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateOfferViewController.swift; sourceTree = "<group>"; };
 		AA61B2FB1ECED0E8000001AC /* DateHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
-		AA8EC7BA1EDB4118003708FD /* LocationAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationAnnotationView.swift; sourceTree = "<group>"; };
 		AAAFBCEA1EC6C2420090D6A0 /* CreateOfferTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateOfferTableViewCell.swift; sourceTree = "<group>"; };
 		AAAFBCEC1EC6C93F0090D6A0 /* PickupTimeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickupTimeViewController.swift; sourceTree = "<group>"; };
 		AACA92041EBA00F70024804D /* Database.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
@@ -183,7 +181,6 @@
 				AAAFBCEA1EC6C2420090D6A0 /* CreateOfferTableViewCell.swift */,
 				AACC6C461EBD81D500EFFE29 /* BookingsTableViewCell.swift */,
 				AA2EF23D1EB99AE8000F0524 /* OffersTableViewCell.swift */,
-				AA8EC7BA1EDB4118003708FD /* LocationAnnotationView.swift */,
 			);
 			name = "custom views";
 			sourceTree = "<group>";
@@ -603,7 +600,6 @@
 				AACA92071EBA017F0024804D /* Offer.swift in Sources */,
 				AA2EF23A1EB99AD9000F0524 /* Location.swift in Sources */,
 				AACBC8281EDB1D560020C0A9 /* CustomCalloutView.swift in Sources */,
-				AA8EC7BB1EDB4118003708FD /* LocationAnnotationView.swift in Sources */,
 				AA2EF2361EB99AC1000F0524 /* SignInViewController.swift in Sources */,
 				AACA92051EBA00F70024804D /* Database.swift in Sources */,
 				AADC0B6C1EC83ED10061F077 /* ViewBookingTableViewController.swift in Sources */,

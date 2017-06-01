@@ -378,7 +378,8 @@ class Database {
 	}
 	
 	func book(offer: Offer, withPax pax: Int) {
-		let json: [String: Any] = ["offer_id": offer.offerId!, "pax": pax]
+		// not using pax for now
+		let json: [String: Any] = ["offer_id": offer.offerId!]
 		let jsonData = try? JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
 	
 		let url = URL.init(string: self.bookingURL)
