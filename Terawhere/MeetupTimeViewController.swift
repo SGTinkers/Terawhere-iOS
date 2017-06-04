@@ -12,7 +12,7 @@ protocol SetTimeProtocol {
 	func setTime(date: Date?)
 }
 
-class PickupTimeViewController: UIViewController {
+class MeetupTimeViewController: UIViewController {
 
 	@IBOutlet var datePicker: UIDatePicker!
 	

@@ -13,10 +13,9 @@ class BookingsTableViewCell: UITableViewCell, MKMapViewDelegate {
 	
 	@IBOutlet var mapView: MKMapView!
 	
-	@IBOutlet var carNumberLabel: UILabel!
-	@IBOutlet var carModelLabel: UILabel!
-	@IBOutlet var pickupTimeLabel: UILabel!
-	@IBOutlet var pickupLocationLabel: UILabel!
+	@IBOutlet var destinationLabel: UILabel!
+	@IBOutlet var meetupLabel: UILabel!
+	@IBOutlet var vehicleLabel: UILabel!
 	
 	var booking: Booking? = nil
 	var offer: Offer? = nil

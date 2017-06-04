@@ -19,9 +19,10 @@
 		AA2EF23C1EB99AE1000F0524 /* OffersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2EF23B1EB99AE1000F0524 /* OffersViewController.swift */; };
 		AA2EF23E1EB99AE8000F0524 /* OffersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2EF23D1EB99AE8000F0524 /* OffersTableViewCell.swift */; };
 		AA2EF2401EB99AF0000F0524 /* CreateOfferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2EF23F1EB99AF0000F0524 /* CreateOfferViewController.swift */; };
+		AA48F2751EE4C0710084B6A4 /* ViewOfferTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA48F2741EE4C0700084B6A4 /* ViewOfferTableViewCell.swift */; };
 		AA61B2FC1ECED0E8000001AC /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA61B2FB1ECED0E8000001AC /* DateHelper.swift */; };
 		AAAFBCEB1EC6C2420090D6A0 /* CreateOfferTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAFBCEA1EC6C2420090D6A0 /* CreateOfferTableViewCell.swift */; };
-		AAAFBCED1EC6C93F0090D6A0 /* PickupTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAFBCEC1EC6C93F0090D6A0 /* PickupTimeViewController.swift */; };
+		AAAFBCED1EC6C93F0090D6A0 /* MeetupTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAFBCEC1EC6C93F0090D6A0 /* MeetupTimeViewController.swift */; };
 		AACA92051EBA00F70024804D /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACA92041EBA00F70024804D /* Database.swift */; };
 		AACA92071EBA017F0024804D /* Offer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACA92061EBA017F0024804D /* Offer.swift */; };
 		AACA92091EBA13540024804D /* LocationSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACA92081EBA13540024804D /* LocationSearchTableViewController.swift */; };
@@ -76,9 +77,10 @@
 		AA2EF23B1EB99AE1000F0524 /* OffersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OffersViewController.swift; sourceTree = "<group>"; };
 		AA2EF23D1EB99AE8000F0524 /* OffersTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OffersTableViewCell.swift; sourceTree = "<group>"; };
 		AA2EF23F1EB99AF0000F0524 /* CreateOfferViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateOfferViewController.swift; sourceTree = "<group>"; };
+		AA48F2741EE4C0700084B6A4 /* ViewOfferTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewOfferTableViewCell.swift; sourceTree = "<group>"; };
 		AA61B2FB1ECED0E8000001AC /* DateHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
 		AAAFBCEA1EC6C2420090D6A0 /* CreateOfferTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateOfferTableViewCell.swift; sourceTree = "<group>"; };
-		AAAFBCEC1EC6C93F0090D6A0 /* PickupTimeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickupTimeViewController.swift; sourceTree = "<group>"; };
+		AAAFBCEC1EC6C93F0090D6A0 /* MeetupTimeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeetupTimeViewController.swift; sourceTree = "<group>"; };
 		AACA92041EBA00F70024804D /* Database.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		AACA92061EBA017F0024804D /* Offer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Offer.swift; sourceTree = "<group>"; };
 		AACA92081EBA13540024804D /* LocationSearchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationSearchTableViewController.swift; sourceTree = "<group>"; };
@@ -156,7 +158,7 @@
 				AA2EF23B1EB99AE1000F0524 /* OffersViewController.swift */,
 				AA0F95171EBC211600F35BB4 /* ViewOfferTableViewController.swift */,
 				AA2EF23F1EB99AF0000F0524 /* CreateOfferViewController.swift */,
-				AAAFBCEC1EC6C93F0090D6A0 /* PickupTimeViewController.swift */,
+				AAAFBCEC1EC6C93F0090D6A0 /* MeetupTimeViewController.swift */,
 				AACA92081EBA13540024804D /* LocationSearchTableViewController.swift */,
 				AAD87A021EC2BE4A00B122B4 /* BookingsViewController.swift */,
 				AADC0B6B1EC83ED10061F077 /* ViewBookingTableViewController.swift */,
@@ -181,6 +183,7 @@
 				AAAFBCEA1EC6C2420090D6A0 /* CreateOfferTableViewCell.swift */,
 				AACC6C461EBD81D500EFFE29 /* BookingsTableViewCell.swift */,
 				AA2EF23D1EB99AE8000F0524 /* OffersTableViewCell.swift */,
+				AA48F2741EE4C0700084B6A4 /* ViewOfferTableViewCell.swift */,
 			);
 			name = "custom views";
 			sourceTree = "<group>";
@@ -346,7 +349,7 @@
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = PL82KCZF4N;
 						LastSwiftMigration = 0830;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -597,6 +600,7 @@
 				AAD8EC501EB998F400BC6350 /* Terawhere.xcdatamodeld in Sources */,
 				AA61B2FC1ECED0E8000001AC /* DateHelper.swift in Sources */,
 				AACC6C491EBD81F100EFFE29 /* Booking.swift in Sources */,
+				AA48F2751EE4C0710084B6A4 /* ViewOfferTableViewCell.swift in Sources */,
 				AACA92071EBA017F0024804D /* Offer.swift in Sources */,
 				AA2EF23A1EB99AD9000F0524 /* Location.swift in Sources */,
 				AACBC8281EDB1D560020C0A9 /* CustomCalloutView.swift in Sources */,
@@ -607,7 +611,7 @@
 				AACC6C471EBD81D500EFFE29 /* BookingsTableViewCell.swift in Sources */,
 				AAD87A031EC2BE4A00B122B4 /* BookingsViewController.swift in Sources */,
 				AACA92091EBA13540024804D /* LocationSearchTableViewController.swift in Sources */,
-				AAAFBCED1EC6C93F0090D6A0 /* PickupTimeViewController.swift in Sources */,
+				AAAFBCED1EC6C93F0090D6A0 /* MeetupTimeViewController.swift in Sources */,
 				AA2EF2381EB99AC9000F0524 /* MapViewController.swift in Sources */,
 				AA2EF2401EB99AF0000F0524 /* CreateOfferViewController.swift in Sources */,
 				AACC6C451EBD736500EFFE29 /* BookRideViewController.swift in Sources */,
@@ -759,12 +763,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Terawhere/Terawhere.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEVELOPMENT_TEAM = PL82KCZF4N;
 				INFOPLIST_FILE = Terawhere/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = tech.msociety.terawhere;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "70e47b00-a4c0-4b74-9318-611c923fd3cd";
+				PROVISIONING_PROFILE_SPECIFIER = "Terawhere Testers Distribution";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -778,12 +785,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Terawhere/Terawhere.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEVELOPMENT_TEAM = PL82KCZF4N;
 				INFOPLIST_FILE = Terawhere/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = tech.msociety.terawhere;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "70e47b00-a4c0-4b74-9318-611c923fd3cd";
+				PROVISIONING_PROFILE_SPECIFIER = "Terawhere Testers Distribution";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 3.0;
 			};

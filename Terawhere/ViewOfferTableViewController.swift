@@ -13,17 +13,20 @@ class ViewOfferTableViewController: UITableViewController {
 
 	var database: Database?
 	var offer: Offer?
+
+	var tableItems = ["Driver name", "Meetup Time", "Meetup Place", "Destination", "Number of Seats", "Vehicle number", "Vehicle brand", "Vehicle color", "Remarks"]
 	
-	var tableItems = ["Meet place", "Driver name", "Vacancy", "Vehicle model", "Vehicle number", "Pickup time", "Destination"]
 	var passengers = [String]()
 	
-	var meetupPlaceIndexPath = IndexPath.init(row: 0, section: 0)
-	var driverNameIndexPath = IndexPath.init(row: 1, section: 0)
-	var vacancyIndexPath = IndexPath.init(row: 2, section: 0)
-	var vehicleModelIndexPath = IndexPath.init(row: 3, section: 0)
-	var vehicleNumberIndexPath = IndexPath.init(row: 4, section: 0)
-	var pickupTimeIndexPath = IndexPath.init(row: 5, section: 0)
-	var destinationIndexPath = IndexPath.init(row: 6, section: 0)
+	var driverNameIndexPath = IndexPath.init(row: 0, section: 0)
+	var meetupTimeIndexPath = IndexPath.init(row: 1, section: 0)
+	var meetupPlaceIndexPath = IndexPath.init(row: 2, section: 0)
+	var destinationIndexPath = IndexPath.init(row: 3, section: 0)
+	var vacancyIndexPath = IndexPath.init(row: 4, section: 0)
+	var vehicleNumberIndexPath = IndexPath.init(row: 5, section: 0)
+	var vehicleBrandIndexPath = IndexPath.init(row: 6, section: 0)
+	var vehicleDescIndexPath = IndexPath.init(row: 7, section: 0)
+	var remarksIndexPath = IndexPath.init(row: 8, section: 0)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,7 +46,7 @@ class ViewOfferTableViewController: UITableViewController {
 						let user = booking["user"] as? [String: Any]
 						let name = user?["name"] as? String
 						
-						self.passengers.append("\(name!) booked \(pax!) seat(s)")
+						self.passengers.append("\(name!) \n \(pax!) seat(s)")
 					}
 					
 					self.tableView.reloadData()
@@ -125,14 +128,10 @@ class ViewOfferTableViewController: UITableViewController {
 	}
 
 	override public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell  {
-		let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+		let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? ViewOfferTableViewCell
 		
 		if indexPath.section == 0 {
-			cell.textLabel?.text = self.tableItems[indexPath.row]
-			
-			if indexPath == self.meetupPlaceIndexPath {
-				cell.detailTextLabel?.text = String((offer?.startAddr)!)
-			}
+			cell?.customTextLabel.text = self.tableItems[indexPath.row]
 			
 			if indexPath == self.driverNameIndexPath {
 				// get single offer
@@ -145,11 +144,26 @@ class ViewOfferTableViewController: UITableViewController {
 					let driverName = actualJson?["name"] as? String
 					
 					DispatchQueue.main.async {
-						cell.detailTextLabel?.text = driverName
+						cell?.customDetailTextLabel.text = driverName
 					}
 				}
 				
 				dataTask.resume()
+			}
+			
+			if indexPath == self.meetupPlaceIndexPath {
+				cell?.customDetailTextLabel.text = String((offer?.startAddr)!)
+			}
+			
+			if indexPath == self.meetupTimeIndexPath {
+				let dateHelper = DateHelper()
+				let localTime = dateHelper.localTimeFrom(dateString: (offer?.meetupTime)!)
+				
+				cell?.customDetailTextLabel.text = localTime
+			}
+			
+			if indexPath == self.destinationIndexPath {
+				cell?.customDetailTextLabel.text = String((offer?.endName)!)
 			}
 			
 			if indexPath == self.vacancyIndexPath {
@@ -170,45 +184,41 @@ class ViewOfferTableViewController: UITableViewController {
 					DispatchQueue.main.async {
 						let vacancy = (self.offer?.vacancy)! - paxBooked
 						
-						cell.detailTextLabel?.text = String(vacancy)
+						cell?.customDetailTextLabel.text = String(vacancy)
+						
 					}
 				})
 				
 				dataTask.resume()
 			}
 			
-			if indexPath == self.vehicleModelIndexPath {
-				cell.detailTextLabel?.text = (offer?.vehicleModel)!
-			}
-			
 			if indexPath == self.vehicleNumberIndexPath {
-				cell.detailTextLabel?.text = String((offer?.vehicleNumber)!)?.uppercased()
+				cell?.customDetailTextLabel.text = String((offer?.vehicleNumber)!)?.uppercased()
 			}
 			
-			if indexPath == self.pickupTimeIndexPath {
-				let dateHelper = DateHelper()
-				let localTime = dateHelper.localTimeFrom(dateString: (offer?.meetupTime)!)
-				
-				cell.detailTextLabel?.text = localTime
+			if indexPath == self.vehicleBrandIndexPath {
+				cell?.customDetailTextLabel.text = (offer?.vehicleModel)!
 			}
 			
-			if indexPath == self.destinationIndexPath {
-				cell.detailTextLabel?.text = String((offer?.endName)!)
+			if indexPath == self.vehicleDescIndexPath {
+				cell?.customDetailTextLabel.text = (offer?.vehicleDesc)!
+			}
+			
+			if indexPath == self.remarksIndexPath {
+				cell?.customDetailTextLabel.text = (offer?.remarks)!
 			}
 		}
 		
 		if self.passengers.count > 0 {
 			if indexPath.section == 1 {
-				cell.textLabel?.text = "Passenger"
-				cell.detailTextLabel?.text = self.passengers[indexPath.row]
+				cell?.customTextLabel.text = "Passenger"
+				cell?.customDetailTextLabel.text = self.passengers[indexPath.row]
 			}
 		}
-
-		cell.textLabel?.textAlignment = .left
 		
-		cell.isUserInteractionEnabled = false
+		cell?.isUserInteractionEnabled = false
 
-		return cell
+		return cell!
 	}
 
     /*

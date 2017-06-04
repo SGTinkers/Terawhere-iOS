@@ -5,6 +5,13 @@ Want to go for Terawih prayers? Why not broadcast it and ask nearby people if th
 Let's build friendships together.
 
 ### Changelog
+5 June 2017:
+- UI changes to map annotation callout
+- UI changes to bookings and offers list
+- UI changes to bookings and offers details screen
+- Removed past offers and bookings
+- Fixed: Text errors and typos
+
 1 June 2017:
 - Switched to Google Maps
 - Offers now have ongoing and completion statuses

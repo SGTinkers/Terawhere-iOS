@@ -314,15 +314,15 @@ class CreateOfferViewController: UIViewController, UITableViewDelegate, UITableV
 		}
 		
 		if indexPath == self.meetupTimeIndexPath {
-			guard let pickupTimeVC = self.storyboard?.instantiateViewController(withIdentifier: "PickupTimeViewController") as? PickupTimeViewController else {
+			guard let meetupTimeVC = self.storyboard?.instantiateViewController(withIdentifier: "MeetupTimeViewController") as? MeetupTimeViewController else {
 				print("Pick up time VC errors out")
 				
 				return
 			}
 			
-			let navController = UINavigationController.init(rootViewController: pickupTimeVC)
+			let navController = UINavigationController.init(rootViewController: meetupTimeVC)
 			
-			pickupTimeVC.delegate = self
+			meetupTimeVC.delegate = self
 			
 			self.present(navController, animated: true)
 		}

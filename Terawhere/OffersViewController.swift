@@ -12,7 +12,7 @@ import MapKit
 class OffersViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
 	@IBOutlet var tableView: UITableView!
-	@IBOutlet var segmentedControl: UISegmentedControl!
+	
 	@IBOutlet var activityIndicator: UIActivityIndicatorView!
 	@IBOutlet var noOffersView: UIView!
 
@@ -53,29 +53,28 @@ class OffersViewController: UIViewController, UITableViewDelegate, UITableViewDa
 					let utcDate = self.dateHelper.utcDate()
 					let meetupTime = self.dateHelper.utcDateFrom(dateString: offer.meetupTime!)
 					
-					if self.segmentedControl.selectedSegmentIndex == 0 {
-						// today's offers
-						if meetupTime! > utcDate! {
-							print("Adding one offer for today")
-							self.filteredOffersArr.append(offer)
-						}
-					} else if self.segmentedControl.selectedSegmentIndex == 1 {
-						// past offers
-						if meetupTime! < utcDate! {
-							print("Adding one offer for the past")
-							self.filteredOffersArr.append(offer)
-							
-							self.database.setCompleted(offer: offer)
-							
-							let dataTask = URLSession.shared.dataTask(with: self.database.request!, completionHandler: { (data, response, error) in
-								if let json = try? JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments) as? [String: Any] {
-									print("json: \(json)")
-								}
-							})
-							
-							dataTask.resume()
-						}
+					// today's offers
+					if meetupTime! > utcDate! {
+						print("Adding one offer for today")
+						self.filteredOffersArr.append(offer)
 					}
+					
+					// past offers
+					if meetupTime! < utcDate! {
+						print("Adding one offer for the past")
+						self.filteredOffersArr.append(offer)
+						
+						self.database.setCompleted(offer: offer)
+						
+						let dataTask = URLSession.shared.dataTask(with: self.database.request!, completionHandler: { (data, response, error) in
+							if let json = try? JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments) as? [String: Any] {
+								print("json: \(json)")
+							}
+						})
+						
+						dataTask.resume()
+					}
+					
 				}
 				
 				DispatchQueue.main.async {
@@ -111,71 +110,6 @@ class OffersViewController: UIViewController, UITableViewDelegate, UITableViewDa
 		self.present(navController, animated: true, completion: nil)
 	}
 	
-	@IBAction func changeSegmentedControl() {
-		self.activityIndicator.hidesWhenStopped = true
-		self.activityIndicator.startAnimating()
-		
-		self.database.getAllOffersForUser()
-		
-		let task = URLSession.shared.dataTask(with: self.database.request!) { (data, response, error) in
-			if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?] {
-				
-				print("Offer JSON: \(json)")
-				
-				// this array carries all user's offers
-				self.offersArr = self.database.convertJSONToOffer(json: json!)
-				
-				// clear filtered array first
-				self.filteredOffersArr.removeAll()
-				
-				for offer in self.offersArr {
-					let utcDate = self.dateHelper.utcDate()
-					let meetupTime = self.dateHelper.utcDateFrom(dateString: offer.meetupTime!)
-					
-					if self.segmentedControl.selectedSegmentIndex == 0 {
-						// today's offers
-						if meetupTime! > utcDate! {
-							print("Adding one offer for today")
-							self.filteredOffersArr.append(offer)
-						}
-					} else if self.segmentedControl.selectedSegmentIndex == 1 {
-						// past offers
-						if meetupTime! < utcDate! {
-							print("Adding one offer for the past")
-							self.filteredOffersArr.append(offer)
-							
-							self.database.setCompleted(offer: offer)
-							
-							let dataTask = URLSession.shared.dataTask(with: self.database.request!, completionHandler: { (data, response, error) in
-								if let json = try? JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments) as? [String: Any] {
-									print("json: \(json)")
-								}
-							})
-							
-							dataTask.resume()
-						}
-					}
-				}
-				
-				DispatchQueue.main.async {
-					if self.filteredOffersArr.count > 0 {
-						self.tableView.isHidden = false
-						self.noOffersView.isHidden = true
-					} else {
-						self.tableView.isHidden = true
-						self.noOffersView.isHidden = false
-					}
-					
-					self.tableView.reloadData()
-					
-					self.activityIndicator.stopAnimating()
-				}
-			}
-		}
-		
-		task.resume()
-	}
-	
 	// MARK: Table view data source
 	public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return self.filteredOffersArr.count
@@ -188,14 +122,11 @@ class OffersViewController: UIViewController, UITableViewDelegate, UITableViewDa
 		// Configure the cell...
 		let offer = self.filteredOffersArr[indexPath.row]
 		
-		cell?.pickupLocationLabel.text = offer.startAddr!
-		print("Start addr: \(offer.startAddr!)")
-		
 		cell?.destinationLabel.text = offer.endAddr!
 		print("Start addr: \(offer.endAddr!)")
 		
 		let localMeetupTime = self.dateHelper.localTimeFrom(dateString: offer.meetupTime!)
-		cell?.pickupTimeLabel.text = localMeetupTime
+		cell?.meetupLabel.text = "\(offer.startAddr!) @ \(localMeetupTime)"
 		
 		// getting vacancy
 		var bookingsArr = [Booking]()

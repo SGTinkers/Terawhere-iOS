@@ -11,10 +11,8 @@ import UIKit
 class CustomCalloutView: UIView {
 	
 	@IBOutlet var destinationLabel: UILabel!
-	@IBOutlet var pickupTimeLabel: UILabel!
+	@IBOutlet var meetupTimeLabel: UILabel!
 	@IBOutlet var seatsLeftLabel: UILabel!
-	
-	@IBOutlet var viewMoreButton: UIButton!
 
     /*
     // Only override draw() if you perform custom drawing.

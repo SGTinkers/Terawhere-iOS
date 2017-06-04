@@ -158,10 +158,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
 		let userData = marker.userData as? Location
 		
 		
-		customCalloutView.destinationLabel.text = (userData?.offer?.endAddr)!
+		customCalloutView.destinationLabel.text = "To: \((userData?.offer?.endAddr)!)"
 		
 		let localMeetupTime = dateHelper.localTimeFrom(dateString: (userData?.offer?.meetupTime)!)
-		customCalloutView.pickupTimeLabel.text = localMeetupTime
+		customCalloutView.meetupTimeLabel.text = "Later at \(localMeetupTime)"
 		
 		var bookingsArr = [Booking]()
 		
@@ -179,7 +179,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
 			DispatchQueue.main.async {
 				let vacancy = (userData?.offer?.vacancy)! - paxBooked
 				
-				customCalloutView.seatsLeftLabel.text = String(vacancy)
+				customCalloutView.seatsLeftLabel.text = "\(String(vacancy)) seat(s) left"
 			}
 		})
 		
