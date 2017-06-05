@@ -61,20 +61,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                                name: .firInstanceIDTokenRefresh,
                                                object: nil)
         // [END add_token_refresh_observer]
-        
-		if let token = FIRInstanceID.instanceID().token() {
-			print("Firebase Push Token: ", token)
-			
-			self.database.sendNotif(token: token)
-			let dataTask = URLSession.shared.dataTask(with: self.database.request!, completionHandler: { (data, response, error) in
-			
-				print("Sending push notif token!")
-				print(response)
-			})
-			
-			dataTask.resume()
-		}
-        
+		
         BITHockeyManager.shared().configure(withIdentifier: "5802f67566514de596a3ace39abda46a")
         BITHockeyManager.shared().start()
         BITHockeyManager.shared().authenticator.authenticateInstallation()

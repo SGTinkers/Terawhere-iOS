@@ -174,8 +174,8 @@ class CreateOfferViewController: UIViewController, UITableViewDelegate, UITableV
 				if let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as? [String: Any] {
 					print("json: \(json)")
 					
-					var messageTitle = "Yay"
-					var message = "Offer successfully created"
+					var messageTitle = "Offer successfully created"
+					var message = ""
 					
 					// if anything goes wrong
 					if let _ = json?["error"] as? String {

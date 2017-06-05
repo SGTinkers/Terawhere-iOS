@@ -36,7 +36,7 @@ class Database {
 	var allBookingsForUserURL = serverBaseUrl + "/api/v1/users/me/bookings"
 	var cancelBookingURL = serverBaseUrl + "/api/v1/bookings"
 	
-	var notifURL = serverBaseUrl + "api/v1/devices"
+	var notifURL = serverBaseUrl + "/api/v1/devices"
 	
 	
 	var request: URLRequest?
@@ -88,10 +88,12 @@ class Database {
 	}
 	
 	func sendNotif(token: String) {
+		print("Auth token \(self.token)")
+	
 		let json: [String: Any] = ["device_token": token, "platform": "ios"]
 		let jsonData = try? JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
 	
-		let url = URL.init(string: self.refreshTokenURL)
+		let url = URL.init(string: self.notifURL)
 		self.request = URLRequest.init(url: url!)
 		self.request?.httpMethod = "POST"
 		self.request?.httpBody = jsonData!

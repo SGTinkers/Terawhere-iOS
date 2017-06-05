@@ -15,15 +15,13 @@ class BookRideViewController: UIViewController, UITableViewDataSource {
 	var database: Database?
 	var offer: Offer?
 	
-	var tableItems = ["Meetup place", "Driver name", "Vacancy", "Vehicle model", "Vehicle number", "Pickup time", "Destination"]
+	var tableItems = ["Driver name", "Meetup time", "Meetup place", "Destination", "Vacancy"]
 	
-	var meetupPlaceIndexPath = IndexPath.init(row: 0, section: 0)
-	var driverNameIndexPath = IndexPath.init(row: 1, section: 0)
-	var vacancyIndexPath = IndexPath.init(row: 2, section: 0)
-	var vehicleModelIndexPath = IndexPath.init(row: 3, section: 0)
-	var vehicleNumberIndexPath = IndexPath.init(row: 4, section: 0)
-	var pickupTimeIndexPath = IndexPath.init(row: 5, section: 0)
-	var destinationIndexPath = IndexPath.init(row: 6, section: 0)
+	var driverNameIndexPath = IndexPath.init(row: 0, section: 0)
+	var meetupTimeIndexPath = IndexPath.init(row: 1, section: 0)
+	var meetupPlaceIndexPath = IndexPath.init(row: 2, section: 0)
+	var destinationIndexPath = IndexPath.init(row: 3, section: 0)
+	var vacancyIndexPath = IndexPath.init(row: 4, section: 0)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -110,15 +108,13 @@ class BookRideViewController: UIViewController, UITableViewDataSource {
 	
 	
 	public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell  {
-		let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+		let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? ViewOfferTableViewCell
 		
-		cell.textLabel?.text = self.tableItems[indexPath.row]
-		cell.textLabel?.textAlignment = .left
-		
-		cell.isUserInteractionEnabled = false
+		cell?.customTextLabel?.text = self.tableItems[indexPath.row]
+		cell?.isUserInteractionEnabled = false
 		
 		if indexPath == self.meetupPlaceIndexPath {
-			cell.detailTextLabel?.text = String((offer?.startAddr)!)
+			cell?.customDetailTextLabel?.text = String((offer?.startAddr)!)
 		}
 		
 		if indexPath == self.driverNameIndexPath {
@@ -132,7 +128,7 @@ class BookRideViewController: UIViewController, UITableViewDataSource {
 				let driverName = actualJson?["name"] as? String
 				
 				DispatchQueue.main.async {
-					cell.detailTextLabel?.text = driverName
+					cell?.customDetailTextLabel?.text = driverName
 				}
 			}
 			
@@ -156,34 +152,26 @@ class BookRideViewController: UIViewController, UITableViewDataSource {
 				DispatchQueue.main.async {
 					let vacancy = (self.offer?.vacancy)! - paxBooked
 				
-					cell.detailTextLabel?.text = String(vacancy)
+					cell?.customDetailTextLabel?.text = String(vacancy)
 				}
 			})
 			
 			dataTask.resume()
 		}
 		
-		if indexPath == self.vehicleModelIndexPath {
-			cell.detailTextLabel?.text = (offer?.vehicleModel)!
-		}
-		
-		if indexPath == self.vehicleNumberIndexPath {
-			cell.detailTextLabel?.text = String((offer?.vehicleNumber)!)?.uppercased()
-		}
-		
-		if indexPath == self.pickupTimeIndexPath {
+		if indexPath == self.meetupTimeIndexPath {
 			let dateHelper = DateHelper()
 			let localTime = dateHelper.localTimeFrom(dateString: (offer?.meetupTime)!)
 //			let localTime = dateHelper.localTimeFrom(dateString: (offer?.meetupTime)!, withCustomFormat: "yyyy-MM-dd hh:mm:ss a")
 			
-			cell.detailTextLabel?.text = localTime
+			cell?.customDetailTextLabel?.text = localTime
 		}
 		
 		if indexPath == self.destinationIndexPath {
-			cell.detailTextLabel?.text = String((offer?.endName)!)
+			cell?.customDetailTextLabel?.text = String((offer?.endName)!)
 		}
 		
-		return cell
+		return cell!
 	}
 	
 	public func numberOfSections(in tableView: UITableView) -> Int {

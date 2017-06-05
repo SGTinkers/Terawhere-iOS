@@ -11,6 +11,7 @@ import CoreData
 
 import FacebookCore
 import FacebookLogin
+import Firebase
 
 class SignInViewController: UIViewController, LoginButtonDelegate {
 	
@@ -50,6 +51,19 @@ class SignInViewController: UIViewController, LoginButtonDelegate {
 							let database = Database.init(token: token, userId: userId)
 							
 							(UIApplication.shared.delegate as! AppDelegate).database = database
+							
+							if let token = FIRInstanceID.instanceID().token() {
+								print("Firebase Push Token: ", token)
+								
+								database.sendNotif(token: token)
+								let dataTask = URLSession.shared.dataTask(with: database.request!, completionHandler: { (data, response, error) in
+									
+									print("Sending push notif token!")
+									print(response)
+								})
+								
+								dataTask.resume()
+							}
 							
 							DispatchQueue.main.async {
 								if let tabBarVC = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "tabBar") as? UITabBarController {
@@ -121,6 +135,19 @@ class SignInViewController: UIViewController, LoginButtonDelegate {
 									let database = Database.init(token: token, userId: (AccessToken.current?.userId)!)
 									
 									(UIApplication.shared.delegate as! AppDelegate).database = database
+									
+									if let token = FIRInstanceID.instanceID().token() {
+										print("Firebase Push Token: ", token)
+										
+										database.sendNotif(token: token)
+										let dataTask = URLSession.shared.dataTask(with: database.request!, completionHandler: { (data, response, error) in
+											
+											print("Sending push notif token!")
+											print(response)
+										})
+										
+										dataTask.resume()
+									}
 									
 									DispatchQueue.main.async {
 										if let tabBarVC = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "tabBar") as? UITabBarController {
@@ -216,6 +243,19 @@ class SignInViewController: UIViewController, LoginButtonDelegate {
 					let database = Database.init(token: token, userId: (AccessToken.current?.userId)!)
 					
 					(UIApplication.shared.delegate as! AppDelegate).database = database
+					
+					if let token = FIRInstanceID.instanceID().token() {
+						print("Firebase Push Token: ", token)
+						
+						database.sendNotif(token: token)
+						let dataTask = URLSession.shared.dataTask(with: database.request!, completionHandler: { (data, response, error) in
+							
+							print("Sending push notif token!")
+							print(response)
+						})
+						
+						dataTask.resume()
+					}
 					
 					DispatchQueue.main.async {
 						if let tabBarVC = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "tabBar") as? UITabBarController {

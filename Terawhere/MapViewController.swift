@@ -157,8 +157,15 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
 		
 		let userData = marker.userData as? Location
 		
+
+		// Assigning to a UILabel
+		let attributedString = NSMutableAttributedString(string: "To: ")
 		
-		customCalloutView.destinationLabel.text = "To: \((userData?.offer?.endAddr)!)"
+		let attrs = [NSFontAttributeName : UIFont.boldSystemFont(ofSize: 17)]
+		let boldString = NSMutableAttributedString(string: (userData?.offer?.endAddr)!, attributes:attrs)
+		
+		attributedString.append(boldString)
+		customCalloutView.destinationLabel.attributedText = attributedString
 		
 		let localMeetupTime = dateHelper.localTimeFrom(dateString: (userData?.offer?.meetupTime)!)
 		customCalloutView.meetupTimeLabel.text = "Later at \(localMeetupTime)"
