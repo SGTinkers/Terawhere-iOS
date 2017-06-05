@@ -14,7 +14,7 @@ class ViewBookingTableViewController: UITableViewController {
 	var booking: Booking?
 	var offer: Offer?
 
-	var tableItems = ["Driver name", "Meetup Time", "Meetup Place", "Destination", "Number of Seats", "Vehicle number", "Vehicle brand", "Vehicle color", "Remarks"]
+	var tableItems = ["Driver name", "Meetup Time", "Meetup Place", "Destination", "Vacancy", "Vehicle number", "Vehicle brand", "Vehicle color", "Remarks"]
 	
 	var driverNameIndexPath = IndexPath.init(row: 0, section: 0)
 	var meetupTimeIndexPath = IndexPath.init(row: 1, section: 0)

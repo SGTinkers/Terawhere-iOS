@@ -36,6 +36,8 @@ class Database {
 	var allBookingsForUserURL = serverBaseUrl + "/api/v1/users/me/bookings"
 	var cancelBookingURL = serverBaseUrl + "/api/v1/bookings"
 	
+	var notifURL = serverBaseUrl + "api/v1/devices"
+	
 	
 	var request: URLRequest?
 	
@@ -79,6 +81,20 @@ class Database {
 	func refreshToken() {
 		let url = URL.init(string: self.refreshTokenURL)
 		self.request = URLRequest.init(url: url!)
+		
+		self.request?.addValue("application/json", forHTTPHeaderField: "Accept")
+		self.request?.addValue("application/json", forHTTPHeaderField: "Content-Type")
+		self.request?.addValue("Bearer \(self.token)", forHTTPHeaderField: "Authorization")
+	}
+	
+	func sendNotif(token: String) {
+		let json: [String: Any] = ["device_token": token, "platform": "ios"]
+		let jsonData = try? JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
+	
+		let url = URL.init(string: self.refreshTokenURL)
+		self.request = URLRequest.init(url: url!)
+		self.request?.httpMethod = "POST"
+		self.request?.httpBody = jsonData!
 		
 		self.request?.addValue("application/json", forHTTPHeaderField: "Accept")
 		self.request?.addValue("application/json", forHTTPHeaderField: "Content-Type")

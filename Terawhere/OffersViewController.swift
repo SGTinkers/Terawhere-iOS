@@ -29,7 +29,6 @@ class OffersViewController: UIViewController, UITableViewDelegate, UITableViewDa
 		
 		self.tableView.dataSource = self
 		self.tableView.delegate = self
-		self.tableView.separatorStyle = .none
     }
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -62,8 +61,6 @@ class OffersViewController: UIViewController, UITableViewDelegate, UITableViewDa
 					// past offers
 					if meetupTime! < utcDate! {
 						print("Adding one offer for the past")
-						self.filteredOffersArr.append(offer)
-						
 						self.database.setCompleted(offer: offer)
 						
 						let dataTask = URLSession.shared.dataTask(with: self.database.request!, completionHandler: { (data, response, error) in

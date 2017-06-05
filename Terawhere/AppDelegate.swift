@@ -29,6 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 		// Override point for customization after application launch.
 
+		// google maps
 		GMSServices.provideAPIKey("AIzaSyCcQ9iegKrODCSDCUe9naWl6qIJzbnzL3s")
 		
         if #available(iOS 10.0, *) {
@@ -63,6 +64,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
 		if let token = FIRInstanceID.instanceID().token() {
 			print("Firebase Push Token: ", token)
+			
+			self.database.sendNotif(token: token)
+			let dataTask = URLSession.shared.dataTask(with: self.database.request!, completionHandler: { (data, response, error) in
+			
+				print("Sending push notif token!")
+				print(response)
+			})
+			
+			dataTask.resume()
 		}
         
         BITHockeyManager.shared().configure(withIdentifier: "5802f67566514de596a3ace39abda46a")

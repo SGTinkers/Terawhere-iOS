@@ -6,6 +6,9 @@ Let's build friendships together.
 
 ### Changelog
 5 June 2017:
+- Notifications
+- Textfield auto caps on every character on entering vehicle number
+- Textfield auto caps on first letter of every word on entering vehicle brand
 - UI changes to map annotation callout
 - UI changes to bookings and offers list
 - UI changes to bookings and offers details screen

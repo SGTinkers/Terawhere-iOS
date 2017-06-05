@@ -30,7 +30,6 @@ class BookingsViewController: UIViewController, UITableViewDelegate, UITableView
 		
 		self.tableView.dataSource = self
 		self.tableView.delegate = self
-		self.tableView.separatorStyle = .none
     }
 	
 	override func viewWillAppear(_ animated: Bool) {

@@ -117,12 +117,12 @@ class CreateOfferViewController: UIViewController, UITableViewDelegate, UITableV
 		
 		let vehicleBrandCell = self.tableView.cellForRow(at: self.vehicleBrandIndexPath) as? CreateOfferTableViewCell
 		let vehicleBrand = (vehicleBrandCell?.textfield.text)!
+		print("Vehicle Brand: \(vehicleBrand.capitalized)")
 		
 		let vehicleNumberCell = self.tableView.cellForRow(at: self.vehicleNumberIndexPath) as? CreateOfferTableViewCell
 		let vehicleNumber = (vehicleNumberCell?.textfield.text)!
-		print("Vehicle Number: \(vehicleNumber)")
 		let vehicleNumberTrimmed = vehicleNumber.replacingOccurrences(of: " ", with: "")
-		print("Vehicle Number trimmed: \(vehicleNumberTrimmed)")
+		print("Vehicle Number trimmed: \(vehicleNumberTrimmed.uppercased())")
 		
 		let noOfSeatsCell = self.tableView.cellForRow(at: self.noOfSeatsIndexPath) as? CreateOfferTableViewCell
 		let noOfSeats = (noOfSeatsCell?.textfield.text)!
@@ -158,8 +158,8 @@ class CreateOfferViewController: UIViewController, UITableViewDelegate, UITableV
 							   remarks: remarks,
 							   userId: (self.database?.userId)!,
 							   vehicleDesc: vehicleColor,
-							   vehicleModel: vehicleBrand,
-							   vehicleNumber: vehicleNumberTrimmed,
+							   vehicleModel: vehicleBrand.capitalized,
+							   vehicleNumber: vehicleNumberTrimmed.uppercased(),
 							   status: 1,
 							   vacancy: Int(noOfSeats))
 	
@@ -289,6 +289,16 @@ class CreateOfferViewController: UIViewController, UITableViewDelegate, UITableV
 		
 		if indexPath.section == 1 {
 			cell?.textfield.placeholder = self.vehicleArr[indexPath.row]
+			
+			// vehicle number caps all
+			if indexPath.row == 0 {
+				cell?.textfield.autocapitalizationType = .allCharacters
+			}
+			
+			// vehicle brand caps only first letter of every word
+			if indexPath.row == 1 {
+				cell?.textfield.autocapitalizationType = .words
+			}
 			
 			// make sure every other textfield can be dismissed by hitting the return key
 			cell?.textfield.delegate = self

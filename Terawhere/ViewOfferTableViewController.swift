@@ -14,7 +14,7 @@ class ViewOfferTableViewController: UITableViewController {
 	var database: Database?
 	var offer: Offer?
 
-	var tableItems = ["Driver name", "Meetup Time", "Meetup Place", "Destination", "Number of Seats", "Vehicle number", "Vehicle brand", "Vehicle color", "Remarks"]
+	var tableItems = ["Driver name", "Meetup Time", "Meetup Place", "Destination", "Vacancy", "Vehicle number", "Vehicle brand", "Vehicle color", "Remarks"]
 	
 	var passengers = [String]()
 	
