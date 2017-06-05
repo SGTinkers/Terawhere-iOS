@@ -359,7 +359,7 @@ class CreateOfferViewController: UIViewController, UITableViewDelegate, UITableV
 			cell?.textfield.becomeFirstResponder()
 		}
 	}
-	
+
 	// MARK: Textfield delegate
 	public func textFieldDidBeginEditing(_ textField: UITextField) {
 		let point = CGPoint.init(x: 0, y: textField.frame.origin.y + 160)
@@ -403,22 +403,4 @@ class CreateOfferViewController: UIViewController, UITableViewDelegate, UITableV
 			cell?.textfield.text = (self.startLocation?.placemark.name)!
 		}
 	}
-//
-//	// MARK: - Navigation
-//
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//		// Get the new view controller using segue.destinationViewController.
-//		// Pass the selected object to the new view controller.
-//		let destinationVC = segue.destination as? LocationSearchTableViewController
-//		
-//		if segue.identifier == "LocationSearchEnd" {
-//			destinationVC?.state = "end"
-//		}
-//		
-//		if segue.identifier == "LocationSearchStart" {
-//			destinationVC?.state = "start"
-//		}
-//		
-//		destinationVC?.delegate = self
-//    }
 }

@@ -126,7 +126,7 @@ class OffersViewController: UIViewController, UITableViewDelegate, UITableViewDa
 		print("Start addr: \(offer.endAddr!)")
 		
 		let localMeetupTime = self.dateHelper.localTimeFrom(dateString: offer.meetupTime!)
-		cell?.meetupLabel.text = "\(offer.startAddr!) @ \(localMeetupTime)"
+		cell?.meetupLabel.text = "\(localMeetupTime) @ \(offer.startAddr!)"
 		
 		// getting vacancy
 		var bookingsArr = [Booking]()

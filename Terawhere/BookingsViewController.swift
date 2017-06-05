@@ -163,7 +163,7 @@ class BookingsViewController: UIViewController, UITableViewDelegate, UITableView
 				
 				DispatchQueue.main.async {
 					let localMeetupTime = self.dateHelper.localTimeFrom(dateString: offer.meetupTime!)
-					cell?.meetupLabel.text = "\(offer.startAddr!) @ \(localMeetupTime)"
+					cell?.meetupLabel.text = "\(localMeetupTime) @ \(offer.startAddr!)"
 				
 					cell?.destinationLabel.text = offer.endAddr!
 					
