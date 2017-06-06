@@ -22,10 +22,7 @@ class SignInViewController: UIViewController, LoginButtonDelegate {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		// Do any additional setup after loading the view, typically from a nib.
-		
-		
-		print("View did load")
-		
+
 		let request = NSFetchRequest<User>.init(entityName: "User")
 		let items = try? self.context.fetch(request)
 		
@@ -42,9 +39,7 @@ class SignInViewController: UIViewController, LoginButtonDelegate {
 						let json = try? JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments) as? [String: Any]
 						print("Sign in json \(json)")
 						
-						
-						
-						
+
 						if let token = json??["token"] as? String {
 							print("TOKEN GOOD TO GO \(token)")
 							
@@ -53,7 +48,7 @@ class SignInViewController: UIViewController, LoginButtonDelegate {
 							(UIApplication.shared.delegate as! AppDelegate).database = database
 							
 							if let token = FIRInstanceID.instanceID().token() {
-								print("Firebase Push Token: ", token)
+								print("Firebase Push Token: \(token)")
 								
 								database.sendNotif(token: token)
 								let dataTask = URLSession.shared.dataTask(with: database.request!, completionHandler: { (data, response, error) in
@@ -137,7 +132,7 @@ class SignInViewController: UIViewController, LoginButtonDelegate {
 									(UIApplication.shared.delegate as! AppDelegate).database = database
 									
 									if let token = FIRInstanceID.instanceID().token() {
-										print("Firebase Push Token: ", token)
+										print("Firebase Push Token: \(token)")
 										
 										database.sendNotif(token: token)
 										let dataTask = URLSession.shared.dataTask(with: database.request!, completionHandler: { (data, response, error) in
@@ -245,7 +240,7 @@ class SignInViewController: UIViewController, LoginButtonDelegate {
 					(UIApplication.shared.delegate as! AppDelegate).database = database
 					
 					if let token = FIRInstanceID.instanceID().token() {
-						print("Firebase Push Token: ", token)
+						print("Firebase Push Token: \(token)")
 						
 						database.sendNotif(token: token)
 						let dataTask = URLSession.shared.dataTask(with: database.request!, completionHandler: { (data, response, error) in

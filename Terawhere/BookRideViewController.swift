@@ -56,8 +56,8 @@ class BookRideViewController: UIViewController, UITableViewDataSource {
 				if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any?] {
 					print("booking done: \(json!)")
 					
-					var messageTitle = "Yay"
-					var message = "Book successful"
+					var messageTitle = "Offer successfully booked"
+					var message = ""
 					
 					// if anything goes wrong
 					if let jsonError = json?["error"] as? String {

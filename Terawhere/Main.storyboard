@@ -386,7 +386,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="FBJ-Xa-0Yc" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="tdL-VB-0kQ">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="tdL-VB-0kQ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -516,7 +516,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="uaN-Dj-QuI" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="kfH-zB-Lv5">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="kfH-zB-Lv5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -534,7 +534,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="73k-gi-JVk" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="vzV-kB-bMB">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="vzV-kB-bMB">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -552,7 +552,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="0V2-av-GET" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="ETa-lM-6Qu">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ETa-lM-6Qu">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -570,7 +570,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Qws-kJ-94t" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="n8a-c6-mCS">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="n8a-c6-mCS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -588,7 +588,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Mkz-93-ZxZ" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="14P-rC-ocV">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="14P-rC-ocV">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -643,7 +643,7 @@
                                                 <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="ORM-L2-22V">
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="146"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="146" id="CKN-vj-pdL"/>
+                                                        <constraint firstAttribute="height" constant="146" id="LX7-nY-Ub4"/>
                                                     </constraints>
                                                 </mapView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xl8-67-phc">
@@ -661,28 +661,22 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uh0-SM-1tD">
-                                                    <rect key="frame" x="8" y="250" width="290" height="54"/>
+                                                    <rect key="frame" x="8" y="260" width="290" height="54"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Vehicle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cvk-5M-q50">
-                                                    <rect key="frame" x="8" y="305" width="65" height="21"/>
+                                                    <rect key="frame" x="8" y="314" width="65" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d8Y-GD-0oJ">
-                                                    <rect key="frame" x="8" y="334" width="290" height="21"/>
+                                                    <rect key="frame" x="8" y="343" width="290" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Click to view details" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8gs-C2-9I1">
-                                                    <rect key="frame" x="65" y="154" width="244" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -694,16 +688,22 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to view details" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8gs-C2-9I1">
+                                                    <rect key="frame" x="65" y="154" width="244" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottomMargin" secondItem="8gs-C2-9I1" secondAttribute="bottom" constant="196.5" id="5FO-TW-7f6"/>
-                                                <constraint firstItem="8gs-C2-9I1" firstAttribute="top" secondItem="ORM-L2-22V" secondAttribute="bottom" constant="8" id="7xe-rs-dt4"/>
-                                                <constraint firstItem="ORM-L2-22V" firstAttribute="leading" secondItem="WLH-za-F69" secondAttribute="leadingMargin" constant="-8" id="8q0-3Z-vFC"/>
-                                                <constraint firstItem="8gs-C2-9I1" firstAttribute="leading" secondItem="WLH-za-F69" secondAttribute="leadingMargin" constant="57" id="JN3-9D-ejg"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="ORM-L2-22V" secondAttribute="trailing" constant="-8" id="XWp-YN-XFS"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="ORM-L2-22V" secondAttribute="bottom" constant="225.5" id="a57-A0-iyh"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="8gs-C2-9I1" secondAttribute="trailing" constant="58" id="kav-w2-cKk"/>
-                                                <constraint firstItem="ORM-L2-22V" firstAttribute="top" secondItem="WLH-za-F69" secondAttribute="topMargin" constant="-8" id="tLA-ck-yAa"/>
+                                                <constraint firstItem="ORM-L2-22V" firstAttribute="leading" secondItem="WLH-za-F69" secondAttribute="leadingMargin" constant="-8" id="8mU-o8-sna"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="8gs-C2-9I1" secondAttribute="trailing" constant="58" id="8qq-in-vA1"/>
+                                                <constraint firstItem="8gs-C2-9I1" firstAttribute="top" secondItem="ORM-L2-22V" secondAttribute="bottom" constant="8" id="H6C-M2-V6m"/>
+                                                <constraint firstItem="8gs-C2-9I1" firstAttribute="leading" secondItem="WLH-za-F69" secondAttribute="leadingMargin" constant="57" id="LAU-ho-3yf"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="ORM-L2-22V" secondAttribute="bottom" constant="225.5" id="Trt-nw-R6L"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="ORM-L2-22V" secondAttribute="trailing" constant="-8" id="akU-TB-Cl7"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="8gs-C2-9I1" secondAttribute="bottom" constant="196.5" id="cS0-eU-sxf"/>
+                                                <constraint firstItem="ORM-L2-22V" firstAttribute="top" secondItem="WLH-za-F69" secondAttribute="topMargin" constant="-8" id="nca-RA-Dvi"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -788,7 +788,7 @@
                                                 <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="nft-2I-GPP">
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="146"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="146" id="AkB-UD-Zx0"/>
+                                                        <constraint firstAttribute="height" constant="146" id="Dbv-os-3pt"/>
                                                     </constraints>
                                                 </mapView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Meet up" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nqe-La-L1S">
@@ -812,43 +812,43 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qwl-Jh-oos">
-                                                    <rect key="frame" x="8" y="250" width="290" height="54"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QZU-Tb-n5A">
-                                                    <rect key="frame" x="8" y="334" width="42" height="21"/>
+                                                    <rect key="frame" x="8" y="343" width="42" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Click to view details" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c9Q-IS-z0E">
-                                                    <rect key="frame" x="65" y="154" width="244" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Vacancy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cWy-mx-COc">
-                                                    <rect key="frame" x="8" y="305" width="65" height="21"/>
+                                                    <rect key="frame" x="8" y="314" width="65" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qwl-Jh-oos">
+                                                    <rect key="frame" x="8" y="260" width="290" height="54"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to view details" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c9Q-IS-z0E">
+                                                    <rect key="frame" x="65" y="154" width="244" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="nft-2I-GPP" firstAttribute="leading" secondItem="ran-FH-JWi" secondAttribute="leadingMargin" constant="-8" id="D3B-t2-Opf"/>
-                                                <constraint firstItem="nft-2I-GPP" firstAttribute="top" secondItem="ran-FH-JWi" secondAttribute="topMargin" constant="-8" id="KCf-Lq-96z"/>
-                                                <constraint firstItem="c9Q-IS-z0E" firstAttribute="leading" secondItem="ran-FH-JWi" secondAttribute="leadingMargin" constant="57" id="Tg0-EZ-Xxr"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="c9Q-IS-z0E" secondAttribute="bottom" constant="196.5" id="Z7m-h3-v5G"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="nft-2I-GPP" secondAttribute="bottom" constant="225.5" id="f3k-Ye-33P"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="c9Q-IS-z0E" secondAttribute="trailing" constant="58" id="mZA-VZ-Tfb"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="nft-2I-GPP" secondAttribute="trailing" constant="-8" id="rFG-C1-tr5"/>
-                                                <constraint firstItem="c9Q-IS-z0E" firstAttribute="top" secondItem="nft-2I-GPP" secondAttribute="bottom" constant="8" id="yQj-fv-n6i"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="nft-2I-GPP" secondAttribute="bottom" constant="225.5" id="6JO-kj-LPa"/>
+                                                <constraint firstItem="c9Q-IS-z0E" firstAttribute="leading" secondItem="ran-FH-JWi" secondAttribute="leadingMargin" constant="57" id="XPU-J3-bhj"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="nft-2I-GPP" secondAttribute="trailing" constant="-8" id="ese-pn-yb8"/>
+                                                <constraint firstItem="nft-2I-GPP" firstAttribute="top" secondItem="ran-FH-JWi" secondAttribute="topMargin" constant="-8" id="gED-b3-L0A"/>
+                                                <constraint firstItem="c9Q-IS-z0E" firstAttribute="top" secondItem="nft-2I-GPP" secondAttribute="bottom" constant="8" id="gQE-vH-png"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="c9Q-IS-z0E" secondAttribute="bottom" constant="196.5" id="hss-AB-rxE"/>
+                                                <constraint firstItem="nft-2I-GPP" firstAttribute="leading" secondItem="ran-FH-JWi" secondAttribute="leadingMargin" constant="-8" id="vmn-2u-WDD"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="c9Q-IS-z0E" secondAttribute="trailing" constant="58" id="wwx-sw-Dke"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -904,7 +904,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="SBS-hk-Vg2" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Bookings" image="bookings" id="zKB-C5-JXK"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="iiR-aL-9Mg">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="iiR-aL-9Mg">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -923,7 +923,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="HVZ-hk-NMA" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Offers" image="offers" id="0Hp-S2-r6D"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="wd8-pH-cGK">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="wd8-pH-cGK">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -942,7 +942,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="1ER-hB-hWK" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Map" image="map" id="rQU-Su-THa"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="F1L-mm-a97">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="F1L-mm-a97">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

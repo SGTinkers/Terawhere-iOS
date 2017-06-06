@@ -88,8 +88,6 @@ class Database {
 	}
 	
 	func sendNotif(token: String) {
-		print("Auth token \(self.token)")
-	
 		let json: [String: Any] = ["device_token": token, "platform": "ios"]
 		let jsonData = try? JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
 	

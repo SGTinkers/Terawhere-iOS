@@ -1,10 +1,13 @@
 ## Terawhere
 
-Want to go for Terawih prayers? Why not broadcast it and ask nearby people if they'd like to come along? 
+Want to go for Terawih prayers? Why not bring others along? Let's build a better community together! 
 
 Let's build friendships together.
 
 ### Changelog
+6 June 2017:
+- Text changes and label positioning
+
 5 June 2017:
 - Notifications
 - Textfield auto caps on every character on entering vehicle number
