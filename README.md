@@ -4,6 +4,14 @@ Want to go for Terawih prayers? Why not bring others along? Let's build a better
 
 Let's build friendships together.
 
+### Things learnt
+- Work with backend team to sort out APIs
+- Work with design team for initial lo-fi and hi-fi design
+- Further knowledge of Apple's MapKit framework
+- Learnt how to integrate Facebook login into iOS app
+- Learnt how to deal with provisioning profiles
+- Learnt how to submit app to the appstore
+
 ### Changelog
 6 June 2017:
 - Text changes and label positioning
