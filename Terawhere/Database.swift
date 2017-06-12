@@ -13,7 +13,7 @@ class Database {
 
     static let serverBaseUrl = "http://139.59.224.66" // dev
 //    static let serverBaseUrl = "https://api.terawhere.com" // prod
-    
+	
 	// treat this class as a setup class
 	// no network calls done here
 	// to avoid UI stuff from messing with database stuff

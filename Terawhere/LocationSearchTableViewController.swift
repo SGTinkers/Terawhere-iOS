@@ -13,7 +13,7 @@ protocol LocationSelectProtocol {
 	func use(mapItem: MKMapItem, forLocationState state: String)
 }
 
-class LocationSearchTableViewController: UITableViewController, UISearchResultsUpdating, UISearchBarDelegate, MKLocalSearchCompleterDelegate {
+class LocationSearchTableViewController: UITableViewController, UISearchBarDelegate, MKLocalSearchCompleterDelegate {
 
 	var searchController: UISearchController?
 	var localSearchCompleter: MKLocalSearchCompleter?
@@ -29,14 +29,7 @@ class LocationSearchTableViewController: UITableViewController, UISearchResultsU
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-		
 		self.searchController = UISearchController.init(searchResultsController: nil)
-		searchController?.searchResultsUpdater = self
 		searchController?.dimsBackgroundDuringPresentation = false
 		searchController?.hidesNavigationBarDuringPresentation = false
 		self.definesPresentationContext = true
@@ -80,27 +73,6 @@ class LocationSearchTableViewController: UITableViewController, UISearchResultsU
 		
 		self.tableView.reloadData()
 		
-	}
-	
-	// MARK: Search results updating delegate
-	public func updateSearchResults(for searchController: UISearchController) {
-//		if let searchBarText = self.searchController?.searchBar.text {
-//			if searchBarText.isEmpty {
-//				self.filteredLocations?.removeAll()
-//				
-//				self.tableView.reloadData()
-//			}
-//		}
-//	
-//		let localSearchReq = MKLocalSearchRequest()
-//		localSearchReq.naturalLanguageQuery = self.searchController?.searchBar.text
-//		
-//		let localSearch = MKLocalSearch.init(request: localSearchReq)
-//		localSearch.start { (response, error) in
-//			self.filteredLocations = response?.mapItems.
-//			
-//			self.tableView.reloadData()
-//		}
 	}
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
